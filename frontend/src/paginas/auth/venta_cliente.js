@@ -42,8 +42,51 @@ const VentasCliente = () => {
     fetchCarrito();
   }, [clienteId, carritoItems]);
 
+  const actualizarCantidadProducto = async (productoId, cantidadComprada) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/Products/${productoId}`);
+      const productoActual = response.data;
+      const nuevaCantidad = productoActual.cantidad - cantidadComprada;
+      const estadoProducto = nuevaCantidad <= 0 ? 'Agotado' : productoActual.estado;
+
+      await axios.put(`http://localhost:4000/Products/${productoId}`, {
+        ...productoActual,
+        cantidad: nuevaCantidad,
+        estado: estadoProducto
+      });
+    } catch (error) {
+      console.error('Error al actualizar la cantidad del producto:', error);
+    }
+  };
+
+  const verificarCantidadYRegistrarVenta = async () => {
+    for (const producto of carrito) {
+      try {
+        const response = await axios.get(`http://localhost:4000/Products/${producto.id}`);
+        const productoActual = response.data;
+        if (productoActual.cantidad < producto.cantidad) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Producto Agotado',
+            text: `La cantidad del producto "${producto.nombre}" excede la cantidad disponible.`,
+          });
+          return false; // Detiene el proceso si hay un producto agotado
+        }
+      } catch (error) {
+        console.error('Error al verificar la cantidad del producto:', error);
+      }
+    }
+    return true; // Continúa si todos los productos están disponibles
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const disponible = await verificarCantidadYRegistrarVenta();
+    if (!disponible) {
+      return;
+    }
+
     const estadoVenta = 'Completada';
     const ventaData = {
       fecha_venta: fechaVenta,
@@ -65,6 +108,7 @@ const VentasCliente = () => {
           precio_unitario: producto.precio_unitario,
         };
         await axios.post('http://localhost:4000/SaleDetails', detalleData);
+        await actualizarCantidadProducto(producto.id, producto.cantidad);
       });
 
       if (mostrarDomicilio) {
@@ -78,7 +122,7 @@ const VentasCliente = () => {
         };
         await axios.post('http://localhost:4000/domicilio', domicilioData);
       }
-      
+
       Swal.fire({
         icon: 'success',
         title: 'Venta registrada con éxito',
@@ -135,6 +179,9 @@ const VentasCliente = () => {
   return (
     <div>
       <Header />
+      <br/>
+      <br/>
+      <br/>
       <br/>
       <br/>
       <br/>
@@ -224,9 +271,9 @@ const VentasCliente = () => {
                     type="checkbox"
                     id="domicilio"
                     checked={mostrarDomicilio}
-                    onChange={() => setMostrarDomicilio(!mostrarDomicilio)}
+                    onChange={(e) => setMostrarDomicilio(e.target.checked)}
                   />
-                  <span> ¿Desea que le enviemos el pedido a domicilio?</span>
+                  Dirección de Domicilio
                 </label>
               </div>
 
@@ -281,15 +328,14 @@ const VentasCliente = () => {
                   </div>
                 </div>
               )}
-
-              <button type="submit" className="btn btn-success float-end">Confirmar Venta</button>
-            </form>
-            <br/>
+              <button type="submit" className="btn btn-success float-end">Confirmar Venta</button>            
+              </form>
+              <br/>
+              <br/>
+              <br/>
           </div>
         </div>
       </div>
-      <br/>
-
       <Footer />
     </div>
   );

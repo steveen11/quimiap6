@@ -231,21 +231,6 @@
   ],
   "Products": [
     {
-      "id": "c53a",
-      "nombre": "Desengrasante/Detergente 3en1",
-      "descripcion": "Potente limpiador multiuso que combina tres acciones en un solo producto, ideal para eliminar grasa",
-      "imagen": "https://th.bing.com/th/id/OIP.Y1MwQMpA8IjVvl_mAWZ-tAHaHa?rs=1&pid=ImgDetMain",
-      "categoria": "Hogar y Limpieza",
-      "composicion": "Mezcla de surfactantes, agentes limpiadores y desengrasantes.",
-      "contenido_neto": "1L",
-      "usos": "Limpieza y desengrase de superficies y textiles.",
-      "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
-      "precio_unitario": "45000",
-      "cantidad_product": "20",
-      "cantidad": "20",
-      "estado": "disponible"
-    },
-    {
       "id": "2806",
       "nombre": "Detergente Textil",
       "descripcion": " Detergente especializado para el cuidado de la ropa, formulado para eliminar manchas difíciles",
@@ -256,7 +241,7 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "20",
+      "cantidad": 9,
       "estado": "disponible"
     },
     {
@@ -270,7 +255,7 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": "20",
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -312,7 +297,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -326,7 +311,7 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": "20",
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -409,7 +394,7 @@
       "contenido_neto": "1L",
       "usos": "Ideal para limpieza de pisos de cerámica, madera y vinilo. Puede ser utilizado en mopas o paños.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar contacto con los ojos. En caso de contacto, lavar con abundante agua.",
-      "cantidad": "25",
+      "cantidad": 24,
       "precio_unitario": "15000",
       "estado": "disponible"
     }
@@ -772,6 +757,78 @@
       "fecha_venta": "2024-09-11",
       "metodo_pago": "Efectivo",
       "precio_total": 98900,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "4b91",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 45000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "a264",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 25000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "397e",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 106000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "b7e3",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 51900,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "11a0",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 15000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "f028",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "4416",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 25000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "9174",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 528000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "889e",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33000,
       "estado": "Completada",
       "cliente_id": "2020"
     }
@@ -1329,6 +1386,83 @@
       "producto_id": "4bb6",
       "cantidad": 1,
       "precio_unitario": "15000"
+    },
+    {
+      "id": "e09a",
+      "venta_id": "4b91",
+      "producto_id": "c53a",
+      "cantidad": 1,
+      "precio_unitario": "45000"
+    },
+    {
+      "id": "487f",
+      "venta_id": "a264",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "50c2",
+      "venta_id": "397e",
+      "producto_id": "2806",
+      "cantidad": 2,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "69f3",
+      "venta_id": "397e",
+      "producto_id": "8a8d",
+      "cantidad": 2,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "75de",
+      "venta_id": "b7e3",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "8886",
+      "venta_id": "b7e3",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "2c02",
+      "venta_id": "11a0",
+      "producto_id": "23fc",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "469c",
+      "venta_id": "f028",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "1fe8",
+      "venta_id": "4416",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "441b",
+      "venta_id": "9174",
+      "producto_id": "2806",
+      "cantidad": 16,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "d0c7",
+      "venta_id": "889e",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
     }
   ],
   "domicilio": [
@@ -1496,6 +1630,15 @@
       "codigo_postal": "101923",
       "fecha_entrega": "2024-09-11",
       "estado": "Entregado"
+    },
+    {
+      "id": "b937",
+      "venta_id": "4416",
+      "direccion": "calle 1 #43",
+      "ciudad": "Medellin",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-12",
+      "estado": "Pendiente"
     }
   ]
 }

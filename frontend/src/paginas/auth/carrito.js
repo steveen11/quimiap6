@@ -95,6 +95,10 @@ const CarritoPage = () => {
       <br/>
       <br/>
       <br/>
+      <br/>
+      <br/>
+      <br/>
+
       <div className="container mt-5">
         <h2>Carrito de Compras</h2>
         <br/>

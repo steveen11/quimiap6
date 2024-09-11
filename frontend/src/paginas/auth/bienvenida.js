@@ -14,8 +14,10 @@ const Bienvenida = () => {
   const fetchProductos = async () => {
     try {
       const response = await axios.get('http://localhost:4000/Products');
-      setProductos(response.data);
-      setSearchResults(response.data); // Inicializa los resultados de búsqueda con todos los productos
+      // Filtra productos con estado "Disponible"
+      const productosDisponibles = response.data.filter(producto => producto.estado === 'disponible');
+      setProductos(productosDisponibles);
+      setSearchResults(productosDisponibles); // Inicializa los resultados de búsqueda con los productos disponibles
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -219,43 +221,18 @@ const Bienvenida = () => {
         <div className="container">
           <h2 className="text-center mb-4">Productos Destacados</h2>
           <div className="row">
-          {productosFiltrados.slice(0, 4).map(producto => (
-              <ProductCard key={producto.id} producto={producto} />
-            ))}
+            {productosFiltrados.length > 0 ? (
+              productosFiltrados.map(producto => (
+                <ProductCard key={producto.id} producto={producto} />
+              ))
+            ) : (
+              <div className="col-12 text-center">
+                <p>No se encontraron productos.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
-            {/* Productos destacados */}
-            <section className="products-section">
-        <div className="container">
-            <div className="row">
-          {productosFiltrados.slice(4, 8).map(producto => (
-              <ProductCard key={producto.id} producto={producto} />
-            ))}
-          </div>
-        </div>
-      </section>
-            {/* Productos destacados */}
-            <section className="products-section">
-        <div className="container">
-          <div className="row">
-          {productosFiltrados.slice(8, 12).map(producto => (
-              <ProductCard key={producto.id} producto={producto} />
-            ))}
-          </div>
-        </div>
-      </section>
-            {/* Productos destacados */}
-            <section className="products-section">
-        <div className="container">
-          <div className="row">
-          {productosFiltrados.slice(12, 16).map(producto => (
-              <ProductCard key={producto.id} producto={producto} />
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* Footer */}
       <Footer />
     </div>
   );

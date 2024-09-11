@@ -158,6 +158,20 @@ const Productos = () => {
       }
     }
   };
+  
+  useEffect(() => {
+    // Obtener la lista de productos actualizada
+    const fetchProductos = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/Products');
+        setProductos(response.data);
+      } catch (error) {
+        console.error('Error al obtener los productos:', error);
+      }
+    };
+
+    fetchProductos();
+  }, []);   
 
   // Resetear formulario
   const resetForm = () => {

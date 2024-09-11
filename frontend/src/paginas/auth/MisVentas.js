@@ -60,6 +60,9 @@ const MisVentas = () => {
       <br/>
       <br/>
       <br/>
+      <br/>
+      <br/>
+
       <main className="container mt-4 flex-grow-1"> {/* Flex-grow-1 asegura que ocupe el espacio disponible */}
         {ventas.length > 0 ? (
           <>
