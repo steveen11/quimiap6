@@ -188,6 +188,11 @@ const Inicio_registro = () => {
     <br/>
     <br/>
     <br/>
+    <br/>
+
+    <br/>
+    <br/>
+
     <div className="main">
   <div className="contenedor__todo">
     <div className="caja__trasera">

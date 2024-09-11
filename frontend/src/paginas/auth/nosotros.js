@@ -6,6 +6,10 @@ const Nosotros = () =>{
     return(
         <div>
     <Header />
+    <br/>
+    <br/>
+    <br/>
+    <br/>
   <div className="container">
     <section>
     <br/>

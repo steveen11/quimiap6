@@ -242,7 +242,8 @@
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "45000",
       "cantidad_product": "20",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "2806",
@@ -255,7 +256,8 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "8a8d",
@@ -268,7 +270,8 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "22ff",
@@ -281,7 +284,8 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "4bb6",
@@ -294,7 +298,8 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "4054",
@@ -307,7 +312,8 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "fcfd",
@@ -320,7 +326,8 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "c4d9",
@@ -333,7 +340,8 @@
       "usos": "Limpieza profunda de superficies grasosas",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "20000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "0d7b",
@@ -346,7 +354,8 @@
       "usos": "Ambientación y neutralización de olores en espacios cerrados.",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "43b8",
@@ -359,7 +368,8 @@
       "usos": "Remoción de residuos industriales en superficies duras.",
       "advertencias": "Usar con guantes. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "a91b",
@@ -372,7 +382,8 @@
       "usos": "Limpieza de maquinaria y superficies industriales.",
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "29900",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "42df",
@@ -385,7 +396,8 @@
       "usos": "Gran limpieza en casa",
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "10500",
-      "cantidad": "20"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "23fc",
@@ -398,7 +410,8 @@
       "usos": "Ideal para limpieza de pisos de cerámica, madera y vinilo. Puede ser utilizado en mopas o paños.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar contacto con los ojos. En caso de contacto, lavar con abundante agua.",
       "cantidad": "25",
-      "precio_unitario": "15000"
+      "precio_unitario": "15000",
+      "estado": "disponible"
     }
   ],
   "Sales": [
@@ -751,6 +764,14 @@
       "fecha_venta": "2024-09-10",
       "metodo_pago": "Transferencia Bancaria",
       "precio_total": 86000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "d5c7",
+      "fecha_venta": "2024-09-11",
+      "metodo_pago": "Efectivo",
+      "precio_total": 98900,
       "estado": "Completada",
       "cliente_id": "2020"
     }
@@ -1273,6 +1294,41 @@
       "producto_id": "22ff",
       "cantidad": 1,
       "precio_unitario": "33000"
+    },
+    {
+      "id": "0b86",
+      "venta_id": "d5c7",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "3a10",
+      "venta_id": "d5c7",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "11c7",
+      "venta_id": "d5c7",
+      "producto_id": "c4d9",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "1a94",
+      "venta_id": "d5c7",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "297f",
+      "venta_id": "d5c7",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
     }
   ],
   "domicilio": [

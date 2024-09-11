@@ -11,12 +11,14 @@
 
 /* Estilo del logo en el encabezado */
 .header-logo {
-    max-height: 90px; /* Altura máxima del logo */
+    max-height: 140px; /* Altura máxima del logo */
+    width: 140px; /* Altura máxima del logo */
+
 }
 
 .header-logo-container {
     position: relative; /* Cambia la posición del contenedor del logo */
-    left: -36px; /* Mueve el logo hacia la izquierda */
+    left: -50px; /* Mueve el logo hacia la izquierda */
 }
 
 /* Estilo de la barra de búsqueda */

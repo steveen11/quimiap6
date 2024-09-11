@@ -18,7 +18,7 @@ const Header2 = () => {
       <header className="py-3 mb-4 border-bottom">
         <div className="d-flex align-items-center">
           <img
-            src="https://i.ibb.co/dbTBHkz/LOGO-JEFE-DE-PRODUCCI-N.jpg"
+            src="/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png"
             alt="LOGO-JEFE-DE-PRODUCCI-N"
             className="logo"
           />
