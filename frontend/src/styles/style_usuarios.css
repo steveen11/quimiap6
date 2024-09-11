@@ -1,0 +1,350 @@
+body {
+    height: 100vh;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center;
+ }
+
+ .small-image {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.small-image img {
+    height: 35px; /* Ajusta el tamaño de la imagen pequeña */
+    width: auto;
+    border-radius: 30%; /* Hace que la imagen sea circular si es cuadrada */
+  
+}
+
+
+ 
+ li{
+     list-style: none;
+ }
+ 
+ a{
+     text-decoration: none;
+     color: #000000;
+     font-size: 1rem;
+ }
+ 
+ a:hover{
+     color: rgb(38, 94, 56);
+ }
+ 
+ /*HEADER*/
+ 
+ header{
+     position: relative;
+     padding: 0 2rem;
+ }
+ 
+ .navbar{
+     width: 100%;
+     height: 60px;
+     max-width: 1200px;
+     margin: 0 auto;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+
+ }
+ 
+ .logo img {
+     max-height: 100px; /* Ajusta el tamaño del logo según sea necesario */
+     width: auto; /* Mantiene las proporciones de la imagen */
+     margin-left: -50px;
+ }
+ 
+ /* Ajustes adicionales si es necesario */
+ .navbar .logo {
+     display: flex;
+     align-items: center;
+ }
+ 
+ .navbar .logo a {
+     display: block; /* Asegura que el enlace ocupe el espacio necesario */
+ }
+
+ .navbar .links {
+     display: flex;
+     gap: 2rem;
+     margin-right: 180px;
+ }
+ 
+ .navbar .toggle_btn {
+     color: #fff;
+     font-size: 1.5rem;
+     cursor: pointer;
+     display: none;
+ }
+ 
+ .navbar .action-btn-container {
+     margin-left: auto; /* Mueve el contenedor del botón a la derecha */
+ }
+ 
+ .action-btn {
+     background-color: rgb(43, 190, 24);
+     color: #fff;
+     padding: 0.5rem 1rem;
+     border: none;
+     outline: none;
+     border-radius: 20px;
+     font-size: 0.8rem;
+     font-weight: bold;
+     cursor: pointer;
+     transition: scale 0.2s ease;
+     margin-right: 10px;
+    
+     
+ }
+ 
+ .action-btn:hover {
+     scale: 1.05;
+     color: #fff;
+ }
+ 
+ .action-btn:active {
+     scale: 0.95;
+ }
+ 
+ /*dropdown menu*/
+ .dropdown_menu {
+     display: none;
+     position: absolute;
+     right: 2rem;
+     top: 60px;
+     height: 0;
+     width: 300px;
+     background: rgba(255, 255, 255, 0.1);
+     backdrop-filter: blur(15px);
+     border-radius: 10px;
+     overflow: hidden;
+     transition: height .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+ }
+
+ .center-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-style {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+ 
+ .dropdown_menu.open {
+     height: 240px;
+     
+     
+ }
+ 
+ .dropdown_menu li {
+     padding: 0.7rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ 
+ .dropdown_menu .action-btn {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     
+ }
+ 
+ /* Responsive */
+ @media (max-width: 992px) {
+     .navbar .links {
+         display: none;
+     }
+     .navbar .action-btn {
+         display: none; /* Oculta el botón en la barra de navegación principal */
+     }
+     .navbar .toggle_btn {
+         display: block;
+     }
+     .dropdown_menu {
+         display: block;
+     }
+     .dropdown_menu .action-btn {
+         display: block; /* Muestra el botón dentro del menú desplegable */
+     }
+ }
+ 
+ @media (max-width: 576px) {
+     .dropdown_menu {
+         left: 2rem;
+         width: unset;
+     }
+ }
+ 
+ .register-button {
+     background-color: #37a007;
+     border: none;
+     padding: 8px 12px;
+     color: white;
+     cursor: pointer;
+     border-radius: 7px;
+     margin-left: 17px;
+     transition: background-color 0.3s ease;
+ }
+ 
+ .register-button:hover {
+     background-color: #187518; /* Define el color de fondo cuando se pasa el ratón por encima */
+ }
+ 
+ /* Estilos para la tabla */
+ .user-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+ }
+ 
+ .user-table th, .user-table td {
+     border: 1px solid #ffffff;
+     padding: 4px;
+     text-align: left;
+ }
+ 
+ .user-table th {
+     background-color: rgba(255, 255, 255, 0.2); /* Color de fondo semitransparente */
+     color: #000000;
+     font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+     font-weight: bold;
+     text-align: center;
+ }
+ 
+ .user-table td {
+     background-color: #ffffff; /* Fondo más oscuro para celdas */
+     color: #000000; /* Texto en blanco */
+     text-align: center;
+ }
+ 
+ .user-table tr:nth-child(even) {
+     background-color: rgba(255, 255, 255, 0.1); /* Fondo más claro para filas pares */
+ }
+ 
+ .user-table tr:hover {
+     background-color: rgba(255, 255, 255, 0.2); /* Fondo más claro al pasar el ratón */
+ }
+ 
+ /* Estilos para los botones de acción */
+ .edit-button, .delete-button {
+     background: none;
+     border: none;
+     cursor: pointer;
+     font-size: 16px;
+     margin: 0 5px;
+ }
+ .form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: none;
+    z-index: 1000; /* Asegúrate de que el formulario esté por encima del fondo */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333333;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+    margin: 0 auto; /* Centra el formulario en la página */
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco y semitransparente para el formulario */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Agrega una sombra para mayor profundidad */
+}
+
+.user-form label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333333; /* Color del texto en gris oscuro para contraste */
+}
+
+.user-form input {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #cccccc; /* Borde gris claro */
+    border-radius: 5px;
+    background-color: #ffffff; /* Fondo blanco para los campos de entrada */
+    color: #333333; /* Texto gris oscuro para los campos de entrada */
+}
+
+.user-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #2BBE18; /* Color de fondo del botón verde */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Suaviza el cambio de color y agrega una transición de escala */
+}
+
+.user-form button:hover {
+    background-color: #26A014; /* Color del botón verde al pasar el ratón */
+    transform: scale(1.05); /* Agranda el botón ligeramente al pasar el ratón */
+}
+
+.user-form button:active {
+    transform: scale(0.95); /* Reduce el botón ligeramente al hacer clic */
+}
+ 
+ h1 {
+    margin: 30px 0;
+    color: #333; /* Gris oscuro para una apariencia elegante */
+    font-size: 2.8rem; /* Tamaño de fuente destacado */
+    font-family: 'Georgia', serif; /* Fuente serif para un toque clásico */
+    font-weight: 700; /* Grosor de fuente audaz */
+    text-align: center; /* Centra el texto */
+    line-height: 1.3; /* Espaciado entre líneas */
+    letter-spacing: 0.5px; /* Espaciado sutil entre letras */
+    border-bottom: 1px solid #ddd; /* Línea inferior fina */
+    padding-bottom: 15px; /* Espacio adicional debajo del texto */
+}
+
+
+
+
+
+
+ /* Nuevos estilos para el efecto de desenfoque de fondo */
+ .blur-background {
+     filter: blur(5px);
+     pointer-events: none; /* Evita la interacción con el contenido de fondo */
+ }
+ .position-relative {
+    position: relative;
+  }
+  
+  .filter-menu {
+    position: absolute; /* Posiciona el menú de manera absoluta dentro del contenedor relativo */
+    margin-left: 300px; /* Espacio entre el botón y el menú (ajusta según sea necesario) */
+    z-index: 1000; /* Asegúrate de que el menú esté por encima de otros elementos */
+    min-width: 150px; /* Opcional: Ajusta el ancho mínimo del menú si es necesario */
+  }

@@ -1,0 +1,25 @@
+/* Carrito.css */
+.carrito {
+    margin: 20px;
+  }
+  
+  .producto {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .cantidad {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cantidad button {
+    margin: 0 5px;
+  }
+  
+  .subtotal {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  

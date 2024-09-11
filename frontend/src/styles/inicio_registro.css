@@ -1,0 +1,276 @@
+.registro-container {
+  background-image: url(../../public/img/products-images/fondo1.webp);
+  background-size: cover; /* Asegura que la imagen cubra todo el contenedor sin repetir */
+  background-position: center; /* Centra la imagen dentro del contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+  
+  .main{
+    width: 100%;
+    padding: 30px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 80px;
+  }
+  
+  .contenedor__todo{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+  }
+  
+  .caja__trasera{
+    width: 100%;
+    padding: 5px 30px;
+    display: flex;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(31, 218, 40, 0.5);
+  
+  }
+  
+  .caja__trasera div{
+    margin: 100px 40px;
+    color: white;
+    transition: all 500ms;
+  }
+  
+  
+  .caja__trasera div p,
+  .caja__trasera button{
+    margin-top: 30px;
+    border-radius: 10px;
+  }
+  
+  .caja__trasera div h3{
+    font-weight: 400;
+    font-size: 26px;
+  }
+  
+  .caja__trasera div p{
+    font-size: 16px;
+    font-weight: 300;
+  }
+  
+  .caja__trasera button{
+    padding: 10px 40px;
+    border: 2px solid #fff;
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    transition: all 300ms;
+  }
+  
+  .caja__trasera button:hover{
+    background: #fff;
+    color: #4CAF50;
+  }
+  
+  /*Formularios*/
+  
+  .contenedor__login-register{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    top: -185px;
+    left: 10px;
+  
+    /*La transicion va despues del codigo JS*/
+    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  }
+  
+  .contenedor__login-register form{
+    width: 100%;
+    padding: 70px 20px;
+    background: white;
+    position: absolute;
+    border-radius: 20px;
+  }
+  
+  
+  .contenedor__login-register form h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #45A049; /* Cambia el color azul por verde oscuro */
+  }
+  .contenedor__login-register form input{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+  }
+  
+  
+  .contenedor__login-register form button{
+    padding: 10px 40px;
+    margin-top: 10px;
+    border: none;
+    font-size: 14px;
+    background: #4CAF50;;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+    border-radius: 10px;
+  }
+  /* Nueva clase para alinear los elementos en una sola línea */
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre los elementos */
+    justify-content: center; /* Centra los elementos horizontalmente */
+  }
+  
+  /* Ajusta el tamaño del campo de tipo de documento */
+  .genero{
+    width: 100%; /* Ajusta el tamaño del campo de selección */
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+  }
+  .tipoDoc{
+    width: 120px; /* Ajusta el tamaño del campo de selección */
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+  }
+  .registrarse{
+    text-align: right;
+  }
+  /* Ajusta el tamaño del campo de número de documento */
+  #identificacion{
+    width: 210px; /* Ajusta el tamaño del campo de texto */
+    margin-left: 10px;
+  }
+  
+  .formulario__login{
+    opacity: 1;
+    display: block;
+  }
+  .formulario__register{
+    display: none;
+  }
+  .checkbox-container {
+    display: flex; /* Usa flexbox para alinear elementos */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    margin-left: -10rem; /* Ajusta el espacio según tus necesidades */
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    accent-color: #007bff; /* Cambia el color del checkbox si deseas personalizarlo */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
+  }
+  
+  .checkbox-container label {
+    color: #333; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el texto */
+    margin-left: -8rem; /* Ajusta el espacio según tus necesidades */
+  }
+  
+  .checkbox-container label:hover {
+    color: #007bff; /* Cambia el color del texto al pasar el ratón */
+  }
+  
+  @media screen and (max-width: 850px){
+  
+    main{
+        margin-top: 10x0px;
+    }
+  
+    .caja__trasera{
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+  
+    .caja__trasera div{
+        margin: 0px;
+        position: absolute;
+    }
+  
+  
+    /*Formularios*/
+  
+    .contenedor__login-register{
+        top: -10px;
+        left: -5px;
+        margin: auto;
+    }
+  
+    .contenedor__login-register form{
+        position: relative;
+    }
+    
+  }
+  
+  .input-container {
+    position: relative;
+    width: 100%; /* Ajusta según sea necesario */
+}
+
+/*estilos boton cotraseña*/
+.input-container {
+    position: relative; /* Contenedor relativo para manejar la posición absoluta del botón */
+    width: 100%; /* Asegura que el contenedor tome todo el ancho necesario */
+}
+
+.input-container input {
+    width: 100%; /* El input toma todo el ancho del contenedor */
+    padding-right: 40px; /* Espacio para el botón de visibilidad */
+    margin-top: 5px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+}
+
+.input-container .btn-toggle-visibility {
+    position: absolute; /* Posicionamiento absoluto para que esté dentro del input */
+    top: 40%; /* Centrado verticalmente */
+    right: 10px; /* Ajusta el espacio desde el borde derecho */
+    transform: translateY(-50%); /* Centrado verticalmente */
+    border: none;
+    background: transparent; /* Botón transparente para que no cubra el input */
+    cursor: pointer;
+    padding: 0; /* Elimina el padding para no afectar el tamaño del botón */
+    display: flex; /* Flexbox para centrar el ícono */
+    align-items: center; /* Centrado del ícono */
+}
+
+.input-container .btn-toggle-visibility i {
+    font-size: 18px; /* Tamaño del ícono */
+    color: #333; /* Color del ícono */
+}
+
+/* Ajuste para que el ícono no tenga un color verde si estaba heredando estilos */
+.input-container .btn-toggle-visibility i:hover {
+    color: #333; /* Color del ícono al pasar el ratón */
+}

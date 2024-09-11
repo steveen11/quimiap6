@@ -1,0 +1,21 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    max-width: 150px; /* Ajusta el tamaño del logo según tus necesidades */
+}
+.nav {
+    flex-grow: 1;
+    justify-content: center;
+}
+.nav-link {
+    color: green; /* Color de las letras de los items de navegación */
+        }
+.btn-custom {
+    border-radius: 10px; /* Mantener bordes redondeados */
+    background-color:#008000; /* Color de fondo de los botones */
+    border-color: #008000;
+    color: white; /* Color de las letras de los botones */
+        } 

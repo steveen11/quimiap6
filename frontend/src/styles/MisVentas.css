@@ -1,0 +1,43 @@
+.fixed-size-card {
+    height: 300px; /* Altura fija para las tarjetas */
+    max-width: 100%; /* Asegura que no se excedan del contenedor */
+    overflow: hidden; /* Evitar que el contenido sobrepase la tarjeta */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .fixed-size-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto; /* Añade scroll si hay demasiado contenido */
+    scrollbar-width: thin; /* Para navegadores Firefox */
+    scrollbar-color: #0ea050 #f1f1f1; /* Color del scrollbar en Firefox */
+  }
+  
+  /* Estilo del scrollbar para navegadores basados en WebKit (Chrome, Safari, Edge) */
+  .fixed-size-card .card-body::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .fixed-size-card .card-body::-webkit-scrollbar-thumb {
+    background-color: #00ff73; /* Color del scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid #f1f1f1; /* Espacio alrededor del scrollbar */
+  }
+  
+  .fixed-size-card .card-body::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color del fondo del scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+
+  /* Estilo personalizado para la alerta */
+.custom-alert {
+  background-color: #f8f9fa; /* Color de fondo claro para la alerta */
+  border-color: #d6d6d6; /* Color del borde */
+  color: #333; /* Color del texto */
+  border-radius: 0.25rem; /* Bordes redondeados */
+  padding: 1rem; /* Espaciado interno */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Sombra ligera */
+}

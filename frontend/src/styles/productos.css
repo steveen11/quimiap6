@@ -1,0 +1,19 @@
+.search-container {
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centra el contenedor */
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    width: 100%; /* Ajusta al ancho del contenedor */
+  }
+  
+  .form-control {
+    width: 100%; /* Ocupa el ancho completo del contenedor */
+    box-sizing: border-box;
+  }
+
+  

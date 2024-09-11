@@ -1,0 +1,25 @@
+/* Estilo del pie de página */
+footer {
+    background-color: #f8f9fa; /* Color de fondo claro */
+    padding: 20px 0; /* Espaciado vertical */
+    color: #6c757d; /* Color del texto */
+}
+
+/* Estilo del menú offcanvas de categorías */
+.offcanvas-categorias {
+    width: 250px;
+    background-color: #f8f9fa;
+}
+
+.offcanvas-categorias .offcanvas-header {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.offcanvas-categorias .list-group-item {
+    transition: background-color 0.3s ease;
+}
+
+.offcanvas-categorias .collapse {
+    background-color: #f8f9fa; /* Color de fondo claro para el contenido colapsado */
+}

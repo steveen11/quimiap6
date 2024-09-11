@@ -1,0 +1,171 @@
+/* Estilo de la sección hero */
+.hero {
+    background-color: #f5f5f5; /* Color de fondo claro */
+    padding: 50px 0; /* Espaciado vertical */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo de las imágenes en la sección hero */
+.hero img {
+    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilo de la sección de categorías debajo del carrusel */
+.categories-section {
+    padding: 20px 0; /* Espaciado vertical */
+    background-color: #f9f9f9; /* Color de fondo claro */
+}
+
+/* Estilo de los iconos de categoría */
+.category-icon {
+    font-size: 40px; /* Tamaño de fuente grande para el icono */
+    color: #4CAF50; /* Color verde para el icono */
+    transition: transform 0.3s ease; /* Suaviza el cambio de tamaño */
+}
+
+.category-link {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: inherit; /* Hereda el color del texto del contenedor */
+    display: flex; /* Usa flexbox para alinear el ícono y el texto */
+    flex-direction: column; /* Alinea el ícono y el texto en una columna */
+    align-items: center; /* Centra el ícono y el texto horizontalmente */
+    padding: 1rem; /* Agrega algo de espacio interno */
+}
+
+.category-link:hover .category-icon {
+    transform: scale(1.3); /* Aumenta el tamaño del ícono en un 30% */
+}
+
+.category-text {
+    font-size: 1rem; /* Tamaño del texto */
+    text-align: center; /* Centra el texto */
+    word-wrap: break-word; /* Permite que el texto se ajuste en líneas */
+    overflow-wrap: break-word; /* Asegura que el texto largo no desborde el contenedor */
+}
+
+/* Estilo del carrusel */
+.carousel-item img {
+    max-height: 590px; /* Limita la altura de la imagen */
+    object-fit: cover; /* Cubre el contenedor sin distorsionar la imagen */
+    width: 100%; /* Asegura que la imagen cubra todo el ancho del contenedor */
+}
+
+/* Estilo de la sección de productos */
+.products-section {
+    padding: 20px 0; /* Espaciado vertical */
+}
+
+/* Estilo de las tarjetas de productos */
+.product-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Oculta el contenido que desborda */
+    margin-bottom: 20px; /* Espaciado entre tarjetas */
+    text-align: center; /* Centra el contenido de la tarjeta */
+    display: flex; /* Usa flexbox para el contenido */
+    flex-direction: column; /* Organiza los elementos en una columna */
+}
+
+/* Estilo del cuerpo de la tarjeta */
+.card-body {
+    flex: 1; /* Permite que el cuerpo de la tarjeta ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+}
+
+.card-title {
+    font-size: 16px; /* Tamaño de fuente */
+    margin: 10px 0; /* Espaciado vertical */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    text-overflow: ellipsis; /* Muestra '...' si el texto es demasiado largo */
+    white-space: nowrap; /* Evita que el texto se rompa en múltiples líneas */
+}
+
+/* Estilo de las imágenes en las tarjetas de productos */
+.product-card img {
+    max-height: 280px; /* Altura máxima para las imágenes */
+    object-fit: cover; /* Cubre el área del contenedor sin distorsionar la imagen */
+    width: 100%; /* Asegura que la imagen cubra el ancho del contenedor */
+}
+
+/* Estilo del botón de outline primario */
+.btn-outline-primary {
+    padding: 6px 12px; /* Espaciado interno */
+    color: #fff; /* Color del texto */
+    background-color: #4CAF50; /* Color de fondo verde */
+    border-color: #4CAF50; /* Color del borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente del botón */
+    transition: background-color 0.3s, transform 0.3s; /* Transición suave para hover */
+}
+
+/* Estilo del botón de outline primario al pasar el cursor */
+.btn-outline-primary:hover {
+    background-color: #45A049; /* Color de fondo verde más oscuro */
+    border-color: #45A049; /* Color del borde verde más oscuro */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+}
+
+/* Estilo del pie de página */
+footer {
+    background-color: #f8f9fa; /* Color de fondo claro */
+    padding: 20px 0; /* Espaciado vertical */
+    color: #6c757d; /* Color del texto */
+}
+
+/* Estilo del menú offcanvas de categorías */
+.offcanvas-categorias {
+    width: 250px;
+    background-color: #f8f9fa;
+}
+
+.offcanvas-categorias .offcanvas-header {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.offcanvas-categorias .list-group-item {
+    transition: background-color 0.3s ease;
+}
+
+.offcanvas-categorias .collapse {
+    background-color: #f8f9fa; /* Color de fondo claro para el contenido colapsado */
+}
+
+/* Estilos opcionales para el modal */
+.modal-content {
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.modal-header {
+    background-color: #4CAF50; /* Color de fondo para el encabezado del modal */
+    color: white; /* Color del texto */
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef; /* Línea de separación en el pie del modal */
+}
+
+.modal-body img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+}
+
+/* Estilo del botón de ver detalles */
+.btn-outline-secondary {
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    color: #388E3C;
+    border-color: #45A049; /* Color del borde verde más oscuro */
+    font-size: 14px; /* Tamaño de fuente del botón */
+    transition: background-color 0.3s, transform 0.3s; /* Transición suave para hover */
+}
+
+/* Estilo del botón de ver detalles al pasar el cursor */
+.btn-outline-secondary:hover {
+    color: #388E3C;
+    background-color: #f6f8f6; /* Color de fondo verde más oscuro */
+    border-color: #45A049; /* Color del borde verde más oscuro */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
+}
