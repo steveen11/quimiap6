@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import Header2 from '../../componentes/header2';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faSearch,faFilter } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/productos.css'
 
 const Productos = () => {
@@ -18,13 +19,20 @@ const Productos = () => {
     advertencias: '',
     cantidad:'',
     precio_unitario: '',
-    estado:'',
+    estado:'disponible'
   });
 
   const [productos, setProductos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState(''); // Estado para filtro
+  const [productsTypeFilter, setProductsTypeFilter] = useState('todos');
+  const [showFilters, setShowFilters] = useState(false);
+  const filterMenuRef = useRef(null);
+
+    // Paginación
+    const [currentPageProduct, setCurrentPageProduct] = useState(1);
+    const recordsPerPage = 3;
 
   // Función para obtener productos de la API
   const fetchProductos = async () => {
@@ -42,9 +50,17 @@ const Productos = () => {
 
   // Manejar cambio en los campos de formulario
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
+    const { id, value } = e.target;
+
+    setFormData((prevFormData) => {
+      const newFormData = { ...prevFormData, [id]: value };
+
+      // Si se cambia la cantidad, ajustar el estado automáticamente
+      if (id === 'cantidad') {
+        newFormData.estado = value > 0 ? 'disponible' : 'agotado';
+      }
+
+      return newFormData;
     });
   };
 
@@ -116,48 +132,50 @@ const Productos = () => {
     }
   };
 
-  const handleDeleteProduct = async (product) => {
-    if (product.estado !== 'descontinuado') {
+  // Descontinuar producto
+const handleSetInactiveProduct = async (id) => {
+  const confirmDescontinuar = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'El producto será marcado como descontinuado.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, descontinuar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+  });
+
+  if (confirmDescontinuar.isConfirmed) {
+    try {
+      // Obtener el producto actual
+      const response = await axios.get(`http://localhost:4000/Products/${id}`);
+      const productoActual = response.data;
+      const productoActualizado = { ...productoActual, estado: 'descontinuado' }; // Cambiar el estado
+
+      // Actualizar el producto en la API
+      await axios.put(`http://localhost:4000/Products/${id}`, productoActualizado);
+      
       Swal.fire({
-        title: 'Error',
-        text: 'Solo los productos descontinuados se pueden eliminar.',
-        icon: 'error',
-        timer: 2000,
-      });
-      return;
-    }
-  
-    const confirmDelete = await Swal.fire({
-      title: 'Confirmar',
-      text: `¿Estás seguro de que deseas eliminar el producto "${product.nombre}"?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    });
-  
-    if (confirmDelete.isConfirmed) {
-      try {
-        await axios.delete(`http://localhost:4000/Products/${product.id}`);
+        title: '¡Descontinuado!',
+        text: 'Producto marcado como descontinuado exitosamente.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#3085d6',
+      }).then(() => {
         fetchProductos(); // Actualizar la lista de productos
-        Swal.fire({
-          title: 'Producto eliminado!',
-          text: `El producto "${product.nombre}" ha sido eliminado.`,
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1000,
-        });
-      } catch (error) {
-        console.error('Error deleting product:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'No se pudo eliminar el producto.',
-          icon: 'error',
-          timer: 3000,
-        });
-      }
+      });
+    } catch (error) {
+      console.error('Error descontinuando el producto:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Error al descontinuar el producto.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#d33',
+      });
     }
-  };
+  }
+};
   
   useEffect(() => {
     // Obtener la lista de productos actualizada
@@ -186,35 +204,90 @@ const Productos = () => {
       advertencias: '',
       precio_unitario: '',
       cantidad:'',
-      estado:''
+      estado:'disponible'
     });
     setCurrentProduct(null);
   };
 
    // Función para manejar el cambio en el input de búsqueda
-   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value.toLowerCase());
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
-  // Filtrar productos basados en el término de búsqueda
-  const filteredProducts = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(searchTerm) ||
-    producto.categoria.toLowerCase().includes(searchTerm)
-  );
-   // Manejar cambio en los botones de estado
-   const handleStatusChange = (e) => {
-    setFormData({
-      ...formData,
-      estado: e.target.value,
-    });
+  // Handle user type filter change
+  const handleProductsTypeFilterChange = (e) => {
+    setProductsTypeFilter(e.target.value);
   };
+
+
+ // Filtrar productos basados en el término de búsqueda y en la categoría
+const filteredProducts = productos
+.filter((producto) => 
+  producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  producto.id.toString().includes(searchTerm.toLowerCase()) // Filtrar por ID
+)
+.filter((producto) => {
+  // Permitir todas las categorías si el filtro es 'todos', 
+  // o verificar si el producto pertenece a una de las categorías específicas
+  if (productsTypeFilter === 'todos') return true;
+  return [
+    'Cuidado de la Ropa', 
+    'Hogar y Limpieza', 
+    'Cuidado de Pisos', 
+    'Desinfectantes'
+  ].includes(productsTypeFilter) && producto.categoria === productsTypeFilter;
+});
+  // Calcular el índice del primer y último registro para la página actual
+const indexOfLastRecordProduct = currentPageProduct * recordsPerPage;
+const indexOfFirstRecordProduct = indexOfLastRecordProduct - recordsPerPage;
+
+// Obtener los productos filtrados para la página actual
+const currentRecordsProduct = filteredProducts.slice(indexOfFirstRecordProduct, indexOfLastRecordProduct);
+const totalPagesProduct = Math.ceil(filteredProducts.length / recordsPerPage);
+
+// Cambiar de página
+const handlePageChangeProduct = (pageNumber) => {
+  setCurrentPageProduct(pageNumber);
+};
+
   return (
     <div>
       <Header2 />
       <div className="container">
         <h2>Registro de productos</h2>
         {/* Campo de búsqueda */}
-        <div className="d-flex justify-content-end mt-2">
+        <div className="d-flex justify-content-between align-items-center mb-3 position-relative">
+          {/* Barra de búsqueda */}
+  <div className="d-flex align-items-center">
+    <FontAwesomeIcon icon={faSearch} className="me-2" style={{ fontSize: '20px' }} />
+    <input
+      type="text"
+      id="searchInput"
+      className="form-control"
+      placeholder="Buscar por ID o Nombre"
+      value={searchTerm}
+      onChange={handleSearchChange}
+    />
+    {/* Ícono de filtro */}
+    <button
+      type="button"
+      className="btn btn-light ms-2 position-relative"
+      onClick={() => setShowFilters(!showFilters)}
+    >
+      <FontAwesomeIcon icon={faFilter} style={{ fontSize: '20px' }} />
+    </button>
+    {showFilters && (
+      <div ref={filterMenuRef} className="filter-menu position-absolute mt-2 p-2 bg-white border rounded shadow">
+        <select id="productsTypeFilter" className="form-select" value={productsTypeFilter} onChange={handleProductsTypeFilterChange}>
+          <option value="todos">Todos</option>
+          <option value="Cuidado de la Ropa">Cuidado de la Ropa</option>
+          <option value="Hogar y Limpieza">Hogar y Limpieza</option>
+          <option value="Cuidado de Pisos">Cuidado de Pisos</option>
+          <option value="Desinfectantes">Desinfectantes</option>
+        </select>
+      </div>
+    )}
+  </div>
           <button type="button" className="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#registroProductoModal">
             Registrar Producto
           </button>
@@ -281,21 +354,6 @@ const Productos = () => {
                     <label htmlFor="precio_unitario" className="form-label">Precio Unitario</label>
                     <input type="text" className="form-control" id="precio_unitario" placeholder="Ingrese precio unitario del producto" value={formData.precio_unitario} onChange={handleInputChange} />
                   </div>
-                  <div className="mb-3">
-
-                    <select
-                      className="form-control"
-                      id="estado"
-                      value={formData.estado}
-                      onChange={handleStatusChange}
-                    >
-
-                      <option value="" disabled>Selecciona un estado:</option>
-                      <option value="disponible">Disponible</option>
-                      <option value="Agotado">Agotado</option>
-                      <option value="Descontinuado">Descontinuado</option>
-                    </select>
-                  </div>
                 </form>
               </div>
               <div className="modal-footer">
@@ -310,21 +368,10 @@ const Productos = () => {
         {/* Contenedor centrado para la tabla */}
         <div className="d-flex justify-content-center mt-4">
           <div className="table-container">
-          <div className="search-container">
-          <h5>Buscar producto por nombre o categoría:</h5>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Buscar por nombre o categoría"
-              style={{width: '90%'}}
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
             <table className="table table-striped">
               <thead>
                 <tr>
-                  <th style={{ width: '120px' }}>Imagen</th>
+                <th style={{ width: '120px' }}>Imagen</th>
                   <th style={{ width: '80px' }}>ID Producto</th>
                   <th style={{ width: '150px' }}>Nombre</th>
                   <th style={{ width: '200px' }}>Descripción</th>
@@ -389,7 +436,7 @@ const Productos = () => {
                   type="button"
                   className="btn-sm"
                   style={{ background: 'none', border: 'none' }}
-                  onClick={() => handleDeleteProduct(product.id)}
+                  onClick={() => handleSetInactiveProduct(product.id)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
@@ -406,6 +453,55 @@ const Productos = () => {
           </div>
         </div>
       </div>
+      {/* Paginación */}
+<div className="d-flex justify-content-center mt-4">
+  <nav>
+    <ul className="pagination">
+      <li
+        className={`paginate_button page-item ${
+          currentPageProduct === 1 ? "disabled" : ""
+        }`}
+      >
+        <Link
+          onClick={() => handlePageChangeProduct(currentPageProduct - 1)}
+          to="#"
+          className="page-link"
+        >
+          Anterior
+        </Link>
+      </li>
+      {[...Array(totalPagesProduct)].map((_, index) => (
+        <li
+          key={index}
+          className={`paginate_button page-item ${
+            currentPageProduct === index + 1 ? "active" : ""
+          }`}
+        >
+          <button
+            onClick={() => handlePageChangeProduct(index + 1)}
+            className="page-link"
+          >
+            {index + 1}
+          </button>
+        </li>
+      ))}
+      <li
+        className={`paginate_button page-item next ${
+          currentPageProduct === totalPagesProduct ? "disabled" : ""
+        }`}
+      >
+        <Link
+          onClick={() => handlePageChangeProduct(currentPageProduct + 1)}
+          to="#"
+          className="page-link"
+        >
+          Siguiente
+        </Link>
+      </li>
+    </ul>
+  </nav>
+</div>
+
     </div>
   );
 };
