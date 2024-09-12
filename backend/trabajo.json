@@ -1,18 +1,6 @@
 {
   "Users": [
     {
-      "id": "2",
-      "nombres": "laura",
-      "apellidos": "albararcin",
-      "telefono": "324527222",
-      "correo_electronico": "lauraA@gmail.om",
-      "tipo_doc": "Cedula de Ciudadania",
-      "num_doc": "10985456",
-      "contrasena": "jahajmaavnhaah",
-      "rol": "jefe de producción",
-      "estado": "Inactivo"
-    },
-    {
       "id": "429b",
       "nombres": "Jerson",
       "apellidos": "Muñoz",
@@ -34,18 +22,6 @@
       "num_doc": "12345675274",
       "contrasena": "wino13345",
       "rol": "domiciliario",
-      "estado": "Activo"
-    },
-    {
-      "id": "7b93",
-      "nombres": "valeria",
-      "apellidos": "perez",
-      "telefono": "326266262",
-      "correo_electronico": "v@gmail.com",
-      "tipo_doc": "Cedula de extranjeria",
-      "num_doc": "216166",
-      "contrasena": "valeria12345",
-      "rol": "jefe de produccion",
       "estado": "Activo"
     },
     {
@@ -123,7 +99,7 @@
     {
       "id": "9116",
       "nombres": "nicolas",
-      "apellidos": "chapid moreno",
+      "apellidos": "chapid",
       "telefono": "36235653623",
       "correo_electronico": "jh@gmail.com",
       "tipo_doc": "Cedula de Ciudadania",
@@ -217,15 +193,27 @@
       "estado": "Activo"
     },
     {
-      "id": "08c2",
-      "nombres": "Miguel",
-      "apellidos": "Rodriguez",
-      "telefono": "3224657354",
-      "correo_electronico": "miguel@gmail.com",
+      "id": "b549",
+      "nombres": "dasdas",
+      "apellidos": "asdasda",
+      "telefono": "",
+      "correo_electronico": "sdasd",
       "tipo_doc": "ti",
-      "num_doc": "1019605503",
-      "contrasena": "miguel123",
-      "rol": "jefe de produccion",
+      "num_doc": "132123123",
+      "contrasena": "",
+      "rol": "",
+      "estado": "Activo"
+    },
+    {
+      "id": "617d",
+      "nombres": "efsdfds",
+      "apellidos": "fsdfs",
+      "telefono": "",
+      "correo_electronico": "sdfsfsd",
+      "tipo_doc": "cc",
+      "num_doc": "2131",
+      "contrasena": "",
+      "rol": "",
       "estado": "Activo"
     }
   ],

@@ -234,6 +234,17 @@ body {
  .user-table tr:hover {
      background-color: rgba(255, 255, 255, 0.2); /* Fondo más claro al pasar el ratón */
  }
+ /* style_usuarios.css */
+.table-container {
+    /* Asegúrate de que no haya reglas que oculten la tabla */
+    display: block; /* O asegúrate de que no esté en 'none' */
+  }
+  
+  /* Asegúrate de que no haya reglas en otras partes que afecten la tabla */
+  table {
+    width: 100%; /* Asegúrate de que la tabla tenga suficiente ancho */
+  }
+  
  
  /* Estilos para los botones de acción */
  .edit-button, .delete-button {
@@ -348,3 +359,49 @@ body {
     z-index: 1000; /* Asegúrate de que el menú esté por encima de otros elementos */
     min-width: 150px; /* Opcional: Ajusta el ancho mínimo del menú si es necesario */
   }
+
+  /* ESTILOS PARA PAGINACION */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+  }
+  
+ 
+  
+  
+  .pagination .page-link {
+    padding: 0.25rem 0.5rem; /* Ajusta el tamaño del padding para hacer los botones más pequeños */
+    font-size: 0.875rem; /* Tamaño de fuente más pequeño */
+    font-weight: 400; /* Ajusta el grosor de la fuente */
+    line-height: 1.2; /* Ajusta la altura de la línea para mejor alineación */
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 0.25rem;
+    margin: 0 0.3rem;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  }
+  
+  .pagination .page-link:hover {
+    color: #fff;
+    background-color: #302d2dd5;
+    border-color: #000;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    color: #000;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #000;
+  }
+  
+  .pagination .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #302d2dd5;
+    border-color: #000;
+  }
+  
