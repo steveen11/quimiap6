@@ -121,6 +121,11 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="userDropdown"
                 >
+                 <li>
+                  <button className="dropdown-item" onClick={() => navigate('/perfil.js')}> 
+                    Perfil
+                  </button>
+                </li>
                   <li>
                     <button onClick={handleLogout} className="dropdown-item">
                       Cerrar sesión

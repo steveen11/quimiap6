@@ -72,65 +72,97 @@ const Productos = () => {
   }
 
   // Función para registrar un nuevo producto
-  const handleRegisterProduct = async () => {
-    try {
-      await axios.post('http://localhost:4000/Products', formData);
-      fetchProductos(); // Actualizar la lista de productos
-      resetForm();
-      Swal.fire({
-        title: 'Producto registrado!!',
-        text: `El producto "${formData.nombre}" se registró`,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1000, // Duración de 3 segundos
-      });
-      // Si necesitas redireccionar, utiliza react-router-dom
-      // navigate('/productos');
-    } catch (error) {
-      console.error('Error registering product:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'No se pudo registrar el producto.',
-        icon: 'error',
-        showConfirmButton: false,
-        timer: 2000, // Duración de 3 segundos
-      });
-    }
-  };
+// Función para registrar un producto
+const handleRegisterProduct = async () => {
+  // Validar campos requeridos
+  const requiredFields = ['nombre', 'descripcion', 'imagen', 'categoria', 'composicion', 'contenido_neto', 'usos', 'advertencias', 'cantidad', 'precio_unitario']; // Ajusta según los campos necesarios
+  const isFormValid = requiredFields.every(field => formData[field]);
 
-  // Función para editar un producto
-  const handleEditProduct = (product) => {
-    setIsEditing(true);
-    setCurrentProduct(product);
-    setFormData(product);
-  };
+  if (!isFormValid) {
+    Swal.fire({
+      title: 'Complete todos los campos requeridos',
+      text: 'Por favor, asegúrese de que todos los campos obligatorios estén completos.',
+      icon: 'warning',
+      timer: 2000,
+      showConfirmButton: false
+    });
+    return;
+  }
 
-  // Función para actualizar un producto
-  const handleUpdateProduct = async () => {
-    try {
-      await axios.put(`http://localhost:4000/Products/${currentProduct.id}`, formData);
-      fetchProductos(); // Actualizar la lista de productos
-      resetForm();
-      setIsEditing(false);
-      Swal.fire({
-        title: 'Producto actualizado!!',
-        text: `El producto "${formData.nombre}" se actualizó`,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1000,
-      });
-      // Si necesitas redireccionar, utiliza react-router-dom
-      // navigate('/productos');
-    } catch (error) {
-      console.error('Error updating product:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'No se pudo actualizar el producto.',
-        icon: 'error',
-        timer: 2000, // Duración de 3 segundos
-      });
-    }
-  };
+  try {
+    await axios.post('http://localhost:4000/Products', formData);
+    fetchProductos(); // Actualizar la lista de productos
+    resetForm();
+    Swal.fire({
+      title: 'Producto registrado!!',
+      text: `El producto "${formData.nombre}" se registró`,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1000, // Duración de 1 segundo
+    });
+    // Si necesitas redireccionar, utiliza react-router-dom
+    // navigate('/productos');
+  } catch (error) {
+    console.error('Error registering product:', error);
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo registrar el producto.',
+      icon: 'error',
+      showConfirmButton: false,
+      timer: 2000, // Duración de 2 segundos
+    });
+  }
+};
+
+// Función para editar un producto
+const handleEditProduct = (product) => {
+  setIsEditing(true);
+  setCurrentProduct(product);
+  setFormData(product);
+};
+
+// Función para actualizar un producto
+const handleUpdateProduct = async () => {
+  // Validar campos requeridos
+  const requiredFields = ['nombre', 'descripcion', 'imagen', 'categoria', 'composicion', 'contenido_neto', 'usos', 'advertencias', 'cantidad', 'precio_unitario']; // Ajusta según los campos necesarios
+  const isFormValid = requiredFields.every(field => formData[field]);
+
+  if (!isFormValid) {
+    Swal.fire({
+      title: 'Complete todos los campos requeridos',
+      text: 'Por favor, asegúrese de que todos los campos obligatorios estén completos.',
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 1000, // Duración de 1 segundo
+    });
+    return;
+  }
+
+  try {
+    await axios.put(`http://localhost:4000/Products/${currentProduct.id}`, formData);
+    fetchProductos(); // Actualizar la lista de productos
+    resetForm();
+    setIsEditing(false);
+    Swal.fire({
+      title: 'Producto actualizado!!',
+      text: `El producto "${formData.nombre}" se actualizó`,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1000, // Duración de 1 segundo
+    });
+    // Si necesitas redireccionar, utiliza react-router-dom
+    // navigate('/productos');
+  } catch (error) {
+    console.error('Error updating product:', error);
+    Swal.fire({
+      title: 'Error',
+      text: 'No se pudo actualizar el producto.',
+      icon: 'error',
+      timer: 2000, // Duración de 2 segundos
+    });
+  }
+};
+
 
   // Descontinuar producto
 const handleSetInactiveProduct = async (id) => {
@@ -159,8 +191,8 @@ const handleSetInactiveProduct = async (id) => {
         title: '¡Descontinuado!',
         text: 'Producto marcado como descontinuado exitosamente.',
         icon: 'success',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#3085d6',
+        showConfirmButton: false,
+        timer: 1000, // Duración de 1 segundo
       }).then(() => {
         fetchProductos(); // Actualizar la lista de productos
       });
@@ -170,12 +202,40 @@ const handleSetInactiveProduct = async (id) => {
         title: 'Error!',
         text: 'Error al descontinuar el producto.',
         icon: 'error',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#d33',
+        showConfirmButton: false,
+        timer: 1000, // Duración de 1 segundo
       });
     }
   }
 };
+
+  // Filtrar productos basados en el término de búsqueda y en la categoría
+  const filteredProducts = productos
+    .filter((producto) => 
+      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      producto.id.toString().includes(searchTerm.toLowerCase())
+    )
+    .filter((producto) => {
+      if (productsTypeFilter === 'todos') return true;
+      return [
+        'Cuidado de la Ropa', 
+        'Hogar y Limpieza', 
+        'Cuidado de Pisos', 
+        'Desinfectantes'
+      ].includes(productsTypeFilter) && producto.categoria === productsTypeFilter;
+    });
+
+  // Paginación
+  const indexOfLastRecordProduct = currentPageProduct * recordsPerPage;
+  const indexOfFirstRecordProduct = indexOfLastRecordProduct - recordsPerPage;
+  const currentRecordsProduct = filteredProducts.slice(indexOfFirstRecordProduct, indexOfLastRecordProduct);
+  const totalPagesProduct = Math.ceil(filteredProducts.length / recordsPerPage);
+
+  // Cambiar de página
+  const handlePageChangeProduct = (pageNumber) => {
+    setCurrentPageProduct(pageNumber);
+  };
+
   
   useEffect(() => {
     // Obtener la lista de productos actualizada
@@ -219,36 +279,6 @@ const handleSetInactiveProduct = async (id) => {
     setProductsTypeFilter(e.target.value);
   };
 
-
- // Filtrar productos basados en el término de búsqueda y en la categoría
-const filteredProducts = productos
-.filter((producto) => 
-  producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  producto.id.toString().includes(searchTerm.toLowerCase()) // Filtrar por ID
-)
-.filter((producto) => {
-  // Permitir todas las categorías si el filtro es 'todos', 
-  // o verificar si el producto pertenece a una de las categorías específicas
-  if (productsTypeFilter === 'todos') return true;
-  return [
-    'Cuidado de la Ropa', 
-    'Hogar y Limpieza', 
-    'Cuidado de Pisos', 
-    'Desinfectantes'
-  ].includes(productsTypeFilter) && producto.categoria === productsTypeFilter;
-});
-  // Calcular el índice del primer y último registro para la página actual
-const indexOfLastRecordProduct = currentPageProduct * recordsPerPage;
-const indexOfFirstRecordProduct = indexOfLastRecordProduct - recordsPerPage;
-
-// Obtener los productos filtrados para la página actual
-const currentRecordsProduct = filteredProducts.slice(indexOfFirstRecordProduct, indexOfLastRecordProduct);
-const totalPagesProduct = Math.ceil(filteredProducts.length / recordsPerPage);
-
-// Cambiar de página
-const handlePageChangeProduct = (pageNumber) => {
-  setCurrentPageProduct(pageNumber);
-};
 
   return (
     <div>
@@ -317,13 +347,15 @@ const handlePageChangeProduct = (pageNumber) => {
                       type="text" className="form-control" id="imagen" value={formData.imagen} onChange={handleInputChange} />
                   </div>
                   <div className="mb-3">
+                  <label className="form-label"> Categoria</label>
+
                     <select
                       className="form-control"
                       id="categoria"
                       value={formData.categoria}
                       onChange={handleInputChange}
                     >
-                      <option value="">Selecciona una categoría</option>
+                      <option selected disabled value="">Selecciona una categoría</option>
                       <option value="Cuidado de la Ropa">Cuidado de la Ropa</option>
                       <option value="Hogar y Limpieza">Hogar y Limpieza</option>
                       <option value="Cuidado de Pisos">Cuidado de Pisos</option>
@@ -388,121 +420,162 @@ const handlePageChangeProduct = (pageNumber) => {
                 </tr>
               </thead>
               <tbody>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product, index) => (
-            <tr key={index}>
-              <td>
-                <img src={product.imagen} alt="producto" style={{ width: '100px', height: 'auto' }} />
-              </td>
-              <td>{index + 1}</td>
-              <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.nombre}
-              </td>
-              <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.descripcion}
-              </td>
-              <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.categoria}
-              </td>
-              <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.composicion}
-              </td>
-              <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.contenido_neto}
-              </td>
-              <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.usos}
-              </td>
-              <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {product.advertencias}
-              </td>
-              <td>{product.cantidad}</td>
-              <td>{product.precio_unitario}</td>
-              <td>{product.estado}</td>
-              <td>
-                <button
-                  type="button"
-                  className="btn-sm"
-                  data-bs-toggle="modal"
-                  style={{ background: 'none', border: 'none' }}
-                  data-bs-target="#registroProductoModal"
-                  onClick={() => handleEditProduct(product)}
-                >
-                  <FontAwesomeIcon icon={faEdit} />
-                </button>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  className="btn-sm"
-                  style={{ background: 'none', border: 'none' }}
-                  onClick={() => handleSetInactiveProduct(product.id)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan="14" className="text-center">No se encontraron productos.</td>
-          </tr>
-        )}
-      </tbody>
+              {currentRecordsProduct.length > 0 ? (
+                currentRecordsProduct.map((product, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img src={product.imagen} alt="producto" style={{ width: '100px', height: 'auto' }} />
+                    </td>
+                    <td>{product.id}</td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.nombre}
+                    </td>
+                    <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.descripcion}
+                    </td>
+                    <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.categoria}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.composicion}
+                    </td>
+                    <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.contenido_neto}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.usos}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.advertencias}
+                    </td>
+                    <td>{product.cantidad}</td>
+                    <td>{product.precio_unitario}</td>
+                    <td>{product.estado}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-sm"
+                        data-bs-toggle="modal"
+                        style={{ background: 'none', border: 'none' }}
+                        data-bs-target="#registroProductoModal"
+                        onClick={() => handleEditProduct(product)}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-sm"
+                        style={{ background: 'none', border: 'none' }}
+                        onClick={() => handleSetInactiveProduct(product.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : filteredProducts.length > 0 ? (
+                filteredProducts.map((product, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img src={product.imagen} alt="producto" style={{ width: '100px', height: 'auto' }} />
+                    </td>
+                    <td>{product.id}</td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.nombre}
+                    </td>
+                    <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.descripcion}
+                    </td>
+                    <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.categoria}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.composicion}
+                    </td>
+                    <td style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.contenido_neto}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.usos}
+                    </td>
+                    <td style={{ maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {product.advertencias}
+                    </td>
+                    <td>{product.cantidad}</td>
+                    <td>{product.precio_unitario}</td>
+                    <td>{product.estado}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-sm"
+                        data-bs-toggle="modal"
+                        style={{ background: 'none', border: 'none' }}
+                        data-bs-target="#registroProductoModal"
+                        onClick={() => handleEditProduct(product)}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-sm"
+                        style={{ background: 'none', border: 'none' }}
+                        onClick={() => handleSetInactiveProduct(product.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="14" className="text-center">No se encontraron productos.</td>
+                </tr>
+              )}
+            </tbody>
+
+
             </table>
           </div>
         </div>
       </div>
       {/* Paginación */}
-<div className="d-flex justify-content-center mt-4">
-  <nav>
-    <ul className="pagination">
-      <li
-        className={`paginate_button page-item ${
-          currentPageProduct === 1 ? "disabled" : ""
-        }`}
-      >
-        <Link
-          onClick={() => handlePageChangeProduct(currentPageProduct - 1)}
-          to="#"
-          className="page-link"
-        >
-          Anterior
-        </Link>
-      </li>
-      {[...Array(totalPagesProduct)].map((_, index) => (
-        <li
-          key={index}
-          className={`paginate_button page-item ${
-            currentPageProduct === index + 1 ? "active" : ""
-          }`}
-        >
-          <button
-            onClick={() => handlePageChangeProduct(index + 1)}
-            className="page-link"
-          >
-            {index + 1}
-          </button>
-        </li>
-      ))}
-      <li
-        className={`paginate_button page-item next ${
-          currentPageProduct === totalPagesProduct ? "disabled" : ""
-        }`}
-      >
-        <Link
-          onClick={() => handlePageChangeProduct(currentPageProduct + 1)}
-          to="#"
-          className="page-link"
-        >
-          Siguiente
-        </Link>
-      </li>
-    </ul>
-  </nav>
+      <nav aria-label="Page navigation example">
+            <ul className="pagination justify-content-center">
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChangeProduct(currentPageProduct - 1)}
+                  disabled={currentPageProduct === 1}
+                >
+                  Anterior
+                </button>
+              </li>
+              {Array.from({ length: totalPagesProduct }, (_, index) => (
+                <li key={index + 1} className={`page-item ${currentPageProduct === index + 1 ? 'active' : ''}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChangeProduct(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => handlePageChangeProduct(currentPageProduct + 1)}
+                  disabled={currentPageProduct === totalPagesProduct}
+                >
+                  Siguiente
+                </button>
+              </li>
+            </ul>
+          </nav>
 </div>
-
-    </div>
   );
 };
 

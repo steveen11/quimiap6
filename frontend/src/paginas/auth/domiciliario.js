@@ -6,20 +6,31 @@ import Swal from 'sweetalert2'; // Importa SweetAlert2
 const Domiciliario = () => {
   const [domicilios, setDomicilios] = useState([]);
   const [filtroEntregados, setFiltroEntregados] = useState(false); // Estado para manejar el filtro
+  const [domiciliarioId, setDomiciliarioId] = useState(null); // ID del domiciliario en sesión
+
+  // Obtener el ID del domiciliario en sesión
+  useEffect(() => {
+    const id = sessionStorage.getItem('userId'); // Obtener el ID del domiciliario del sessionStorage
+    setDomiciliarioId(id);
+  }, []);
 
   // Función para obtener domicilios de la API
   const fetchDomicilios = async () => {
     try {
       const response = await axios.get('http://localhost:4000/domicilio');
-      setDomicilios(response.data);
+      // Filtrar domicilios asignados al domiciliario en sesión
+      const domiciliosFiltrados = response.data.filter(domicilio => domicilio.domiciliario_id === domiciliarioId);
+      setDomicilios(domiciliosFiltrados);
     } catch (error) {
       console.error('Error fetching domicilios:', error);
     }
   };
 
   useEffect(() => {
-    fetchDomicilios();
-  }, []);
+    if (domiciliarioId) {
+      fetchDomicilios();
+    }
+  }, [domiciliarioId]);
 
   // Función para actualizar el estado del domicilio
   const confirmarDomicilio = async (domicilioId) => {
@@ -38,7 +49,8 @@ const Domiciliario = () => {
         title: 'Confirmación',
         text: 'Domicilio confirmado como entregado',
         icon: 'success',
-        confirmButtonText: 'Aceptar'
+        timer: 2000,
+        showConfirmButton: false
       });
     } catch (error) {
       console.error('Error updating domicilio:', error);
@@ -47,8 +59,8 @@ const Domiciliario = () => {
       Swal.fire({
         title: 'Error',
         text: 'No se pudo actualizar el estado del domicilio',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
+        timer: 2000,
+        showConfirmButton: false
       });
     }
   };
@@ -83,7 +95,7 @@ const Domiciliario = () => {
             <tr>
               <th>ID domicilio</th>
               <th>Dirección</th>
-              <th>Ciudad</th> {/* Nueva columna para la ciudad */}
+              <th>Ciudad</th>
               <th>Fecha de entrega</th>
               <th>Estado</th>
               <th>Acción</th>
@@ -99,14 +111,14 @@ const Domiciliario = () => {
                 <tr key={domicilio.id}>
                   <td>{domicilio.id}</td>
                   <td>{domicilio.direccion}</td>
-                  <td>{domicilio.ciudad}</td> {/* Mostrar la ciudad */}
+                  <td>{domicilio.ciudad}</td>
                   <td>{domicilio.fecha_entrega}</td>
-                  <td>{domicilio.estado}</td> {/* Mostrar el estado */}
+                  <td>{domicilio.estado}</td>
                   <td>
                     {domicilio.estado !== 'Entregado' && (
                       <button
                         type="button"
-                        className="btn btn-warning btn-sm"
+                        className="btn btn-success btn-sm"
                         onClick={() => confirmarDomicilio(domicilio.id)}
                       >
                         Confirmar

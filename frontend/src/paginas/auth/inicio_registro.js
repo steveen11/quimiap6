@@ -32,7 +32,8 @@ const Inicio_registro = () => {
                 title: 'Registro Exitoso',
                 text: '¡Tu registro se realizó con éxito!',
                 icon: 'success',
-                confirmButtonText: 'Aceptar'
+                timer: 2000,
+                showConfirmButton: false
             });
 
             window.location.href = '/';
@@ -44,7 +45,8 @@ const Inicio_registro = () => {
                 title: 'Error',
                 text: 'Hubo un problema al registrar tu cuenta. Inténtalo de nuevo.',
                 icon: 'error',
-                confirmButtonText: 'Aceptar'
+                timer: 2000,
+                showConfirmButton: false
             });
         }
     };
@@ -211,7 +213,7 @@ const Inicio_registro = () => {
     <div className="contenedor__login-register">
       {/*Login*/}
       <form onSubmit={handleLogin} className="formulario__login">
-        <h2 style={{ marginBottom: '100px' }}>Iniciar Sesión</h2>
+        <h2 style={{ marginBottom: '80px' }}>Iniciar Sesión</h2>
         <input type="email" placeholder="Correo Electronico"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -222,7 +224,7 @@ const Inicio_registro = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
         />
-        <Link to="#"style={{marginTop: 40, display: 'block'}}>¿Olvidaste tu contraseña?</Link>
+        {/* <Link to="#"style={{marginTop: 40, display: 'block'}}>¿Olvidaste tu contraseña?</Link> */}
         <div style={{textAlign: 'right'}}>
           <button type="submit">Ingresar</button>
         </div>

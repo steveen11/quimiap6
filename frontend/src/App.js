@@ -17,6 +17,7 @@ import MisVentas from "./paginas/auth/MisVentas";
 import Inicio_registro from "./paginas/auth/inicio_registro";
 import PrivateRoute from './componentes/PrivateRoute';
 import AccesoDenegado from "./paginas/auth/AcessoDenegado";
+import PerfilPage from "./paginas/auth/perfil";
 
 function App() {
   return (
@@ -31,6 +32,11 @@ function App() {
           <Route path='/usuarios_admin.js' exact element={
             <PrivateRoute allowedRoles={['Gerente']}>
               <UsuariosAdmin />
+            </PrivateRoute>
+          } />
+          <Route path='/perfil.js' exact element={
+            <PrivateRoute allowedRoles={['Cliente']}>
+              <PerfilPage />
             </PrivateRoute>
           } />
           <Route path='/productos.js' exact element={<Productos />} />
@@ -77,6 +83,7 @@ function App() {
           <Route path='/inicio_registro.js' exact element={<Inicio_registro />} />
           {/* Ruta de acceso no autorizado */}
           <Route path="/AccesoDenegado.js" element={<AccesoDenegado />} />
+          
         </Routes>
       </Router>
     </Fragment>

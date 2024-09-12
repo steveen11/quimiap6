@@ -77,7 +77,7 @@ const CarritoPage = () => {
         title: "Inicia sesión o crea una cuenta",
         text: "Debes estar registrado para proceder con el pago.",
         icon: "warning",
-        timer: 3000, // Cerrar automáticamente después de 3 segundos
+        timer: 2000, // Cerrar automáticamente después de 3 segundos
         showConfirmButton: false, // No mostrar botón de confirmación
       }).then(() => {
         navigate("/inicio_registro.js"); // Redirige a la página de inicio de sesión/registro
@@ -124,9 +124,9 @@ const CarritoPage = () => {
                     <td>{producto.nombre}</td>
                     <td>${producto.precio_unitario}</td>
                     <td>
-                      <button onClick={() => disminuirCantidad(producto.id)} className="btn btn-sm btn-danger">-</button>
+                      <button onClick={() => disminuirCantidad(producto.id)} className="btn btn-sm">-</button>
                       <span className="mx-2">{producto.cantidad}</span>
-                      <button onClick={() => aumentarCantidad(producto.id)} className="btn btn-sm btn-success">+</button>
+                      <button onClick={() => aumentarCantidad(producto.id)} className="btn btn-sm ">+</button>
                     </td>
                     <td>
                       <button onClick={() => eliminarProducto(producto.id)} className="btn btn-sm btn-danger">Eliminar</button>

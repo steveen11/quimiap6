@@ -5,24 +5,72 @@ import Header4 from '../../componentes/header4';
 
 const VentasDomiciliario = () => {
   const [ventas, setVentas] = useState([]);
-  const [filteredVentas, setFilteredVentas] = useState([]); // Estado para ventas filtradas
-  const [fechaFiltro, setFechaFiltro] = useState(''); // Estado para la fecha del filtro
-  const [clienteIdFiltro, setClienteIdFiltro] = useState(''); // Estado para el ID del cliente
+  const [productos, setProductos] = useState([]);
+  const [detallesVenta, setDetallesVenta] = useState({});
+  const [domicilios, setDomicilios] = useState([]);
+  const [domiciliarioId, setDomiciliarioId] = useState(null);
+  const [fechaFiltro, setFechaFiltro] = useState('');
+  const [clienteIdFiltro, setClienteIdFiltro] = useState('');
+  const [ventaSeleccionada, setVentaSeleccionada] = useState(null); // Estado para la venta seleccionada
 
-  // Función para obtener VENTAS de la API
+  useEffect(() => {
+    const id = sessionStorage.getItem('userId');
+    setDomiciliarioId(id);
+    fetchDomicilios(id);
+    fetchVentas();
+    fetchProductos();
+  }, []);
+
+  // Función para obtener domicilios de la API
+  const fetchDomicilios = async (domiciliarioId) => {
+    try {
+      const response = await axios.get('http://localhost:4000/domicilio');
+      const domiciliosFiltrados = response.data.filter(domicilio => domicilio.domiciliario_id === domiciliarioId);
+      setDomicilios(domiciliosFiltrados);
+      // Filtrar ventas relacionadas con los domicilios
+      const ventasFiltradas = await Promise.all(domiciliosFiltrados.map(async (domicilio) => {
+        const ventaResponse = await axios.get(`http://localhost:4000/Sales/${domicilio.venta_id}`);
+        return ventaResponse.data;
+      }));
+      setVentas(ventasFiltradas);
+    } catch (error) {
+      console.error('Error fetching domicilios:', error);
+    }
+  };
+
+  // Función para obtener ventas de la API
   const fetchVentas = async () => {
     try {
       const response = await axios.get('http://localhost:4000/Sales');
       setVentas(response.data);
-      setFilteredVentas(response.data); // Inicialmente, mostrar todas las ventas
     } catch (error) {
       console.error('Error fetching ventas:', error);
     }
   };
 
-  useEffect(() => {
-    fetchVentas();
-  }, []);
+  // Función para obtener productos de la API
+  const fetchProductos = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/Products');
+      setProductos(response.data);
+    } catch (error) {
+      console.error('Error fetching productos:', error);
+    }
+  };
+
+  // Función para obtener detalles de venta de la API
+  const fetchDetallesVenta = async (ventaId) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/SaleDetails?venta_id=${ventaId}`);
+      setDetallesVenta(prev => ({
+        ...prev,
+        [ventaId]: response.data
+      }));
+      setVentaSeleccionada(ventaId); // Actualizar la venta seleccionada
+    } catch (error) {
+      console.error('Error fetching sale details:', error);
+    }
+  };
 
   // Función para manejar el cambio en el input de fecha
   const handleFechaChange = (e) => {
@@ -64,7 +112,18 @@ const VentasDomiciliario = () => {
       );
     }
 
-    setFilteredVentas(ventasFiltradas);
+    setVentas(ventasFiltradas);
+  };
+
+  const handleVerDetalles = (ventaId) => {
+    if (ventaId !== ventaSeleccionada) {
+      fetchDetallesVenta(ventaId);
+    }
+  };
+
+  // Función para obtener el nombre del producto y su imagen a partir del id
+  const getProducto = (productoId) => {
+    return productos.find(p => p.id === productoId) || { nombre: 'Desconocido', imagen_url: '' };
   };
 
   return (
@@ -111,25 +170,65 @@ const VentasDomiciliario = () => {
               <tr>
                 <th>ID Venta</th>
                 <th>Fecha Venta</th>
-                <th>Método de Pago</th>
                 <th>Precio Total</th>
-                <th>Estado</th>
                 <th>ID Cliente</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody>
-              {filteredVentas.map((venta) => (
+              {ventas.map((venta) => (
                 <tr key={venta.id}>
                   <td>{venta.id}</td>
                   <td>{venta.fecha_venta}</td>
-                  <td>{venta.metodo_pago}</td>
                   <td>{venta.precio_total}</td>
-                  <td>{venta.estado}</td>
                   <td>{venta.cliente_id}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-success"
+                      onClick={() => handleVerDetalles(venta.id)}
+                    >
+                      Ver Detalles
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          {/* Tabla de detalles de venta */}
+          {ventaSeleccionada && detallesVenta[ventaSeleccionada] && (
+            <section className="container mt-5">
+              <h2>Detalles de Venta</h2>
+              <table className="table table-striped mt-4">
+                <thead>
+                  <tr>
+                    <th>ID Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>Imagen Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {detallesVenta[ventaSeleccionada].map((detalle) => {
+                    const producto = getProducto(detalle.producto_id);
+                    return (
+                      <tr key={detalle.id}>
+                        <td>{detalle.producto_id}</td>
+                        <td>{producto.nombre}</td>
+                        <td>
+                          <img src={producto.imagen} alt={producto.nombre} style={{ width: '80px', height: '80px' }} />
+                        </td>
+                        <td>{detalle.cantidad}</td>
+                        <td>{detalle.precio_unitario}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </section>
+          )}
         </section>
       </div>
     </div>

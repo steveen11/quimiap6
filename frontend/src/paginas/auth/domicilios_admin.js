@@ -6,6 +6,10 @@ import Swal from 'sweetalert2'; // Importa SweetAlert2
 const DomicilioAdmin = () => {
   const [domicilios, setDomicilios] = useState([]);
   const [filtroEntregados, setFiltroEntregados] = useState(false); // Estado para manejar el filtro
+  
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Número de domicilios por página
 
   // Función para obtener domicilios de la API
   const fetchDomicilios = async () => {
@@ -38,7 +42,8 @@ const DomicilioAdmin = () => {
         title: 'Confirmación',
         text: 'Domicilio confirmado como entregado',
         icon: 'success',
-        confirmButtonText: 'Aceptar'
+        timer: 2000,
+        showConfirmButton: false
       });
     } catch (error) {
       console.error('Error updating domicilio:', error);
@@ -48,7 +53,8 @@ const DomicilioAdmin = () => {
         title: 'Error',
         text: 'No se pudo actualizar el estado del domicilio',
         icon: 'error',
-        confirmButtonText: 'Aceptar'
+        timer: 2000,
+        showConfirmButton: false
       });
     }
   };
@@ -56,12 +62,26 @@ const DomicilioAdmin = () => {
   // Función para alternar el filtro de domicilios entregados
   const toggleFiltroEntregados = () => {
     setFiltroEntregados(!filtroEntregados);
+    setCurrentPage(1); // Reiniciar la página actual al cambiar el filtro
   };
 
   // Filtrar los domicilios si el filtro está activado
   const domiciliosFiltrados = filtroEntregados
     ? domicilios.filter(domicilio => domicilio.estado === 'Entregado')
     : domicilios;
+
+  // Función para manejar el cambio de página
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Calcular los datos que se mostrarán en la tabla para la página actual
+  const indexOfLastDomicilio = currentPage * itemsPerPage;
+  const indexOfFirstDomicilio = indexOfLastDomicilio - itemsPerPage;
+  const currentDomicilios = domiciliosFiltrados.slice(indexOfFirstDomicilio, indexOfLastDomicilio);
+
+  // Número total de páginas
+  const totalPages = Math.ceil(domiciliosFiltrados.length / itemsPerPage);
 
   return (
     <div>
@@ -90,12 +110,12 @@ const DomicilioAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {domiciliosFiltrados.length === 0 ? (
+            {currentDomicilios.length === 0 ? (
               <tr>
                 <td colSpan="6">No hay domicilios disponibles.</td>
               </tr>
             ) : (
-              domiciliosFiltrados.map((domicilio) => (
+              currentDomicilios.map((domicilio) => (
                 <tr key={domicilio.id}>
                   <td>{domicilio.id}</td>
                   <td>{domicilio.direccion}</td>
@@ -118,6 +138,25 @@ const DomicilioAdmin = () => {
             )}
           </tbody>
         </table>
+
+        {/* Paginación */}
+        <nav aria-label="Page navigation">
+          <ul className="pagination">
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>Anterior</button>
+            </li>
+            {[...Array(totalPages).keys()].map(number => (
+              <li key={number + 1} className={`page-item ${currentPage === number + 1 ? 'active' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(number + 1)}>
+                  {number + 1}
+                </button>
+              </li>
+            ))}
+            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>Siguiente</button>
+            </li>
+          </ul>
+        </nav>
       </section>
     </div>
   );

@@ -57,7 +57,7 @@
       "tipo_doc": "Pasaporte",
       "num_doc": "1200003093",
       "contrasena": "andres12233094093",
-      "rol": "Cliente",
+      "rol": "domiciliario",
       "estado": "Activo"
     },
     {
@@ -85,16 +85,16 @@
       "estado": "Activo"
     },
     {
-      "id": "2020",
       "nombres": "Narly ",
-      "apellidos": "Sanchez",
+      "apellidos": "Sancheza",
       "telefono": "321827873",
       "correo_electronico": "narly@gmail.com",
       "tipo_doc": "Pasaporte",
       "num_doc": "10302330802",
       "contrasena": "narly123",
       "rol": "Cliente",
-      "estado": "Activo"
+      "estado": "Activo",
+      "id": "2020"
     },
     {
       "id": "9116",
@@ -193,27 +193,51 @@
       "estado": "Activo"
     },
     {
-      "id": "b549",
-      "nombres": "dasdas",
-      "apellidos": "asdasda",
-      "telefono": "",
-      "correo_electronico": "sdasd",
+      "id": "7283",
+      "nombres": "sdsd",
+      "apellidos": "sds",
+      "telefono": "213123132",
+      "correo_electronico": "ssd",
       "tipo_doc": "ti",
-      "num_doc": "132123123",
-      "contrasena": "",
-      "rol": "",
+      "num_doc": "1019605503",
+      "contrasena": "12312312312",
+      "rol": "domiciliario",
       "estado": "Activo"
     },
     {
-      "id": "617d",
-      "nombres": "efsdfds",
-      "apellidos": "fsdfs",
-      "telefono": "",
-      "correo_electronico": "sdfsfsd",
+      "id": "6a27",
+      "nombres": "Paula",
+      "apellidos": "Casallas",
+      "telefono": "3214772314",
+      "correo_electronico": "paula@gmail.com",
+      "tipo_doc": "ti",
+      "num_doc": "1019605503",
+      "contrasena": "paula123",
+      "rol": "domiciliario",
+      "estado": "Inactivo"
+    },
+    {
+      "id": "a4e0",
+      "nombres": "Mario",
+      "apellidos": "Culon",
+      "telefono": "322456879",
+      "correo_electronico": "mario@gmail.com",
       "tipo_doc": "cc",
-      "num_doc": "2131",
-      "contrasena": "",
-      "rol": "",
+      "num_doc": "10196055879",
+      "contrasena": "mario123",
+      "rol": "jefe de produccion",
+      "estado": "Activo"
+    },
+    {
+      "id": "2e0a",
+      "tipo_doc": "tarjeta",
+      "num_doc": "1014789562",
+      "nombres": "julian",
+      "apellidos": "perez",
+      "telefono": "3224576453",
+      "correo_electronico": "julian@gmail.com",
+      "contrasena": "julian123",
+      "rol": "Cliente",
       "estado": "Activo"
     }
   ],
@@ -229,7 +253,7 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 9,
+      "cantidad": "20",
       "estado": "disponible"
     },
     {
@@ -243,7 +267,7 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 18,
+      "cantidad": 15,
       "estado": "disponible"
     },
     {
@@ -257,7 +281,7 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "20",
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -271,7 +295,7 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -285,7 +309,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": 19,
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -299,7 +323,7 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": 18,
+      "cantidad": 16,
       "estado": "disponible"
     },
     {
@@ -313,7 +337,7 @@
       "usos": "Limpieza profunda de superficies grasosas",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "20000",
-      "cantidad": "20",
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -327,7 +351,7 @@
       "usos": "Ambientación y neutralización de olores en espacios cerrados.",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -341,7 +365,7 @@
       "usos": "Remoción de residuos industriales en superficies duras.",
       "advertencias": "Usar con guantes. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -355,7 +379,7 @@
       "usos": "Limpieza de maquinaria y superficies industriales.",
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "29900",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -382,9 +406,23 @@
       "contenido_neto": "1L",
       "usos": "Ideal para limpieza de pisos de cerámica, madera y vinilo. Puede ser utilizado en mopas o paños.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar contacto con los ojos. En caso de contacto, lavar con abundante agua.",
-      "cantidad": 24,
+      "cantidad": 23,
       "precio_unitario": "15000",
       "estado": "disponible"
+    },
+    {
+      "id": "4f73",
+      "nombre": "asdadsasd",
+      "descripcion": "asdasdasd",
+      "imagen": "https://th.bing.com/th/id/R.6fc17f0e85947bd245ac7189a1a9a5a0?rik=asRzbDe7UqlIsA&pid=ImgRaw&r=0",
+      "categoria": "Hogar y Limpieza",
+      "composicion": "Mezcla de surfactantes, agentes limpiadores y desengrasantes.",
+      "contenido_neto": "750ml",
+      "usos": "Limpieza y desengrase de superficies y textiles.",
+      "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
+      "cantidad": "21",
+      "precio_unitario": "33000",
+      "estado": "descontinuado"
     }
   ],
   "Sales": [
@@ -816,6 +854,110 @@
       "id": "889e",
       "fecha_venta": "2024-09-11",
       "metodo_pago": "Efectivo",
+      "precio_total": 33000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "0231",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "cc26",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 264000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "4e3c",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 363000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "53fc",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 20000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "074d",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 20000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "6296",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 35000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "9336",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 25000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "db34",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 15000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "b09d",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 18900,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "177d",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 20000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "9ccd",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 109900,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "f373",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "8cc3",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Transferencia Bancaria",
       "precio_total": 33000,
       "estado": "Completada",
       "cliente_id": "2020"
@@ -1451,6 +1593,132 @@
       "producto_id": "2806",
       "cantidad": 1,
       "precio_unitario": "33000"
+    },
+    {
+      "id": "ba74",
+      "venta_id": "0231",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "9fe0",
+      "venta_id": "cc26",
+      "producto_id": "2806",
+      "cantidad": 8,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "514c",
+      "venta_id": "4e3c",
+      "producto_id": "2806",
+      "cantidad": 11,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "ab36",
+      "venta_id": "53fc",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "2546",
+      "venta_id": "074d",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "6950",
+      "venta_id": "6296",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "4471",
+      "venta_id": "6296",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "752f",
+      "venta_id": "9336",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "251d",
+      "venta_id": "db34",
+      "producto_id": "23fc",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "77b7",
+      "venta_id": "b09d",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "eac3",
+      "venta_id": "177d",
+      "producto_id": "c4d9",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "ca02",
+      "venta_id": "9ccd",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "4064",
+      "venta_id": "9ccd",
+      "producto_id": "a91b",
+      "cantidad": 1,
+      "precio_unitario": "29900"
+    },
+    {
+      "id": "f5c1",
+      "venta_id": "9ccd",
+      "producto_id": "0d7b",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "b1d4",
+      "venta_id": "9ccd",
+      "producto_id": "43b8",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "8fe6",
+      "venta_id": "9ccd",
+      "producto_id": "c4d9",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "829d",
+      "venta_id": "f373",
+      "producto_id": "22ff",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "222b",
+      "venta_id": "8cc3",
+      "producto_id": "22ff",
+      "cantidad": 1,
+      "precio_unitario": "33000"
     }
   ],
   "domicilio": [
@@ -1626,7 +1894,77 @@
       "ciudad": "Medellin",
       "codigo_postal": "101923",
       "fecha_entrega": "2024-09-12",
-      "estado": "Pendiente"
+      "estado": "Entregado"
+    },
+    {
+      "id": "758d",
+      "venta_id": "074d",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-13",
+      "estado": "Entregado",
+      "domiciliario_id": "394b"
+    },
+    {
+      "id": "23c8",
+      "venta_id": "6296",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-17",
+      "estado": "Entregado",
+      "domiciliario_id": "394b"
+    },
+    {
+      "id": "9f70",
+      "venta_id": "9336",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-13",
+      "estado": "Entregado",
+      "domiciliario_id": "9526"
+    },
+    {
+      "id": "ff0f",
+      "venta_id": "db34",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Entregado",
+      "domiciliario_id": "aeaa"
+    },
+    {
+      "id": "6b07",
+      "venta_id": "b09d",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-26",
+      "estado": "Entregado",
+      "domiciliario_id": "a1d4"
+    },
+    {
+      "id": "c6ce",
+      "venta_id": "177d",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-14",
+      "estado": "Entregado",
+      "domiciliario_id": "394b"
+    },
+    {
+      "id": "c21b",
+      "venta_id": "9ccd",
+      "direccion": "calle 1 #43",
+      "ciudad": "Bogota",
+      "codigo_postal": "101923",
+      "fecha_entrega": "2024-09-13",
+      "estado": "Entregado",
+      "domiciliario_id": "9526"
     }
   ]
 }

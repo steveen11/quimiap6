@@ -43,8 +43,8 @@ const UsuariosAdmin = () => {
         title: 'Error!',
         text: 'Error al obtener los usuarios.',
         icon: 'error',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#3085d6',
+        timer: 2000,
+        showConfirmButton: false
       });
     }
   };
@@ -94,7 +94,23 @@ const handleNameKeyPress = (e) => {
   };
 
   // Save user information
+
   const handleSaveUser = async () => {
+    // Validar campos requeridos
+    const requiredFields = ['nombres', 'apellidos', 'telefono', 'correo_electronico', 'tipo_doc', 'num_doc', 'contrasena', 'rol'];
+    const validateForm = requiredFields.every(field => formData[field]);
+  
+    if (!validateForm) {
+      Swal.fire({
+        title: 'Complete todos los campos requeridos',
+        text: 'Por favor, asegúrese de que todos los campos obligatorios estén completos.',
+        icon: 'warning',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      return;
+    }
+  
     if (isEditing && currentUser) {
       Swal.fire({
         title: '¿Desea continuar para guardar los cambios?',
@@ -116,10 +132,10 @@ const handleNameKeyPress = (e) => {
               title: '¡Éxito!',
               text: 'Usuario actualizado exitosamente.',
               icon: 'success',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#3085d6',
+              timer: 2000,
+              showConfirmButton: false
             }).then(() => {
-              navigate('/usuarios_admin');
+              navigate('/usuarios_admin.js');
             });
           } catch (error) {
             console.error('Error updating user:', error);
@@ -127,8 +143,8 @@ const handleNameKeyPress = (e) => {
               title: 'Error!',
               text: 'Error al actualizar el usuario.',
               icon: 'error',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#d33',
+              timer: 2000,
+              showConfirmButton: false
             });
           }
         } else if (result.isDenied) {
@@ -136,10 +152,10 @@ const handleNameKeyPress = (e) => {
             title: 'Cambios no guardados',
             text: 'Los cambios que has hecho no se guardaron.',
             icon: 'info',
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#3085d6',
+            timer: 2000,
+            showConfirmButton: false
           }).then(() => {
-            navigate('/usuarios_admin');
+            navigate('/usuarios_admin.js');
           });
         }
       });
@@ -150,13 +166,13 @@ const handleNameKeyPress = (e) => {
           title: '¡Éxito!',
           text: 'Usuario guardado exitosamente.',
           icon: 'success',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#3085d6',
+          timer: 2000,
+          showConfirmButton: false
         }).then(() => {
           fetchUsers();
           resetForm();
           setIsEditing(false);
-          navigate('/usuarios_admin');
+          navigate('/usuarios_admin.js');
         });
       } catch (error) {
         console.error('Error saving user:', error);
@@ -164,13 +180,12 @@ const handleNameKeyPress = (e) => {
           title: 'Error!',
           text: 'Error al guardar el usuario.',
           icon: 'error',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#d33',
+          timer: 2000,
+          showConfirmButton: false
         });
       }
     }
   };
-
   // Edit user
   const handleEditUser = (user) => {
     setIsEditing(true);
@@ -201,8 +216,8 @@ const handleNameKeyPress = (e) => {
           title: '¡Inactivado!',
           text: 'Usuario marcado como inactivo exitosamente.',
           icon: 'success',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#3085d6',
+          timer: 2000,
+          showConfirmButton: false
         }).then(() => {
           fetchUsers();
         });
@@ -322,6 +337,8 @@ const handleKeyPress = (e) => {
 
 
 
+
+
   return (
     <div>
       <Header2 />
@@ -340,6 +357,7 @@ const handleKeyPress = (e) => {
                 placeholder="Buscar por ID"
                 value={searchTerm}
                 onChange={handleSearchChange}
+                required
               />
               {/* Ícono de filtro */}
               <button
@@ -394,27 +412,27 @@ const handleKeyPress = (e) => {
                         </div>
                     <div className="mb-3">
                       <label htmlFor="num_doc" className="form-label">Nº Identificación</label>
-                      <input type="number" className="form-control" id="num_doc" placeholder="Ingrese Nº Identificación" value={formData.num_doc} onChange={handleInputChange} />
+                      <input type="number" className="form-control" id="num_doc" placeholder="Ingrese Nº Identificación" value={formData.num_doc} onChange={handleInputChange} required />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="nombres" className="form-label">Nombres</label>
-                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} onKeyPress={handleKeyPress} />
+                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} onKeyPress={handleKeyPress} required/>
                     </div>
                     <div className="mb-3">
                       <label htmlFor="apellidos" className="form-label">Apellidos</label>
-                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} onKeyPress={handleKeyPress} />
+                      <input type="text" className="form-control" id="apellidos" placeholder="Ingrese Apellidos" value={formData.apellidos} onChange={handleInputChange} onKeyPress={handleKeyPress}required />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="correo_electronico" className="form-label">Correo Electrónico</label>
-                      <input type="email" className="form-control" id="correo_electronico" placeholder="Ingrese Correo Electrónico" value={formData.correo_electronico} onChange={handleInputChange} />
+                      <input type="email" className="form-control" id="correo_electronico" placeholder="Ingrese Correo Electrónico" value={formData.correo_electronico} onChange={handleInputChange}required />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="telefono" className="form-label">Número Celular</label>
-                      <input type="number" className="form-control" id="telefono" placeholder="Ingrese Número Celular" value={formData.telefono} onChange={handleInputChange} />
+                      <input type="number" className="form-control" id="telefono" placeholder="Ingrese Número Celular" value={formData.telefono} onChange={handleInputChange} required/>
                     </div>
                     <div className="mb-3">
                       <label htmlFor="contrasena" className="form-label">Contraseña</label>
-                      <input type="password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} />
+                      <input type="password" className="form-control" id="contrasena" placeholder="Ingrese Contraseña" value={formData.contrasena} onChange={handleInputChange} required/>
                     </div>
                     <div className="mb-3">
                       <label htmlFor="rol" className="form-label">Rol</label>

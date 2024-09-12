@@ -21,7 +21,7 @@ const VentasCliente = () => {
   const [mostrarDomicilio, setMostrarDomicilio] = useState(false);
 
   const navigate = useNavigate();
-  const clienteId = sessionStorage.getItem('userId') || 'ID_DEL_CLIENTE';
+  const clienteId = sessionStorage.getItem('userId');
   const carritoItems = JSON.parse(localStorage.getItem('carrito')) || [];
 
   useEffect(() => {
@@ -79,14 +79,41 @@ const VentasCliente = () => {
     return true; // Continúa si todos los productos están disponibles
   };
 
+  const asignarDomiciliario = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/Users');
+      const usuarios = response.data;
+      const domiciliariosDisponibles = usuarios.filter(user => user.rol === 'domiciliario');
+  
+      if (domiciliariosDisponibles.length > 0) {
+        // Obtén el índice del próximo domiciliario desde el almacenamiento local
+        let index = parseInt(localStorage.getItem('domiciliarioIndex')) || 0;
+        const domiciliario = domiciliariosDisponibles[index];
+        
+        // Actualiza el índice para la próxima asignación
+        index = (index + 1) % domiciliariosDisponibles.length;
+        localStorage.setItem('domiciliarioIndex', index);
+        
+        return domiciliario.id;
+      } else {
+        throw new Error('No hay domiciliarios disponibles');
+      }
+    } catch (error) {
+      console.error('Error al asignar domiciliario:', error);
+      return null;
+    }
+  };
+  
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     const disponible = await verificarCantidadYRegistrarVenta();
     if (!disponible) {
       return;
     }
-
+  
     const estadoVenta = 'Completada';
     const ventaData = {
       fecha_venta: fechaVenta,
@@ -95,11 +122,11 @@ const VentasCliente = () => {
       estado: estadoVenta,
       cliente_id: clienteId,
     };
-
+  
     try {
       const ventaResponse = await axios.post('http://localhost:4000/Sales', ventaData);
       const ventaId = ventaResponse.data.id;
-
+  
       carrito.forEach(async (producto) => {
         const detalleData = {
           venta_id: ventaId,
@@ -110,23 +137,36 @@ const VentasCliente = () => {
         await axios.post('http://localhost:4000/SaleDetails', detalleData);
         await actualizarCantidadProducto(producto.id, producto.cantidad);
       });
-
+  
       if (mostrarDomicilio) {
+        const domiciliarioId = await asignarDomiciliario();
+        if (!domiciliarioId) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo asignar un domiciliario.',
+          });
+          return;
+        }
+  
         const domicilioData = {
           venta_id: ventaId,
           direccion: domicilio.direccion,
           ciudad: domicilio.ciudad,
           codigo_postal: domicilio.codigo_postal,
           fecha_entrega: domicilio.fecha_entrega,
-          estado: 'Pendiente' // Estado del domicilio por defecto
+          estado: 'Pendiente',
+          domiciliario_id: domiciliarioId // Asignar el domiciliario aquí
         };
         await axios.post('http://localhost:4000/domicilio', domicilioData);
       }
-
+  
       Swal.fire({
         icon: 'success',
         title: 'Venta registrada con éxito',
         text: 'La venta ha sido registrada correctamente.',
+        timer: 2000,
+        showConfirmButton: false
       }).then(() => {
         navigate('/MisVentas.js');
         setMetodoPago('');
@@ -136,7 +176,8 @@ const VentasCliente = () => {
           direccion: '',
           ciudad: '',
           codigo_postal: '',
-          fecha_entrega: ''
+          fecha_entrega: '',
+          domiciliarioId: ''
         });
         setMostrarDomicilio(false);
         localStorage.removeItem('carrito');
@@ -148,10 +189,11 @@ const VentasCliente = () => {
         icon: 'error',
         title: 'Error',
         text: 'Hubo un problema al registrar la venta. Inténtelo de nuevo.',
+        timer: 2000,
+        showConfirmButton: false
       });
     }
   };
-
   const calcularTotal = () => {
     return carrito.reduce((total, producto) => total + (producto.precio_unitario * producto.cantidad), 0);
   };
