@@ -86,7 +86,7 @@
     },
     {
       "nombres": "Narly ",
-      "apellidos": "Sancheza",
+      "apellidos": "Sanchez",
       "telefono": "321827873",
       "correo_electronico": "narly@gmail.com",
       "tipo_doc": "Pasaporte",
@@ -239,6 +239,30 @@
       "contrasena": "julian123",
       "rol": "Cliente",
       "estado": "Activo"
+    },
+    {
+      "id": "6070",
+      "tipo_doc": "dni",
+      "num_doc": "1681763761",
+      "nombres": "andres",
+      "apellidos": "lopez",
+      "telefono": "31276736",
+      "correo_electronico": "andres@gmail.com",
+      "contrasena": "andres123",
+      "rol": "Cliente",
+      "estado": "Activo"
+    },
+    {
+      "id": "54ef",
+      "tipo_doc": "cedula",
+      "num_doc": "9876544343",
+      "nombres": "nana",
+      "apellidos": "Sanchez",
+      "telefono": "23145677888",
+      "correo_electronico": "ns@gmail.com",
+      "contrasena": "12345678",
+      "rol": "Cliente",
+      "estado": "Activo"
     }
   ],
   "Products": [
@@ -253,7 +277,7 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "20",
+      "cantidad": "40",
       "estado": "disponible"
     },
     {
@@ -323,7 +347,7 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": 16,
+      "cantidad": 14,
       "estado": "disponible"
     },
     {
@@ -393,7 +417,7 @@
       "usos": "Gran limpieza en casa",
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "10500",
-      "cantidad": "20",
+      "cantidad": 19,
       "estado": "disponible"
     },
     {
@@ -961,6 +985,22 @@
       "precio_total": 33000,
       "estado": "Completada",
       "cliente_id": "2020"
+    },
+    {
+      "id": "a379",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 66000,
+      "estado": "Completada",
+      "cliente_id": "2020"
+    },
+    {
+      "id": "8e92",
+      "fecha_venta": "2024-09-12",
+      "metodo_pago": "Efectivo",
+      "precio_total": 654500,
+      "estado": "Completada",
+      "cliente_id": "54ef"
     }
   ],
   "SaleDetails": [
@@ -1719,6 +1759,34 @@
       "producto_id": "22ff",
       "cantidad": 1,
       "precio_unitario": "33000"
+    },
+    {
+      "id": "4ace",
+      "venta_id": "a379",
+      "producto_id": "2806",
+      "cantidad": 2,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "86d2",
+      "venta_id": "8e92",
+      "producto_id": "2806",
+      "cantidad": 18,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "563a",
+      "venta_id": "8e92",
+      "producto_id": "fcfd",
+      "cantidad": 2,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "704d",
+      "venta_id": "8e92",
+      "producto_id": "42df",
+      "cantidad": 1,
+      "precio_unitario": "10500"
     }
   ],
   "domicilio": [
@@ -1964,6 +2032,26 @@
       "codigo_postal": "101923",
       "fecha_entrega": "2024-09-13",
       "estado": "Entregado",
+      "domiciliario_id": "9526"
+    },
+    {
+      "id": "87ca",
+      "venta_id": "a379",
+      "direccion": "cra99#157-43",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-13",
+      "estado": "Entregado",
+      "domiciliario_id": "394b"
+    },
+    {
+      "id": "ff69",
+      "venta_id": "8e92",
+      "direccion": "cll 80",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-13",
+      "estado": "Pendiente",
       "domiciliario_id": "9526"
     }
   ]
