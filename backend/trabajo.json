@@ -263,6 +263,54 @@
       "contrasena": "12345678",
       "rol": "Cliente",
       "estado": "Activo"
+    },
+    {
+      "id": "697f",
+      "tipo_doc": "pasaporte",
+      "num_doc": "1081399564",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "lauraA@gmail.om",
+      "contrasena": "Laura12345@",
+      "rol": "Cliente",
+      "estado": "Activo"
+    },
+    {
+      "id": "6a2f",
+      "tipo_doc": "pasaporte",
+      "num_doc": "1081399564",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "lauaaaaaaaaaaa@gmail.com",
+      "contrasena": "Lau12345@",
+      "rol": "Cliente",
+      "estado": "Activo"
+    },
+    {
+      "id": "f534",
+      "tipo_doc": "pasaporte",
+      "num_doc": "1081399564",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "lauraalbarracin553@gmail.com",
+      "contrasena": "Lau123456@",
+      "rol": "Cliente",
+      "estado": "Activo"
+    },
+    {
+      "id": "a264",
+      "tipo_doc": "pasaporte",
+      "num_doc": "19198128",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "laura@gmail.om",
+      "contrasena": "Lau12345@",
+      "rol": "Cliente",
+      "estado": "Pendiente"
     }
   ],
   "Products": [

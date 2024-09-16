@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/inicio_registro.css';
 import Header from "../../componentes/header1";
 import Footer from "../../componentes/footer";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -16,7 +16,7 @@ const Inicio_registro = () => {
         correo_electronico: '',
         contrasena: '',
         rol: 'Cliente',
-        estado: 'Activo'
+        estado: 'No verificado'
     });
     const [showPassword, setShowPassword] = useState(false);
     const [phoneError, setPhoneError] = useState('');
@@ -49,7 +49,7 @@ const Inicio_registro = () => {
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault();
-
+    
         if (phoneError || passwordError || passwordLengthError) {
             Swal.fire({
                 title: 'Error',
@@ -60,23 +60,37 @@ const Inicio_registro = () => {
             });
             return;
         }
-
+    
         try {
-            const response = await axios.post("http://localhost:4000/Users", formData);
-
+            // Primero, enviar la información del registro a la API existente
+            const response = await axios.post("http://localhost:4000/Users", {
+                ...formData,
+                estado: "Pendiente" // Cambia el estado a pendiente
+            });
+    
+            // Mostrar mensaje de éxito tras el registro
             await Swal.fire({
-                title: 'Registro Exitoso',
-                text: '¡Tu registro se realizó con éxito!',
-                icon: 'success',
+                title: 'Revisa tu correo electrónico',
+                text: 'Para activar tu cuenta.',
+                icon: 'info',
                 timer: 2000,
                 showConfirmButton: false
             });
-
-            window.location.href = '/';
-
+    
+            // Ahora, enviar el correo de verificación al servidor de correos en el puerto 5000
+            const verificationResponse = await axios.post('http://localhost:5000/enviar-verificacion', {
+                correo_electronico: formData.correo_electronico, // Cambiar 'para' por 'correo_electronico'
+                id: response.data.id // Suponiendo que el id del usuario se devuelve en la respuesta
+                // Puedes incluir un token de verificación aquí
+            });
+    
+            console.log('Correo de verificación enviado:', verificationResponse.data);
+    
+            
+    
         } catch (error) {
             console.error("Error al enviar los datos:", error);
-
+    
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un problema al registrar tu cuenta. Inténtalo de nuevo.',
@@ -86,6 +100,8 @@ const Inicio_registro = () => {
             });
         }
     };
+    
+    
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -162,27 +178,32 @@ const Inicio_registro = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            // Realizar una solicitud GET a la API para obtener los usuarios
             const response = await axios.get("http://localhost:4000/Users", {
                 params: {
                     correo_electronico: email,
                     contrasena: password,
                 },
             });
-
+    
+            // Encontrar el usuario que coincide con el correo y contraseña proporcionados
             const user = response.data.find(
                 (u) => u.correo_electronico === email &&
                        u.contrasena === password
             );
-
+    
             if (user) {
+                // Verificar el estado del usuario
                 if (user.estado === "Activo") {
+                    // Guardar datos del usuario en sessionStorage
                     sessionStorage.setItem("isAuthenticated", "true");
                     sessionStorage.setItem("userRole", user.rol);
                     sessionStorage.setItem("userName", user.nombres);
                     sessionStorage.setItem("userId", user.id);
                     setIsAuthenticated(true);
                     setUserName(user.nombres);
-
+    
+                    // Mostrar alerta de inicio de sesión exitoso
                     await Swal.fire({
                         title: 'Inicio de sesión exitoso',
                         text: `Bienvenid@, ${user.nombres}!`,
@@ -190,34 +211,46 @@ const Inicio_registro = () => {
                         timer: 2000,
                         showConfirmButton: false
                     });
-
+    
+                    // Navegar según el rol del usuario
                     switch (user.rol.toLowerCase()) {
                         case "cliente":
                             navigate("/");
                             break;
                         case "jefe de produccion":
-                            navigate("/jf_produccion.js");
+                            navigate("/jf_produccion");
                             break;
                         case "domiciliario":
-                            navigate("/domiciliario.js");
+                            navigate("/domiciliario");
                             break;
                         case "gerente":
-                            navigate("/usuarios_admin.js");
+                            navigate("/usuarios_admin");
                             break;
                         default:
                             navigate("/");
                     }
-                } else {
-                    Swal.fire({
-                        title: 'Usuario no disponible',
-                        text: 'Tu cuenta no está activa. Por favor, contacta a soporte.',
+                } else if (user.estado === "Pendiente") {
+                    // Mostrar alerta si el usuario está pendiente
+                    await Swal.fire({
+                        title: 'Cuenta Pendiente',
+                        text: 'Tu cuenta está pendiente de verificación. Por favor, revisa tu correo electrónico para completar la verificación.',
+                        icon: 'info',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                } else if (user.estado === "Inactivo") {
+                    // Mostrar alerta si el usuario está inactivo
+                    await Swal.fire({
+                        title: 'Cuenta Inactiva',
+                        text: 'Tu cuenta está inactiva. Por favor, contacta a soporte.',
                         icon: 'warning',
                         timer: 2000,
                         showConfirmButton: false
                     });
                 }
             } else {
-                Swal.fire({
+                // Mostrar alerta si el correo o la contraseña son incorrectos
+                await Swal.fire({
                     title: 'Error',
                     text: 'Correo o contraseña incorrectos',
                     icon: 'error',
@@ -226,8 +259,9 @@ const Inicio_registro = () => {
                 });
             }
         } catch (error) {
+            // Mostrar alerta si ocurre un error durante la solicitud
             console.error("Error durante el inicio de sesión:", error);
-            Swal.fire({
+            await Swal.fire({
                 title: 'Error',
                 text: 'Ocurrió un error durante el inicio de sesión. Por favor, intente nuevamente.',
                 icon: 'error',
@@ -236,7 +270,7 @@ const Inicio_registro = () => {
             });
         }
     };
-
+    
     return (
         <div className="registro-container">
             <Header/>
