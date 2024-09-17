@@ -108,7 +108,7 @@
   }
   .contenedor__login-register form input{
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
     padding: 10px;
     border: none;
     background: #F2F2F2;
@@ -138,17 +138,7 @@
     justify-content: center; /* Centra los elementos horizontalmente */
   }
   
-  /* Ajusta el tamaño del campo de tipo de documento */
-  .genero{
-    width: 100%; /* Ajusta el tamaño del campo de selección */
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    background: #F2F2F2;
-    font-size: 16px;
-    outline: none;
-    border-radius: 10px;
-  }
+
   .tipoDoc{
     width: 120px; /* Ajusta el tamaño del campo de selección */
     margin-top: 20px;
@@ -168,6 +158,7 @@
     margin-left: 10px;
   }
   
+
   .formulario__login{
     opacity: 1;
     display: block;
@@ -273,4 +264,9 @@
 /* Ajuste para que el ícono no tenga un color verde si estaba heredando estilos */
 .input-container .btn-toggle-visibility i:hover {
     color: #333; /* Color del ícono al pasar el ratón */
+}
+
+
+label{
+  font-weight: bold;
 }

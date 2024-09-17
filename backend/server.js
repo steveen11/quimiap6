@@ -46,8 +46,8 @@ const upload = multer({ storage: storage });
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "jeissuvan@gmail.com",
-        pass: "sjfkulqlgqihvwif", // Asegúrate de usar una contraseña de aplicación si usas Gmail
+        user: "quimiap.1999.quimicos@gmail.com",
+        pass: "uettpjslaztybwct", // Asegúrate de usar una contraseña de aplicación si usas Gmail
     },
 });
 

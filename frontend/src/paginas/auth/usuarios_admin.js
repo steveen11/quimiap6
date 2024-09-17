@@ -93,7 +93,7 @@ const handleNameKeyPress = (e) => {
     });
   };
 
-  // Save user information
+  // registro de usuarios admin
 
   const handleSaveUser = async () => {
     // Validar campos requeridos
@@ -113,79 +113,91 @@ const handleNameKeyPress = (e) => {
   
     if (isEditing && currentUser) {
       Swal.fire({
-        title: '¿Desea continuar para guardar los cambios?',
-        icon: 'warning',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-        denyButtonText: 'No Guardar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#3085d6',
+          title: '¿Desea continuar para guardar los cambios?',
+          icon: 'warning',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'Guardar',
+          denyButtonText: 'No Guardar',
+          cancelButtonText: 'Cancelar',
+          confirmButtonColor: '#3085d6',
       }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            await axios.put(`http://localhost:4000/Users/${currentUser.id}`, formData);
-            fetchUsers();
-            resetForm();
-            setIsEditing(false);
-            Swal.fire({
-              title: '¡Éxito!',
-              text: 'Usuario actualizado exitosamente.',
-              icon: 'success',
+          if (result.isConfirmed) {
+              try {
+                  await axios.put(`http://localhost:4000/Users/${currentUser.id}`, formData);
+                  fetchUsers();
+                  resetForm();
+                  setIsEditing(false);
+                  Swal.fire({
+                      title: '¡Éxito!',
+                      text: 'Usuario actualizado exitosamente.',
+                      icon: 'success',
+                      timer: 2000,
+                      showConfirmButton: false
+                  }).then(() => {
+                      navigate('/usuarios_admin.js');
+                  });
+              } catch (error) {
+                  console.error('Error updating user:', error);
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'Error al actualizar el usuario.',
+                      icon: 'error',
+                      timer: 2000,
+                      showConfirmButton: false
+                  });
+              }
+          } else if (result.isDenied) {
+              Swal.fire({
+                  title: 'Cambios no guardados',
+                  text: 'Los cambios que has hecho no se guardaron.',
+                  icon: 'info',
+                  timer: 2000,
+                  showConfirmButton: false
+              }).then(() => {
+                  navigate('/usuarios_admin.js');
+              });
+          }
+      });
+  } else {
+      try {
+          // Registrar al usuario con estado "Pendiente"
+          const response = await axios.post('http://localhost:4000/Users', {
+              ...formData,
+              estado: 'Pendiente' // Cambia el estado a pendiente
+          });
+
+          // Mostrar mensaje de éxito tras el registro
+          await Swal.fire({
+              title: 'Revisa tu correo electrónico',
+              text: 'Para activar tu cuenta.',
+              icon: 'info',
               timer: 2000,
               showConfirmButton: false
-            }).then(() => {
-              navigate('/usuarios_admin.js');
-            });
-          } catch (error) {
-            console.error('Error updating user:', error);
-            Swal.fire({
+          });
+
+          // Ahora, enviar el correo de verificación al servidor de correos en el puerto 5000
+          const verificationResponse = await axios.post('http://localhost:5000/enviar-verificacion', {
+            correo_electronico: formData.correo_electronico, // Cambiar 'para' por 'correo_electronico'
+            id: response.data.id // Suponiendo que el id del usuario se devuelve en la respuesta
+            // Puedes incluir un token de verificación aquí
+        });
+
+        console.log('Correo de verificación enviado:', verificationResponse.data);
+
+
+      } catch (error) {
+          console.error('Error saving user:', error);
+          Swal.fire({
               title: 'Error!',
-              text: 'Error al actualizar el usuario.',
+              text: 'Error al guardar el usuario.',
               icon: 'error',
               timer: 2000,
               showConfirmButton: false
-            });
-          }
-        } else if (result.isDenied) {
-          Swal.fire({
-            title: 'Cambios no guardados',
-            text: 'Los cambios que has hecho no se guardaron.',
-            icon: 'info',
-            timer: 2000,
-            showConfirmButton: false
-          }).then(() => {
-            navigate('/usuarios_admin.js');
           });
-        }
-      });
-    } else {
-      try {
-        await axios.post('http://localhost:4000/Users', formData);
-        Swal.fire({
-          title: '¡Éxito!',
-          text: 'Usuario guardado exitosamente.',
-          icon: 'success',
-          timer: 2000,
-          showConfirmButton: false
-        }).then(() => {
-          fetchUsers();
-          resetForm();
-          setIsEditing(false);
-          navigate('/usuarios_admin.js');
-        });
-      } catch (error) {
-        console.error('Error saving user:', error);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Error al guardar el usuario.',
-          icon: 'error',
-          timer: 2000,
-          showConfirmButton: false
-        });
       }
-    }
-  };
+  }
+};
   // Edit user
   const handleEditUser = (user) => {
     setIsEditing(true);
@@ -334,11 +346,6 @@ const handleKeyPress = (e) => {
       </div>
     );
   };
-
-
-
-
-
   return (
     <div>
       <Header2 />
@@ -416,7 +423,7 @@ const handleKeyPress = (e) => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="nombres" className="form-label">Nombres</label>
-                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} onKeyPress={handleKeyPress} required/>
+                      <input type="text" className="form-control" id="nombres" placeholder="Ingrese Nombres" value={formData.nombres} onChange={handleInputChange} onKeyPress={handleNameKeyPress} required/>
                     </div>
                     <div className="mb-3">
                       <label htmlFor="apellidos" className="form-label">Apellidos</label>
