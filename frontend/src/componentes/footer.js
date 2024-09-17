@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import '../styles/footer_styles.css';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear(); // Obtiene el año actual
     return(
 <div>
 <footer className="bg-success text-white pt-5">
@@ -52,8 +53,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center mt-4">
-      <p>&copy; 2024 QUIMIAP S.A.S. Todos los derechos reservados. NIT 800.149.695-1</p>
-      </div>
+        <p>&copy; {currentYear} QUIMIAP S.A.S. Todos los derechos reservados. NIT 800.149.695-1</p>
+    </div>
     </div>
   </footer>
     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/inicio_registro.css';
 import Header from "../../componentes/header1";
 import Footer from "../../componentes/footer";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -16,7 +16,7 @@ const Inicio_registro = () => {
         correo_electronico: '',
         contrasena: '',
         rol: 'Cliente',
-        estado: 'No verificado'
+        estado: 'Pendiente'
     });
     const [showPassword, setShowPassword] = useState(false);
     const [phoneError, setPhoneError] = useState('');
@@ -82,7 +82,7 @@ const Inicio_registro = () => {
             // Ahora, enviar el correo de verificación al servidor de correos en el puerto 5000
             const verificationResponse = await axios.post('http://localhost:5000/enviar-verificacion', {
                 correo_electronico: formData.correo_electronico, // Cambiar 'para' por 'correo_electronico'
-                id:formData.num_doc // Suponiendo que el id del usuario se devuelve en la respuesta
+                id:response.data.id // Suponiendo que el id del usuario se devuelve en la respuesta
                 // Puedes incluir un token de verificación aquí
             });
     
@@ -314,7 +314,7 @@ const Inicio_registro = () => {
         const { value } = event.target;
 
         // Lógica para cédula (10 dígitos solo numéricos) y tarjeta (10 dígitos solo numéricos)
-        if ((formData.tipo_doc === "cedula" || formData.tipo_doc === "tarjeta") && /^[0-9]{0,10}$/.test(value)) {
+        if ((formData.tipo_doc === "cedula de ciudadania" || formData.tipo_doc === "tarjeta de identidad") && /^[0-9]{0,10}$/.test(value)) {
             setFormData((prevData) => ({ ...prevData, num_doc: value }));
         } 
         // Lógica para cédula de extranjería (10-12 caracteres alfanuméricos)
@@ -322,8 +322,67 @@ const Inicio_registro = () => {
             setFormData((prevData) => ({ ...prevData, num_doc: value }));
         }
     };
-    
-    
+
+    //solicitar correo en olvisdate tu contraseña:
+    const handleForgotPasswordClick = async () => {
+    // Mostrar alerta para que el usuario ingrese su correo
+    const { value: email } = await Swal.fire({
+        title: 'Recuperar contraseña',
+        input: 'email',
+        inputLabel: 'Por favor ingresa tu correo electrónico para recuperar la contraseña:',
+        inputPlaceholder: 'correo@ejemplo.com',
+        showCancelButton: true,
+        confirmButtonText: 'Enviar',
+        cancelButtonText: 'Cancelar',
+        inputValidator: (value) => {
+            if (!value) {
+                return 'Debes ingresar un correo electrónico';
+            }
+        }
+    });
+
+    if (email) {
+        try {
+            // Enviar petición al backend con el correo ingresado
+            const response = await fetch('http://localhost:5000/enviar-restablecer-contrasena', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ correo_electronico: email })
+            });
+
+            if (response.ok) {
+                // Mostrar alerta de éxito sin redirigir
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Correo enviado',
+                    text: 'Se ha enviado un link de recuperación a tu correo electrónico.',
+                    timer: 1000, // Tiempo de cierre automático en milisegundos
+                    showConfirmButton: false // Ocultar botón de confirmación para no hacer clic
+                });
+            } else {
+                // Mostrar alerta de error sin redirigir
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un error al enviar el correo.',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al intentar enviar el correo.',
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }
+    }
+};
     return (
         <div className="registro-container">
             <Header/>
@@ -365,6 +424,7 @@ const Inicio_registro = () => {
                             <div className="input-container">
                                 <input 
                                     type={showPassword ? "text" : "password"}
+                                    placeholder="Ingresa la contraseña"
                                     name="contrasena"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -374,6 +434,14 @@ const Inicio_registro = () => {
                                 <button type="button" className="btn-toggle-visibility" onClick={togglePassword}>
                                     <i className={showPassword ? "bi bi-eye-slash" : "bi bi-eye"} />
                                 </button>
+                            </div>
+                            <div style={{ marginTop: '20px', textAlign: 'left' }}>
+                                <Link to="#" 
+                                style={{ color: '#28a745', textDecoration: 'none' }}
+                                onClick={handleForgotPasswordClick}
+                                >
+                                    ¿Olvidaste tu contraseña?
+                                </Link>
                             </div>
                             <div style={{textAlign: 'right'}}>
                                 <button type="submit">Ingresar</button>
@@ -393,8 +461,8 @@ const Inicio_registro = () => {
                             >
                                 <option value="" disabled>Tipo Documento</option>
                                 <option value="cedula extranjeria">CE</option>
-                                <option value="tarjeta">TI</option>
-                                <option value="cedula">CC</option>
+                                <option value="tarjeta de identidad">TI</option>
+                                <option value="cedula de ciudadania">CC</option>
                             </select>
 
                             <input 
@@ -455,6 +523,7 @@ const Inicio_registro = () => {
                             <div className="input-container">
                                 <input 
                                 type={showPassword ? "text" : "password"}
+                                placeholder="Ingrese una contraseña" 
                                 name="contrasena"
                                 value={formData.contrasena}
                                 onChange={handleChange}

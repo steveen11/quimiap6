@@ -65,13 +65,13 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
         <div className="container d-flex justify-content-between align-items-center py-3">
           {/* Logo */}
           <div className="header-logo-container">
-            <a href="/">
+            <Link to="/">
               <img
                 src="/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png"
                 alt="Logo"
                 className="header-logo me-4"
               />
-            </a>
+            </Link>
           </div>
           {/* Botón de opciones */}
           <div className="d-flex align-items-center">

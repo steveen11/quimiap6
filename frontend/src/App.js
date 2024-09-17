@@ -19,7 +19,6 @@ import PrivateRoute from './componentes/PrivateRoute';
 import AccesoDenegado from "./paginas/auth/AcessoDenegado";
 import PerfilPage from "./paginas/auth/perfil";
 
-
 function App() {
   return (
     <Fragment>
@@ -30,7 +29,11 @@ function App() {
           <Route path='/contactanos.js' exact element={<Contacto />} />
           
           {/* Rutas protegidas */}
-          <Route path='/usuarios_admin.js' exact element={<UsuariosAdmin />} />
+          <Route path='/usuarios_admin.js' exact element={
+            <PrivateRoute allowedRoles={['Gerente']}>
+              <UsuariosAdmin />
+            </PrivateRoute>
+          } />
           <Route path='/perfil.js' exact element={
             <PrivateRoute allowedRoles={['Cliente']}>
               <PerfilPage />

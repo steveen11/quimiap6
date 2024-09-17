@@ -67,14 +67,32 @@ app.post("/enviar-verificacion", (req, res) => {
     const verificationLink = `http://localhost:5000/verificar-correo/${id}`;
     
     const verificationMailOptions = {
-        from: "jeissuvan@gmail.com",
+        from: "quimiap.1999.quimicos@gmail.com",
         to: correo_electronico,
         subject: "Verificación de correo",
         html: `
-            <p>Hola, gracias por registrarte. Por favor verifica tu correo haciendo clic en el siguiente botón:</p>
-            <a href="${verificationLink}" style="display:inline-block;padding:10px 20px;font-size:16px;color:#fff;background-color:#007bff;border-radius:5px;text-decoration:none;">Verificar correo</a>
-            <p>O puedes copiar y pegar el siguiente enlace en tu navegador:</p>
-            <p>${verificationLink}</p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                <!-- Logo de la empresa -->
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="../public/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png" alt="Logo Quimiap" style="max-width: 150px;">
+                </div>
+                
+                <!-- Mensaje principal -->
+                <h2 style="color: #28a745; text-align: center;">¡Gracias por registrarte en Quimiap!</h2>
+                <p style="color: #555; font-size: 16px; text-align: center;">Por favor verifica tu correo haciendo clic en el botón de abajo:</p>
+                
+                <!-- Botón de verificación -->
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="${verificationLink}" style="display: inline-block; padding: 12px 24px; font-size: 18px; color: #fff; background-color: #28a745; border-radius: 6px; text-decoration: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Verificar correo</a>
+                </div>
+                
+                <!-- Enlace alternativo -->
+                <p style="color: #777; font-size: 14px; text-align: center;">Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
+                <p style="word-break: break-all; text-align: center; background-color: #f1f1f1; padding: 10px; border-radius: 5px; color: #007bff;">${verificationLink}</p>
+                
+                <!-- Pie de página -->
+                <p style="text-align: center; font-size: 12px; color: #888; margin-top: 20px;">© 2024 Quimiap. Todos los derechos reservados.</p>
+            </div>
         `,
     };
 
@@ -132,7 +150,313 @@ app.get("/verificar-correo/:id", (req, res) => {
                 return res.status(500).send("Error al guardar los cambios.");
             }
 
-            res.send("Correo verificado exitosamente.");
+            res.send(`
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Correo Verificado</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background-color: #f0f9ff;
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                        }
+                        .container {
+                            background-color: #fff;
+                            padding: 40px;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                            text-align: center;
+                        }
+                        h1 {
+                            color: #28a745;
+                            font-size: 36px;
+                            margin-bottom: 10px;
+                        }
+                        p {
+                            font-size: 18px;
+                            color: #555;
+                            margin-bottom: 30px;
+                        }
+                        .button {
+                            display: inline-block;
+                            padding: 12px 24px;
+                            font-size: 18px;
+                            color: #fff;
+                            background-color: #007bff;
+                            border-radius: 6px;
+                            text-decoration: none;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                            transition: background-color 0.3s ease;
+                        }
+                        .button:hover {
+                            background-color: #0056b3;
+                        }
+                        img {
+                            max-width: 150px;
+                            margin-bottom: 20px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <!-- Logo de la empresa -->
+                        <img src="http://localhost:3000/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png" alt="Logo Quimiap">
+        
+                        <!-- Mensaje de verificación -->
+                        <h1>¡Correo Verificado!</h1>
+                        <p>Gracias por verificar tu correo electrónico. Ahora tu cuenta está activa.</p>
+        
+                        <!-- Botón para ir al inicio -->
+                        <a href="http://localhost:3000/inicio_registro.js" class="button">Ir al Inicio</a>
+                    </div>  
+                </body>
+                </html>
+            `);
+        });
+    });
+    
+});
+// restablecer la contraseña:
+// Ruta para enviar el correo de restablecimiento de contraseña
+app.post("/enviar-restablecer-contrasena", (req, res) => {
+    const { correo_electronico } = req.body;
+
+    // Aquí puedes agregar la lógica para verificar si el correo existe en tu base de datos.
+    // Si el correo es válido, genera un enlace de restablecimiento.
+    
+    const resetPasswordLink = `http://localhost:5000/restablecer-contrasena/${correo_electronico}`;
+    
+    const resetPasswordMailOptions = {
+        from: "quimiap.1999.quimicos@gmail.com",
+        to: correo_electronico,
+        subject: "Restablecer contraseña",
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                <h2 style="color: #28a745; text-align: center;">Solicitud para restablecer tu contraseña</h2>
+                <p style="color: #555; font-size: 16px; text-align: center;">Haz clic en el botón de abajo para restablecer tu contraseña:</p>
+                
+                <!-- Botón de restablecimiento -->
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="${resetPasswordLink}" style="display: inline-block; padding: 12px 24px; font-size: 18px; color: #fff; background-color: #28a745; border-radius: 6px; text-decoration: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Restablecer contraseña</a>
+                </div>
+                
+                <!-- Enlace alternativo -->
+                <p style="color: #777; font-size: 14px; text-align: center;">Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
+                <p style="word-break: break-all; text-align: center; background-color: #f1f1f1; padding: 10px; border-radius: 5px; color: #007bff;">${resetPasswordLink}</p>
+            </div>
+        `,
+    };
+
+    transporter.sendMail(resetPasswordMailOptions, (error, info) => {
+        if (error) {
+            console.log("Error al enviar el correo de restablecimiento:", error);
+            return res.status(500).send("Error al enviar el correo de restablecimiento");
+        } else {
+            console.log("Correo de restablecimiento enviado:", info.response);
+            return res.status(200).send("Correo de restablecimiento enviado");
+        }
+    });
+});
+// Ruta para mostrar el formulario de restablecimiento de contraseña
+app.get("/restablecer-contrasena/:correo_electronico", (req, res) => {
+    const { correo_electronico } = req.params;
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Restablecer Contraseña</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f0f9ff;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+                .reset-password-container {
+                    width: 100%;
+                    max-width: 400px;
+                    background-color: #fff;
+                    padding: 40px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    text-align: center;
+                }
+                .logo {
+                    max-width: 100px;
+                    margin-bottom: 20px;
+                }
+                h1 {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                    color: #333;
+                }
+                .error-message {
+                    color: red;
+                    margin: 10px 0;
+                }
+                .success-message {
+                    color: green;
+                    margin: 10px 0;
+                }
+                input[type="password"] {
+                    width: 100%;
+                    padding: 10px;
+                    margin: 10px 0;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+                .submit-btn {
+                    padding: 10px 20px;
+                    border: none;
+                    background-color: #28a745;
+                    color: white;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                .submit-btn:hover {
+                    background-color: #218838;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="reset-password-container">
+                <h1>Restablecer Contraseña</h1>
+                <form action="/actualizar-contrasena" method="POST">
+                    <input
+                        type="hidden"
+                        name="correo_electronico"
+                        value="${correo_electronico}" />
+                    <input
+                        type="password"
+                        name="nueva_contrasena"
+                        placeholder="Nueva contraseña"
+                        required />
+                    <input
+                        type="password"
+                        name="confirmar_contrasena"
+                        placeholder="Confirmar nueva contraseña"
+                        required />
+                    <button type="submit" class="submit-btn">Actualizar Contraseña</button>
+                </form>
+            </div>
+        </body>
+        </html>
+    `);
+});
+
+// Ruta para actualizar la contraseña del usuario
+app.post("/actualizar-contrasena", (req, res) => {
+    const { correo_electronico, nueva_contrasena, confirmar_contrasena } = req.body;
+
+    // Comprobar si las contraseñas coinciden
+    if (nueva_contrasena !== confirmar_contrasena) {
+        return res.status(400).send("Las contraseñas no coinciden.");
+    }
+
+    const filePath = path.join(__dirname, 'trabajo.json');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send("Error al leer el archivo.");
+        }
+
+        const usuariosData = JSON.parse(data);
+        const usuarios = usuariosData.Users;
+
+        const usuarioIndex = usuarios.findIndex(u => u.correo_electronico === correo_electronico);
+        
+        if (usuarioIndex === -1) {
+            return res.status(404).send("Usuario no encontrado.");
+        }
+
+        // Actualiza la contraseña (deberías encriptarla aquí)
+        usuarios[usuarioIndex].contrasena = nueva_contrasena;
+
+        fs.writeFile(filePath, JSON.stringify(usuariosData, null, 2), (err) => {
+            if (err) {
+                return res.status(500).send("Error al guardar los cambios.");
+            }
+
+            // Mensaje de éxito
+            res.send(`
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Contraseña Actualizada</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background-color: #f0f9ff;
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                        }
+                        .message-container {
+                            width: 100%;
+                            max-width: 400px;
+                            background-color: #fff;
+                            padding: 40px;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                            text-align: center;
+                        }
+                        .logo {
+                            max-width: 100px;
+                            margin-bottom: 20px;
+                        }
+                        h1 {
+                            font-size: 24px;
+                            margin-bottom: 20px;
+                            color: #28a745;
+                        }
+                        p {
+                            font-size: 16px;
+                            color: #555;
+                            margin-bottom: 30px;
+                        }
+                        .button {
+                            padding: 12px 24px;
+                            border: none;
+                            background-color: #007bff;
+                            color: white;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            text-decoration: none;
+                            display: inline-block;
+                        }
+                        .button:hover {
+                            background-color: #0056b3;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="message-container">
+                        <h1>¡Contraseña Actualizada!</h1>
+                        <p>Tu contraseña se ha actualizado con éxito.</p>
+                        <a href="http://localhost:3000/inicio_registro.js" class="button">Ir al Inicio</a>
+                    </div>
+                </body>
+                </html>
+            `);
         });
     });
 });
