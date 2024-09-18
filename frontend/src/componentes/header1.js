@@ -125,7 +125,7 @@ const Header = ({ productos, onSearch = () => {} }) =>
                   aria-labelledby="userDropdown"
                 >
                   <li>
-                    <button className="dropdown-item" onClick={() => navigate('/perfil')}> 
+                    <button className="dropdown-item" onClick={() => navigate('/perfil.js')}> 
                       Perfil
                     </button>
                   </li>

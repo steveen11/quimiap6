@@ -29,6 +29,10 @@ const VentasCliente = () => {
       try {
         const response = await axios.get(`http://localhost:4000/Users/${clienteId}`);
         setCliente(response.data);
+        // Cargar los datos del domicilio guardado si existen
+        if (response.data.domicilio) {
+          setDomicilio(response.data.domicilio);
+        }
       } catch (error) {
         console.error('Error al obtener datos del cliente:', error);
       }
@@ -122,7 +126,6 @@ const VentasCliente = () => {
     };
   
     try {
-      // Solo se procede si se puede asignar un domiciliario
       const domiciliarioId = mostrarDomicilio ? await asignarDomiciliario() : null;
       if (mostrarDomicilio && !domiciliarioId) {
         Swal.fire({
@@ -130,14 +133,12 @@ const VentasCliente = () => {
           title: 'Error',
           text: 'No se pudo asignar un domiciliario.',
         });
-        return; // No se registra la venta si no se pudo asignar un domiciliario
+        return;
       }
   
-      // Registrar la venta si no hay errores
       const ventaResponse = await axios.post('http://localhost:4000/Sales', ventaData);
       const ventaId = ventaResponse.data.id;
   
-      // Registrar los detalles de la venta
       for (const producto of carrito) {
         const detalleData = {
           venta_id: ventaId,
@@ -149,18 +150,27 @@ const VentasCliente = () => {
         await actualizarCantidadProducto(producto.id, producto.cantidad);
       }
   
-      // Registrar el domicilio si aplica
       if (mostrarDomicilio) {
         const domicilioData = {
           venta_id: ventaId,
           direccion: domicilio.direccion,
           ciudad: domicilio.ciudad,
           codigo_postal: domicilio.codigo_postal,
-          fecha_entrega: domicilio.fecha_entrega,
+          // Excluye fecha_entrega aquí
           estado: 'Pendiente',
           domiciliario_id: domiciliarioId,
         };
         await axios.post('http://localhost:4000/domicilio', domicilioData);
+  
+        // Guardar el domicilio en el perfil del cliente sin fecha_entrega
+        await axios.put(`http://localhost:4000/Users/${clienteId}`, {
+          ...cliente,
+          domicilio: {
+            direccion: domicilio.direccion,
+            ciudad: domicilio.ciudad,
+            codigo_postal: domicilio.codigo_postal
+          }
+        });
       }
   
       Swal.fire({
@@ -178,8 +188,7 @@ const VentasCliente = () => {
           direccion: '',
           ciudad: '',
           codigo_postal: '',
-          fecha_entrega: '',
-          domiciliarioId: ''
+          fecha_entrega: ''
         });
         setMostrarDomicilio(false);
         localStorage.removeItem('carrito');

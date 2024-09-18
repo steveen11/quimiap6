@@ -20,6 +20,7 @@ import AccesoDenegado from "./paginas/auth/AcessoDenegado";
 import PerfilPage from "./paginas/auth/perfil";
 
 
+
 function App() {
   return (
     <Fragment>
@@ -27,7 +28,7 @@ function App() {
         <Routes>
           <Route path='/' exact element={<Bienvenida />} />
           <Route path='/nosotros.js' exact element={<Nosotros />} />
-          <Route path='/contactanos.js' exact element={<Contacto />} />
+          
           
           {/* Rutas protegidas */}
           <Route path='/usuarios_admin.js' exact element={

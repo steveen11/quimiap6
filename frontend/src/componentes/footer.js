@@ -25,7 +25,7 @@ const Footer = () => {
           </div>
           <div className="d-flex align-items-center">
             <i className="fa-solid fa-envelope me-2" />
-            <p className="mb-0">qumiapContacto@gmail.com</p>
+            <p className="mb-0">Contactanos</p>
           </div>
         </article>          
         </ul>

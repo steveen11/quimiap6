@@ -132,7 +132,7 @@ const VentasAdmin = () => {
                 <th>Método de Pago</th>
                 <th>Precio Total</th>
                 <th>Estado</th>
-                <th>ID Cliente</th>
+                <th>Cliente</th>
               </tr>
             </thead>
             <tbody>

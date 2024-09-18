@@ -55,13 +55,15 @@ const UsuariosAdmin = () => {
 
   // Filtrar usuarios según la búsqueda y el filtro de tipo de usuario
   const filteredUsers = users
-    .filter((user) => user.id.toString().includes(searchTerm))
-    .filter((user) => {
-      if (userTypeFilter === 'UsuariosAdmin') {
-        return user.rol !== 'Cliente';
-      }
-      return userTypeFilter === 'todos' || user.rol === userTypeFilter;
-    });
+  .filter((user) =>  
+    user.num_doc.toString().includes(searchTerm)
+  )
+  .filter((user) => {
+    if (userTypeFilter === 'UsuariosAdmin') {
+      return user.rol !== 'Cliente';
+    }
+    return userTypeFilter === 'todos' || user.rol === userTypeFilter;
+  });
 
   // Calcular el índice del primer y último registro para la página actual
   const indexOfLastRecordUser = currentPageUser * recordsPerPage;
@@ -361,7 +363,7 @@ const handleKeyPress = (e) => {
                 type="text"
                 id="searchInput"
                 className="form-control"
-                placeholder="Buscar por ID"
+                placeholder="Buscar Usuario"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 required

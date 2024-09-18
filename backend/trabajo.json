@@ -35,6 +35,7 @@
       "contrasena": "Samuel123*",
       "rol": "Cliente",
       "estado": "Activo"
+      
     },
     {
       "id": "141a",
@@ -47,6 +48,23 @@
       "contrasena": "Martinez1306*",
       "rol": "Cliente",
       "estado": "Activo"
+    },
+    {
+      "id": "be19",
+      "tipo_doc": "cedula de ciudadania",
+      "num_doc": "1081399564",
+      "nombres": "Dairon Smith",
+      "apellidos": "Chapid Moreno",
+      "telefono": "3202937619",
+      "correo_electronico": "moreno@123",
+      "contrasena": "Dairon123*",
+      "rol": "Cliente",
+      "estado": "Activo",
+      "domicilio": {
+        "direccion": "cr8c#1a26sur",
+        "ciudad": "bogota",
+        "codigo_postal": "110111"
+      }
     }
   ],
   "Products": [
@@ -103,7 +121,7 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 19,
+      "cantidad": 16,
       "estado": "disponible"
     },
     {
@@ -117,7 +135,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": 18,
+      "cantidad": 11,
       "estado": "disponible"
     },
     {
@@ -131,7 +149,7 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": 14,
+      "cantidad": 12,
       "estado": "disponible"
     },
     {
@@ -847,6 +865,62 @@
       "precio_total": 240000,
       "estado": "Completada",
       "cliente_id": "248e"
+    },
+    {
+      "id": "ad02",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33900,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "4d39",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 43900,
+      "estado": "Completada",
+      "cliente_id": "be19"
+    },
+    {
+      "id": "ce53",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33900,
+      "estado": "Completada",
+      "cliente_id": "be19"
+    },
+    {
+      "id": "3795",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 33900,
+      "estado": "Completada",
+      "cliente_id": "be19"
+    },
+    {
+      "id": "0007",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 18900,
+      "estado": "Completada",
+      "cliente_id": "be19"
+    },
+    {
+      "id": "de1f",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 43900,
+      "estado": "Completada",
+      "cliente_id": "be19"
+    },
+    {
+      "id": "b68b",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 18900,
+      "estado": "Completada",
+      "cliente_id": "be19"
     }
   ],
   "SaleDetails": [
@@ -1689,6 +1763,90 @@
       "producto_id": "8a8d",
       "cantidad": 12,
       "precio_unitario": "20000"
+    },
+    {
+      "id": "e12f",
+      "venta_id": "ad02",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "74e7",
+      "venta_id": "ad02",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "5dce",
+      "venta_id": "4d39",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "ecd1",
+      "venta_id": "4d39",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "7e40",
+      "venta_id": "ce53",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "51c8",
+      "venta_id": "ce53",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "dae2",
+      "venta_id": "3795",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "d920",
+      "venta_id": "3795",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "d298",
+      "venta_id": "0007",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "1bfa",
+      "venta_id": "de1f",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "f60e",
+      "venta_id": "de1f",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "404f",
+      "venta_id": "b68b",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
     }
   ],
   "domicilio": [
@@ -1964,6 +2122,74 @@
       "codigo_postal": "110111",
       "fecha_entrega": "2024-09-26",
       "estado": "Entregado",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "8351",
+      "venta_id": "ad02",
+      "direccion": "cr8c#1a26sur",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-19",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "927f",
+      "venta_id": "4d39",
+      "direccion": "cr8c#1a26sur",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-19",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "73ef",
+      "venta_id": "ce53",
+      "direccion": "cr8c#1a26sur",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-19",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "fc3e",
+      "venta_id": "3795",
+      "direccion": "cr123ddd",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-19",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "eb0f",
+      "venta_id": "0007",
+      "direccion": "cr123ddd",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-19",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "424a",
+      "venta_id": "de1f",
+      "direccion": "cr8c#1a26sur",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "e27e",
+      "venta_id": "b68b",
+      "direccion": "cr8c#1a26sur",
+      "ciudad": "bogota",
+      "codigo_postal": "110111",
+      "estado": "Pendiente",
       "domiciliario_id": "2324"
     }
   ]
