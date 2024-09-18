@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Añadir useLocation
 import '../styles/header_styles.css';
 import Swal from 'sweetalert2';
 
-const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch como props
-  const [isAuthenticated, setIsAuthenticated] = useState(
+const Header = ({ productos, onSearch = () => {} }) => 
+  { const [isAuthenticated, setIsAuthenticated] = useState(
     sessionStorage.getItem("isAuthenticated") === "true"
   );
   const [userName, setUserName] = useState(() => {
     return sessionStorage.getItem("userName") || "";
   });
-  const [searchTerm, setSearchTerm] = useState(""); // Nuevo estado para manejar la búsqueda
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleRedirect = () => {
-    navigate('/inicio_registro.js'); // Cambia esta ruta a la ruta correcta de tu página de inicio de sesión/registro
+    navigate('/inicio_registro.js'); // Cambia esta ruta a la ruta correcta
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
     sessionStorage.clear();
     setIsAuthenticated(false);
     setUserName("");
-    localStorage.removeItem('carrito'); // Elimina el carrito del almacenamiento local
+    localStorage.removeItem('carrito');
     navigate("/");
   };
 
@@ -46,18 +46,21 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
         showConfirmButton: false
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/"); // Redirige a la página de bienvenida
+          navigate("/");
         }
       });
     } else {
-      navigate("/MisVentas.js"); // Redirige a la página de Mis Ventas si está autenticado
+      navigate("/MisVentas.js");
     }
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchTerm); // Llama a la función onSearch pasándole el término de búsqueda
+    if (onSearch) {
+      onSearch(searchTerm);
+    }
   };
+  
 
   return (
     <div>
@@ -67,7 +70,7 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
           <div className="header-logo-container">
             <Link to="/">
               <img
-                src="/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png"
+                src="/img/Logo.png"
                 alt="Logo"
                 className="header-logo me-4"
               />
@@ -94,9 +97,9 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
                 type="search"
                 placeholder="Buscar productos"
                 aria-label="Buscar"
-                value={searchTerm} // Manejamos el estado del término de búsqueda
-                onChange={(e) => setSearchTerm(e.target.value)} // Actualizamos el estado cuando el usuario escribe
-              />
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                />
               <button
                 className="btn btn-outline-success search-button ms-2"
                 type="submit"
@@ -121,11 +124,11 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="userDropdown"
                 >
-                 <li>
-                  <button className="dropdown-item" onClick={() => navigate('/perfil.js')}> 
-                    Perfil
-                  </button>
-                </li>
+                  <li>
+                    <button className="dropdown-item" onClick={() => navigate('/perfil')}> 
+                      Perfil
+                    </button>
+                  </li>
                   <li>
                     <button onClick={handleLogout} className="dropdown-item">
                       Cerrar sesión
@@ -136,13 +139,13 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
             ) : (
               <>
                 <button
-                className="btn btn-outline-success dropdown-toggle"
-                id="loginDropdown"
-                type="button"
-                onClick={handleRedirect} // Usa handleRedirect aquí
-              >
-                <i className="bi bi-person" /> Iniciar sesión
-              </button>
+                  className="btn btn-outline-success dropdown-toggle"
+                  id="loginDropdown"
+                  type="button"
+                  onClick={handleRedirect}
+                >
+                  <i className="bi bi-person" /> Iniciar sesión
+                </button>
               </>
             )}
           </div>
@@ -161,8 +164,8 @@ const Header = ({ productos, onSearch }) => { // Recibe productos y onSearch com
         <div className="offcanvas-body">
           <ul className="list-group">
             <li className="list-group-item">
-            <button onClick={handleMisVentasClick} className="text-decoration-none text-dark btn btn-link">
-                Ver mis ventas
+              <button onClick={handleMisVentasClick} className="text-decoration-none text-dark btn btn-link">
+                Ver mis compras
               </button>
             </li>
           </ul>

@@ -2,39 +2,34 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../../componentes/header1';
 import Footer from '../../componentes/footer';
-import '../../styles/MisVentas.css'; // Importar el archivo CSS
+import '../../styles/MisVentas.css';
 
 const MisVentas = () => {
   const [ventas, setVentas] = useState([]);
-  const [productos, setProductos] = useState([]); // Para almacenar la información de los productos
-  const userId = sessionStorage.getItem('userId'); // Obtener el ID del usuario desde sessionStorage
+  const [productos, setProductos] = useState([]);
+  const [ventaSeleccionada, setVentaSeleccionada] = useState(null);
+  const [paginaActual, setPaginaActual] = useState(1); 
+  const userId = sessionStorage.getItem('userId');
+
+  const ventasPorPagina = 5;
 
   useEffect(() => {
     const fetchVentas = async () => {
       try {
-        // Obtener las ventas relacionadas con el usuario logueado
         const salesResponse = await axios.get('http://localhost:4000/Sales');
-        // Obtener los productos
         const productosResponse = await axios.get('http://localhost:4000/Products');
-
-        // Guardar los productos en el estado
         setProductos(productosResponse.data);
 
-        // Filtrar las ventas que pertenecen al usuario logueado
         const ventasDelUsuario = salesResponse.data.filter((venta) => venta.cliente_id === userId);
 
-        // Para cada venta del usuario, obtener sus detalles
         const ventasConDetalles = await Promise.all(ventasDelUsuario.map(async (venta) => {
           const saleDetailsResponse = await axios.get(`http://localhost:4000/SaleDetails?venta_id=${venta.id}`);
-          
-          // Agregar los detalles a la venta
           return {
             ...venta,
             SaleDetails: saleDetailsResponse.data
           };
         }));
 
-        // Establecer las ventas con los detalles correspondientes en el estado
         setVentas(ventasConDetalles);
       } catch (error) {
         console.error('Error al obtener las ventas:', error);
@@ -46,14 +41,38 @@ const MisVentas = () => {
     }
   }, [userId]);
 
-  // Función para obtener el nombre del producto dado su id
   const obtenerNombreProducto = (productoId) => {
     const producto = productos.find((prod) => prod.id === productoId);
     return producto ? producto.nombre : 'Producto no encontrado';
   };
 
+  const obtenerImagenProducto = (productoId) => {
+    const producto = productos.find((prod) => prod.id === productoId);
+    return producto ? producto.imagen : 'placeholder.png';
+  };
+
+  const toggleDetallesVenta = (ventaId) => {
+    if (ventaSeleccionada === ventaId) {
+      setVentaSeleccionada(null);
+    } else {
+      setVentaSeleccionada(ventaId);
+    }
+  };
+
+  const indiceUltimaVenta = paginaActual * ventasPorPagina;
+  const indicePrimeraVenta = indiceUltimaVenta - ventasPorPagina;
+  const ventasPaginadas = ventas.slice(indicePrimeraVenta, indiceUltimaVenta);
+
+  const numeroTotalPaginas = Math.ceil(ventas.length / ventasPorPagina);
+
+  const cambiarPagina = (numeroPagina) => {
+    if (numeroPagina > 0 && numeroPagina <= numeroTotalPaginas) {
+      setPaginaActual(numeroPagina);
+    }
+  };
+
   return (
-    <div className="d-flex flex-column min-vh-100"> {/* Asegura que el contenedor ocupe al menos la altura de la vista */}
+    <div>
       <Header />
       <br/>
       <br/>
@@ -62,37 +81,102 @@ const MisVentas = () => {
       <br/>
       <br/>
       <br/>
-
-      <main className="container mt-4 flex-grow-1"> {/* Flex-grow-1 asegura que ocupe el espacio disponible */}
+      <br/>
+      <br/>
+      <main className="container mt-4 flex-grow-1">
         {ventas.length > 0 ? (
           <>
-            <h2 className="text-center mb-4">Mis Ventas</h2>
-            <div className="row">
-              {ventas.map((venta) => (
-                <div className="col-md-6 mb-4" key={venta.id}>
-                  <div className="card fixed-size-card"> {/* Se añade una clase para el tamaño fijo */}
-                    <div className="card-body">
-                      <p className="card-text"><strong>Fecha:</strong> {venta.fecha_venta}</p>
-                      <p className="card-text"><strong>Método de Pago:</strong> {venta.metodo_pago}</p>
-                      <p className="card-text"><strong>Precio Total:</strong> ${parseFloat(venta.precio_total).toFixed(2)}</p>
-                      <p className="card-text"><strong>Estado:</strong> {venta.estado}</p>
-                      <h6>Detalles de la Venta:</h6>
-                      <ul>
-                        {venta.SaleDetails.map((detalle) => (
-                          <li key={detalle.id}>
-                            Producto: {obtenerNombreProducto(detalle.producto_id)}, Cantidad: {detalle.cantidad}, Precio Unitario: ${parseFloat(detalle.precio_unitario).toFixed(2)}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <h2 className="text-center mb-4">Mis Compras</h2>
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Método de Pago</th>
+                  <th>Precio Total</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ventasPaginadas.map((venta) => (
+                  <React.Fragment key={venta.id}>
+                    <tr>
+                      <td>{venta.fecha_venta}</td>
+                      <td>{venta.metodo_pago}</td>
+                      <td>${parseFloat(venta.precio_total).toFixed(2)}</td>
+                      <td>{venta.estado}</td>
+                      <td>
+                        <button 
+                          className="btn btn-success" 
+                          onClick={() => toggleDetallesVenta(venta.id)}
+                        >
+                          {ventaSeleccionada === venta.id ? 'Ocultar detalles' : 'Ver detalles'}
+                        </button>
+                      </td>
+                    </tr>
+                    {ventaSeleccionada === venta.id && (
+                      <tr>
+                        <td colSpan="5">
+                          <table className="table">
+                            <thead>
+                              <tr>
+                                <th>Producto</th>
+                                <th>Imagen</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {venta.SaleDetails.map((detalle) => (
+                                <tr key={detalle.id}>
+                                  <td>{obtenerNombreProducto(detalle.producto_id)}</td>
+                                  <td>
+                                    <img 
+                                      src={obtenerImagenProducto(detalle.producto_id)} 
+                                      alt="Producto" 
+                                      className="img-fluid product-img"
+                                    />
+                                  </td>
+                                  <td>{detalle.cantidad}</td>
+                                  <td>${parseFloat(detalle.precio_unitario).toFixed(2)}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Paginación */}
+            <nav>
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${paginaActual === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => cambiarPagina(paginaActual - 1)}>
+                    Anterior
+                  </button>
+                </li>
+                {Array.from({ length: numeroTotalPaginas }, (_, index) => (
+                  <li key={index} className={`page-item ${paginaActual === index + 1 ? 'active' : ''}`}>
+                    <button className="page-link" onClick={() => cambiarPagina(index + 1)}>
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${paginaActual === numeroTotalPaginas ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => cambiarPagina(paginaActual + 1)}>
+                    Siguiente
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </>
         ) : (
           <div className="text-center my-5">
-            <div className="custom-alert"> {/* Usar la clase personalizada */}
+            <div className="custom-alert">
               <h4 className="alert-heading">No tiene ventas registradas</h4>
               <p>Actualmente no tienes ventas en tu historial. Te invitamos a explorar nuestros productos y realizar tu primera compra.</p>
               <a href="/" className="btn btn-success">Ir a comprar</a>

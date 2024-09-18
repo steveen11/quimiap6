@@ -5,8 +5,8 @@ import '../../styles/nosotros.css'
 const Nosotros = () =>{
     return(
         <div>
-    <Header />
-    <br/>
+      <Header productos={[]} />
+      <br/>
     <br/>
     <br/>
     <br/>

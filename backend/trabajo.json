@@ -11,6 +11,42 @@
       "contrasena": "Lau12345@",
       "rol": "Gerente",
       "estado": "Activo"
+    },
+    {
+      "id": "2324",
+      "tipo_doc": "tarjeta de identidad",
+      "num_doc": "1019605503",
+      "nombres": "Samuel",
+      "apellidos": "Ardila",
+      "telefono": "3224537932",
+      "correo_electronico": "samuel2@gmail.com",
+      "contrasena": "Samuel123*",
+      "rol": "domiciliario",
+      "estado": "Activo"
+    },
+    {
+      "id": "248e",
+      "tipo_doc": "tarjeta de identidad",
+      "num_doc": "1019605503",
+      "nombres": "Samuel",
+      "apellidos": "Ardila",
+      "telefono": "3224537932",
+      "correo_electronico": "asamuelstevrn@gmail.com",
+      "contrasena": "Samuel123*",
+      "rol": "Cliente",
+      "estado": "Activo"
+    },
+    {
+      "id": "141a",
+      "tipo_doc": "cedula de ciudadania",
+      "num_doc": "1014193117",
+      "nombres": "maria paula",
+      "apellidos": "martinez casallas",
+      "telefono": "3214772314",
+      "correo_electronico": "paulamartinez132116@gmail.com",
+      "contrasena": "Martinez1306*",
+      "rol": "Cliente",
+      "estado": "Activo"
     }
   ],
   "Products": [
@@ -25,8 +61,8 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "40",
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "8a8d",
@@ -39,8 +75,8 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 15,
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "22ff",
@@ -53,7 +89,7 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 18,
+      "cantidad": 16,
       "estado": "disponible"
     },
     {
@@ -194,6 +230,20 @@
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "cantidad": "21",
       "precio_unitario": "33000",
+      "estado": "descontinuado"
+    },
+    {
+      "id": "d8d2",
+      "nombre": "Desengrasante/Detergente 3en1",
+      "descripcion": "Potente limpiador multiuso que combina tres acciones en un solo producto, ideal para eliminar grasa",
+      "imagen": "https://th.bing.com/th/id/R.6fc17f0e85947bd245ac7189a1a9a5a0?rik=asRzbDe7UqlIsA&pid=ImgRaw&r=0",
+      "categoria": "Hogar y Limpieza",
+      "composicion": "Mezcla de surfactantes, agentes limpiadores y desengrasantes.",
+      "contenido_neto": "1L",
+      "usos": "Limpieza y desengrase de superficies y textiles.",
+      "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
+      "cantidad": "10",
+      "precio_unitario": "15000",
       "estado": "descontinuado"
     }
   ],
@@ -749,6 +799,54 @@
       "precio_total": 654500,
       "estado": "Completada",
       "cliente_id": "54ef"
+    },
+    {
+      "id": "8aea",
+      "fecha_venta": "2024-09-17",
+      "metodo_pago": "Efectivo",
+      "precio_total": 20000,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "e46f",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 119000,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "c11d",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 20000,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "5e54",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 66000,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "e5bb",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 66000,
+      "estado": "Completada",
+      "cliente_id": "248e"
+    },
+    {
+      "id": "8620",
+      "fecha_venta": "2024-09-18",
+      "metodo_pago": "Efectivo",
+      "precio_total": 240000,
+      "estado": "Completada",
+      "cliente_id": "248e"
     }
   ],
   "SaleDetails": [
@@ -1535,6 +1633,62 @@
       "producto_id": "42df",
       "cantidad": 1,
       "precio_unitario": "10500"
+    },
+    {
+      "id": "1375",
+      "venta_id": "8aea",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "bd11",
+      "venta_id": "e46f",
+      "producto_id": "22ff",
+      "cantidad": 2,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "759b",
+      "venta_id": "e46f",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "69c0",
+      "venta_id": "e46f",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "416b",
+      "venta_id": "c11d",
+      "producto_id": "8a8d",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "a1e6",
+      "venta_id": "5e54",
+      "producto_id": "2806",
+      "cantidad": 2,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "0028",
+      "venta_id": "e5bb",
+      "producto_id": "2806",
+      "cantidad": 2,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "1d8a",
+      "venta_id": "8620",
+      "producto_id": "8a8d",
+      "cantidad": 12,
+      "precio_unitario": "20000"
     }
   ],
   "domicilio": [
@@ -1801,6 +1955,16 @@
       "fecha_entrega": "2024-09-13",
       "estado": "Pendiente",
       "domiciliario_id": "9526"
+    },
+    {
+      "id": "cede",
+      "venta_id": "8620",
+      "direccion": "calle 63 a #45a-12",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-26",
+      "estado": "Entregado",
+      "domiciliario_id": "2324"
     }
   ]
 }

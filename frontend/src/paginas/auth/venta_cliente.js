@@ -103,8 +103,6 @@ const VentasCliente = () => {
       return null;
     }
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,10 +122,23 @@ const VentasCliente = () => {
     };
   
     try {
+      // Solo se procede si se puede asignar un domiciliario
+      const domiciliarioId = mostrarDomicilio ? await asignarDomiciliario() : null;
+      if (mostrarDomicilio && !domiciliarioId) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo asignar un domiciliario.',
+        });
+        return; // No se registra la venta si no se pudo asignar un domiciliario
+      }
+  
+      // Registrar la venta si no hay errores
       const ventaResponse = await axios.post('http://localhost:4000/Sales', ventaData);
       const ventaId = ventaResponse.data.id;
   
-      carrito.forEach(async (producto) => {
+      // Registrar los detalles de la venta
+      for (const producto of carrito) {
         const detalleData = {
           venta_id: ventaId,
           producto_id: producto.id,
@@ -136,19 +147,10 @@ const VentasCliente = () => {
         };
         await axios.post('http://localhost:4000/SaleDetails', detalleData);
         await actualizarCantidadProducto(producto.id, producto.cantidad);
-      });
+      }
   
+      // Registrar el domicilio si aplica
       if (mostrarDomicilio) {
-        const domiciliarioId = await asignarDomiciliario();
-        if (!domiciliarioId) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo asignar un domiciliario.',
-          });
-          return;
-        }
-  
         const domicilioData = {
           venta_id: ventaId,
           direccion: domicilio.direccion,
@@ -156,7 +158,7 @@ const VentasCliente = () => {
           codigo_postal: domicilio.codigo_postal,
           fecha_entrega: domicilio.fecha_entrega,
           estado: 'Pendiente',
-          domiciliario_id: domiciliarioId // Asignar el domiciliario aquí
+          domiciliario_id: domiciliarioId,
         };
         await axios.post('http://localhost:4000/domicilio', domicilioData);
       }
@@ -194,6 +196,7 @@ const VentasCliente = () => {
       });
     }
   };
+
   const calcularTotal = () => {
     return carrito.reduce((total, producto) => total + (producto.precio_unitario * producto.cantidad), 0);
   };
@@ -220,14 +223,14 @@ const VentasCliente = () => {
 
   return (
     <div>
-      <Header />
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <Header productos={[]} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="container mt-5">
         <h2 className="mb-4">Registro de Venta</h2>
 
@@ -263,11 +266,11 @@ const VentasCliente = () => {
                 </tfoot>
               </table>
             ) : (
-              <p>El carrito está vacío.</p>
+              <p>No hay productos en el carrito.</p>
             )}
           </div>
 
-          {/* Columna del Formulario de Venta */}
+          {/* Columna de Datos de Venta */}
           <div className="col-md-6">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">

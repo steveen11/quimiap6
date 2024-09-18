@@ -1,27 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../componentes/header1';
 import Footer from '../../componentes/footer';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-import Swal from 'sweetalert2'; // Importar SweetAlert2 para mostrar alertas
+import { useNavigate } from 'react-router-dom'; 
+import Swal from 'sweetalert2'; 
 
 const CarritoPage = () => {
   const [carrito, setCarrito] = useState([]);
-  const navigate = useNavigate(); // Inicializar useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Obtener el carrito desde el almacenamiento local
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
     setCarrito(carritoGuardado);
   }, []);
 
   // Función para aumentar la cantidad del producto
-  const aumentarCantidad = (id) => {
-    const nuevoCarrito = carrito.map(p =>
-      p.id === id ? { ...p, cantidad: p.cantidad + 1 } : p
-    );
-    setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); // Actualiza el almacenamiento local
+  const aumentarCantidad = async (id) => {
+    try {
+      // Obtén el stock actual del producto desde la API
+      const response = await fetch(`http://localhost:4000/Products/${id}`);
+      const producto = await response.json();
+      const productoStock = parseInt(producto.cantidad, 10); // Asume que la API devuelve el stock
+  
+      const nuevoCarrito = carrito.map(p => {
+        if (p.id === id) {
+          if (p.cantidad < productoStock) { // Usa el stock real del producto
+            return { ...p, cantidad: p.cantidad + 1 };
+          } else {
+            Swal.fire({
+              title: 'Cantidad máxima alcanzada',
+              text: 'No puedes agregar más de la cantidad disponible en stock.',
+              icon: 'warning',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            return p;
+          }
+        }
+        return p;
+      });
+  
+      setCarrito(nuevoCarrito);
+      localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); // Actualiza el almacenamiento local
+    } catch (error) {
+      console.error('Error al obtener el stock del producto:', error);
+    }
   };
+  
 
   // Función para disminuir la cantidad del producto
   const disminuirCantidad = (id) => {
@@ -29,14 +53,14 @@ const CarritoPage = () => {
       p.id === id ? { ...p, cantidad: p.cantidad > 1 ? p.cantidad - 1 : 1 } : p
     );
     setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); // Actualiza el almacenamiento local
+    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); 
   };
 
   // Función para eliminar un producto del carrito
   const eliminarProducto = (id) => {
     const nuevoCarrito = carrito.filter(p => p.id !== id);
     setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); // Actualiza el almacenamiento local
+    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); 
   };
 
   // Función para vaciar el carrito
@@ -65,8 +89,8 @@ const CarritoPage = () => {
         title: "Carrito vacío",
         text: "Debes agregar productos al carrito antes de proceder al pago.",
         icon: "error",
-        timer: 2000, // Cerrar automáticamente después de 2 segundos
-        showConfirmButton: false, // No mostrar botón de confirmación
+        timer: 2000, 
+        showConfirmButton: false, 
       });
       return; // No permitir continuar si el carrito está vacío
     }
@@ -77,8 +101,8 @@ const CarritoPage = () => {
         title: "Inicia sesión o crea una cuenta",
         text: "Debes estar registrado para proceder con el pago.",
         icon: "warning",
-        timer: 2000, // Cerrar automáticamente después de 3 segundos
-        showConfirmButton: false, // No mostrar botón de confirmación
+        timer: 2000, 
+        showConfirmButton: false, 
       }).then(() => {
         navigate("/inicio_registro.js"); // Redirige a la página de inicio de sesión/registro
       });
@@ -90,7 +114,7 @@ const CarritoPage = () => {
 
   return (
     <div>
-      <Header />
+      <Header productos={[]} />
       <br/>
       <br/>
       <br/>

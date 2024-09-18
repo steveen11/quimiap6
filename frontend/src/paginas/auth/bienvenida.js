@@ -14,7 +14,6 @@ const Bienvenida = () => {
   const fetchProductos = async () => {
     try {
       const response = await axios.get('http://localhost:4000/Products');
-      // Filtra productos con estado "Disponible"
       const productosDisponibles = response.data.filter(producto => producto.estado === 'disponible');
       setProductos(productosDisponibles);
       setSearchResults(productosDisponibles); // Inicializa los resultados de búsqueda con los productos disponibles
@@ -35,20 +34,58 @@ const Bienvenida = () => {
     setCategoriaSeleccionada(categoria);
   };
 
-  const agregarAlCarrito = (producto) => {
+  const obtenerStockDelProducto = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/Products/${id}`);
+      return parseInt(response.data.cantidad, 10); // Devuelve la cantidad disponible del producto
+    } catch (error) {
+      console.error('Error al obtener el stock del producto:', error);
+      return 0;
+    }
+  };
+
+  const agregarAlCarrito = async (producto) => {
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
     const productoEnCarrito = carritoGuardado.find(p => p.id === producto.id);
 
-    let nuevoCarrito;
+    // Obtén el stock del producto
+    const stock = await obtenerStockDelProducto(producto.id);
+
     if (productoEnCarrito) {
-      nuevoCarrito = carritoGuardado.map(p =>
+      // Verificar si la nueva cantidad no excede el stock disponible
+      if (productoEnCarrito.cantidad + 1 > stock) {
+        Swal.fire({
+          title: '¡Cantidad máxima alcanzada!',
+          text: `Alcanzaste el maximo de cantidad del producto ${producto.nombre} no puedes llevar mas de ${stock}.`,
+          icon: 'error',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        return;
+      }
+
+      // Actualizar la cantidad en el carrito
+      const nuevoCarrito = carritoGuardado.map(p =>
         p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
       );
+      localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
     } else {
-      nuevoCarrito = [...carritoGuardado, { ...producto, cantidad: 1 }];
-    }
+      // Verificar si el producto está disponible en stock
+      if (stock < 1) {
+        Swal.fire({
+          title: 'Producto no disponible',
+          text: `${producto.nombre} no está disponible en stock.`,
+          icon: 'error',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        return;
+      }
 
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+      // Agregar el producto al carrito con cantidad inicial de 1
+      const nuevoCarrito = [...carritoGuardado, { ...producto, cantidad: 1 }];
+      localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+    }
 
     Swal.fire({
       title: '¡Producto agregado!',
@@ -58,7 +95,7 @@ const Bienvenida = () => {
       showConfirmButton: false
     });
 
-    console.log('Carrito después de agregar:', nuevoCarrito);
+    console.log('Carrito después de agregar:', JSON.parse(localStorage.getItem('carrito')));
   };
 
   const ProductCard = ({ producto }) => (
@@ -126,7 +163,6 @@ const Bienvenida = () => {
               >
                 <i className="bi bi-cart" /> Agregar al Carrito
               </button>
-
             </div>
           </div>
         </div>
@@ -177,8 +213,8 @@ const Bienvenida = () => {
           </button>
         </div>
       </div>
-      {/* Categorías */}
-      <section className="categories-section">
+            {/* Categorías */}
+            <section className="categories-section">
         <div className="container">
           <div className="row text-center">
             <div className="col-md-3">
@@ -216,20 +252,13 @@ const Bienvenida = () => {
           </div>
         </div>
       </section>
-      {/* Productos destacados */}
-      <section className="products-section">
+      {/* Productos */}
+      <section className="productos">
         <div className="container">
-          <h2 className="text-center mb-4">Productos Destacados</h2>
           <div className="row">
-            {productosFiltrados.length > 0 ? (
-              productosFiltrados.map(producto => (
-                <ProductCard key={producto.id} producto={producto} />
-              ))
-            ) : (
-              <div className="col-12 text-center">
-                <p>No se encontraron productos.</p>
-              </div>
-            )}
+            {productosFiltrados.map(producto => (
+              <ProductCard key={producto.id} producto={producto} />
+            ))}
           </div>
         </div>
       </section>

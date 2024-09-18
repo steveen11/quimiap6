@@ -90,7 +90,7 @@ const PerfilPage = () => {
 
   return (
     <div>
-      <Header />
+      <Header productos={[]} />
       <br />
       <br />
       <br />

@@ -5,8 +5,8 @@ import Footer from '../../componentes/footer';
 const Contacto = () =>{
     return(
         <div>
-            <Header />
-        <div className="container">
+      <Header productos={[]} />
+      <div className="container">
 
 <section className="d-flex flex-wrap justify-content-between">
   {/* Información de contacto */}

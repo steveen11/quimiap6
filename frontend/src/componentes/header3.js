@@ -31,7 +31,7 @@ const Header3 = () => {
           {/* Botón para cerrar sesión */}
           <button
             type="button"
-            className="btn btn-primary btn-custom"
+            className="btn btn-success btn-custom"
             onClick={handleLogout}
           >
             Cerrar sesión

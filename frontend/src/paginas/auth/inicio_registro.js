@@ -385,7 +385,7 @@ const Inicio_registro = () => {
 };
     return (
         <div className="registro-container">
-            <Header/>
+            <Header productos={[]} />
             <br/>
             <br/>
             <br/>
@@ -559,6 +559,9 @@ const Inicio_registro = () => {
                     </div>
                 </div>
             </div>
+            <br/>
+            <br/>
+
             <Footer/>
         </div>
     );

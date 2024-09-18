@@ -169,3 +169,13 @@ footer {
     border-color: #45A049; /* Color del borde verde más oscuro */
     transform: scale(1.05); /* Aumenta ligeramente el tamaño del botón */
 }
+
+.btn-success {
+    padding: 6px 12px; /* Espaciado interno */
+    color: #fff; /* Color del texto */
+    background-color: #4CAF50; /* Color de fondo verde */
+    border-color: #4CAF50; /* Color del borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente del botón */
+    transition: background-color 0.3s, transform 0.3s; 
+}

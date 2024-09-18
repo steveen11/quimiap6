@@ -19,6 +19,7 @@ import PrivateRoute from './componentes/PrivateRoute';
 import AccesoDenegado from "./paginas/auth/AcessoDenegado";
 import PerfilPage from "./paginas/auth/perfil";
 
+
 function App() {
   return (
     <Fragment>

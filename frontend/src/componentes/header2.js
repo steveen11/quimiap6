@@ -18,7 +18,7 @@ const Header2 = () => {
       <header className="py-3 mb-4 border-bottom">
         <div className="d-flex align-items-center">
           <img
-            src="/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png"
+            src="/img/Logo.png"
             alt="LOGO-JEFE-DE-PRODUCCI-N"
             className="logo"
           />
@@ -33,7 +33,7 @@ const Header2 = () => {
           {/* Botón para cerrar sesión */}
           <button
             type="button"
-            className="btn btn-primary btn-custom"
+            className="btn btn-success btn-custom"
             onClick={handleLogout}
           >
             Cerrar sesión
