@@ -480,6 +480,63 @@ app.post("/actualizar-contrasena", async (req, res) => {
         res.status(500).send("Error al encriptar la contraseña.");
     }
 });
+// Ruta para enviar los detalles de la venta
+app.post("/enviar-detalle-venta", async (req, res) => {
+    try {
+        const { venta_id, productos, id, correo_electronico } = req.body;
+
+        // Configura el contenido del correo
+        const ventaMailOptions = {
+            from: "quimiap.1999.quimicos@gmail.com",
+            to: correo_electronico,
+            subject: "Detalles de tu Venta",
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                    <h2 style="color: #28a745; text-align: center;">Detalles de tu Venta</h2>
+                    <p style="color: #555; font-size: 16px;">Aquí tienes los detalles de tu venta:</p>
+                    <h3 style="color: #28a745;">Productos Comprados:</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 10px;">Nombre del Producto</th>
+                                <th style="padding: 10px;">Imagen</th>
+                                <th style="padding: 10px;">Cantidad</th>
+                                <th style="padding: 10px;">Precio Unitario</th>
+                                <th style="padding: 10px;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${productos.map(prod => `
+                                <tr>
+                                    <td style="padding: 10px;">${prod.nombre}</td>
+                                    <td style="padding: 10px;">
+                                        <img src="${prod.imagen}" alt="Producto" style="width: 50px; height: auto;" />
+                                    </td>
+                                    <td style="padding: 10px;">${prod.cantidad}</td>
+                                    <td style="padding: 10px;">$${parseFloat(prod.precio_unitario).toFixed(2)}</td>
+                                    <td style="padding: 10px;">$${parseFloat(prod.subtotal).toFixed(2)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                     <h4 style="color: #28a745; text-align: right;">Precio Total de la Venta: $${parseFloat(productos.reduce((acc, prod) => acc + prod.subtotal, 0)).toFixed(2)}</h4>
+                    <p style="color: #555; font-size: 16px; text-align: center;">¡Gracias por confiar en nosotros!</p>
+                    <p style="text-align: center; font-size: 12px; color: #888;">© 2024 Quimiap. Todos los derechos reservados.</p>
+                </div>
+            `,
+        };
+
+        // Enviar el correo (asumiendo que tienes configurado un servicio de correo)
+        await transporter.sendMail(ventaMailOptions);
+
+        // Responder al cliente
+        res.status(200).json({ message: "Detalles de la venta enviados exitosamente." });
+    } catch (error) {
+        console.error("Error al enviar el detalle de la venta:", error);
+        res.status(500).json({ message: "Error al enviar los detalles de la venta." });
+    }
+});
+
 
 // Iniciar el servidor con Express
 const PORT = process.env.PORT || 5000;

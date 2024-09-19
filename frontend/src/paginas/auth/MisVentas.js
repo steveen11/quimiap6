@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from '../../componentes/header1';
 import Footer from '../../componentes/footer';
 import '../../styles/MisVentas.css';
+import Swal from 'sweetalert2';
 
 const MisVentas = () => {
   const [ventas, setVentas] = useState([]);
@@ -41,6 +42,52 @@ const MisVentas = () => {
     }
   }, [userId]);
 
+  const enviarDetallesPorCorreo = async (venta) => {
+    try {
+      const productosComprados = venta.SaleDetails.map(detalle => {
+        const precio_unitario = detalle.precio_unitario; // Asegúrate de que este campo esté disponible
+        const cantidad = detalle.cantidad;
+        const subtotal = calcularSubtotal(detalle); // Usa la función que ya tienes
+  
+        return {
+          producto_id: detalle.producto_id,
+          nombre: obtenerNombreProducto(detalle.producto_id),
+          imagen: obtenerImagenProducto(detalle.producto_id),
+          cantidad,
+          precio_unitario,
+          subtotal, // Agrega el subtotal aquí
+          precio_total: subtotal // Si el precio total es igual al subtotal, así lo puedes manejar
+        };
+      });
+  
+      const response = await axios.post('http://localhost:5000/enviar-detalle-venta', {
+        venta_id: venta.id,
+        correo_electronico: venta.correo_electronico,
+        productos: productosComprados, // Envía todos los productos en un solo campo
+        id: userId
+      });
+  
+      // Usar SweetAlert para mostrar el mensaje de éxito
+      await Swal.fire({
+        icon: 'success',
+        title: 'Revisa tu correo',
+        text: response.data.message,
+        showConfirmButton: false, // Mostrar botón de cerrar en lugar del botón de aceptar
+        timer: 1000,
+      });
+    } catch (error) {
+      console.error('Error al enviar el correo:', error);
+      
+      // Usar SweetAlert para mostrar el mensaje de error
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ocurrió un error al enviar el correo.',
+        confirmButtonText: 'Aceptar'
+      });
+    }
+  };
+
   const obtenerNombreProducto = (productoId) => {
     const producto = productos.find((prod) => prod.id === productoId);
     return producto ? producto.nombre : 'Producto no encontrado';
@@ -58,7 +105,10 @@ const MisVentas = () => {
       setVentaSeleccionada(ventaId);
     }
   };
-
+  //calcular subtotal
+  const calcularSubtotal = (detalle) => {
+    return detalle.precio_unitario * detalle.cantidad;
+  };
   const indiceUltimaVenta = paginaActual * ventasPorPagina;
   const indicePrimeraVenta = indiceUltimaVenta - ventasPorPagina;
   const ventasPaginadas = ventas.slice(indicePrimeraVenta, indiceUltimaVenta);
@@ -124,6 +174,7 @@ const MisVentas = () => {
                                 <th>Imagen</th>
                                 <th>Cantidad</th>
                                 <th>Precio Unitario</th>
+                                <th>Subtotal</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -139,8 +190,24 @@ const MisVentas = () => {
                                   </td>
                                   <td>{detalle.cantidad}</td>
                                   <td>${parseFloat(detalle.precio_unitario).toFixed(2)}</td>
+                                  <td>${calcularSubtotal(detalle).toFixed(2)}</td>
                                 </tr>
                               ))}
+                              <tr>
+                                <td colSpan={2} style={{ textAlign: 'left', fontWeight: 'bold' }}>Precio Total:</td>
+                                <td colSpan={2}>
+                                  <strong>${parseFloat(venta.precio_total).toFixed(2)}</strong>
+                                </td>
+                                <td colSpan={5} style={{ textAlign: 'left' }}>
+                                  <button 
+                                    className="btn btn-success" 
+                                    onClick={() => enviarDetallesPorCorreo(venta)}
+                                  >
+                                    Detalles por Correo
+                                  </button>
+                                </td>
+                              </tr>
+
                             </tbody>
                           </table>
                         </td>
