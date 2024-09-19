@@ -10,6 +10,7 @@ const Bienvenida = () => {
   const [productos, setProductos] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [contadorCarrito, setContadorCarrito] = useState(0); // Estado para el contador del carrito
 
   const fetchProductos = async () => {
     try {
@@ -24,6 +25,8 @@ const Bienvenida = () => {
 
   useEffect(() => {
     fetchProductos();
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+    setContadorCarrito(carritoGuardado.reduce((total, producto) => total + producto.cantidad, 0)); // Inicializa el contador con la cantidad de productos en el carrito
   }, []);
 
   const productosFiltrados = categoriaSeleccionada
@@ -86,6 +89,9 @@ const Bienvenida = () => {
       const nuevoCarrito = [...carritoGuardado, { ...producto, cantidad: 1 }];
       localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
     }
+
+    setContadorCarrito(prev => prev + 1); // Incrementa el contador cuando se agrega un producto
+
 
     Swal.fire({
       title: '¡Producto agregado!',
@@ -180,7 +186,8 @@ const Bienvenida = () => {
 
   return (
     <div>
-      <Header productos={productos} onSearch={handleSearch} />
+      <Header productos={productos} onSearch={handleSearch} contadorCarrito={contadorCarrito} /> {/* Pasa el contador al Header */}
+      <br/>
       <br/>
       <br/>
       <br/>
@@ -191,15 +198,13 @@ const Bienvenida = () => {
         <div id="mainCarousel" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="/img/carrusel-images/supersale.jpg" className="d-block w-100" alt="Oferta 1" />
+              <img src="/img/carrusel-images/carrusel1.webp" className="d-block w-100" alt="Oferta 1" />
               <div className="carousel-caption d-none d-md-block">
-                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="/img/carrusel-images/pngtree-sale-promotion-50-off-image_914144.png" className="d-block w-100" alt="Oferta 2" />
+              <img src="/img/carrusel-images/pixelcut-export.jpeg" className="d-block w-100" alt="Oferta 2" />
               <div className="carousel-caption d-none d-md-block">
-                <Link to="#" className="btn btn-danger">Compra Aquí</Link>
               </div>
             </div>
           </div>
@@ -252,16 +257,24 @@ const Bienvenida = () => {
           </div>
         </div>
       </section>
+      <br/>
       {/* Productos */}
-      <section className="productos">
-        <div className="container">
-          <div className="row">
-            {productosFiltrados.map(producto => (
-              <ProductCard key={producto.id} producto={producto} />
-            ))}
-          </div>
+      <section className="productos" id="productos-destacados" >
+  <div className="container">
+    <h2 className="text-center mb-4">Productos Destacados</h2>
+    <div className="row">
+      {productosFiltrados.length > 0 ? (
+        productosFiltrados.map(producto => (
+          <ProductCard key={producto.id} producto={producto} />
+        ))
+      ) : (
+        <div className="col-12 text-center">
+          <p>No se encontraron productos.</p>
         </div>
-      </section>
+      )}
+    </div>
+  </div>
+</section>
       <Footer />
     </div>
   );

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"; // Añadir useLocation
 import '../styles/header_styles.css';
 import Swal from 'sweetalert2';
 
-const Header = ({ productos, onSearch = () => {} }) => 
+const Header = ({ productos, onSearch, contadorCarrito  = () => {} }) => 
   { const [isAuthenticated, setIsAuthenticated] = useState(
     sessionStorage.getItem("isAuthenticated") === "true"
   );
@@ -152,6 +152,9 @@ const Header = ({ productos, onSearch = () => {} }) =>
           {/* Carrito de compras */}
           <Link to="/carrito.js" className="text-success ms-3">
             <i className="bi bi-cart3 fs-4" />
+            {contadorCarrito > 0 && ( // Mostrar el contador solo si hay productos en el carrito
+              <span className="badge bg-danger ms-1">{contadorCarrito}</span>
+            )}
           </Link>
         </div>
       </header>

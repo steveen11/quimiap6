@@ -218,6 +218,12 @@ const VentasCliente = () => {
     const fechaSeleccionada = new Date(e.target.value);
     const fechaActual = new Date();
 
+    // Elimina la hora de la fecha actual para la comparación
+    fechaActual.setHours(0, 0, 0, 0);
+
+    // Elimina la hora de la fecha seleccionada para la comparación
+    fechaSeleccionada.setHours(0, 0, 0, 0);
+
     if (fechaSeleccionada >= fechaActual) {
       setDomicilio({ ...domicilio, fecha_entrega: e.target.value });
     } else {
@@ -225,10 +231,15 @@ const VentasCliente = () => {
         icon: 'warning',
         title: 'Fecha Inválida',
         text: 'La fecha de entrega no puede ser anterior a la fecha actual.',
+        timer: 2000,
+        showConfirmButton: false
       });
       setDomicilio({ ...domicilio, fecha_entrega: '' });
     }
   };
+
+
+
 
   return (
     <div>
@@ -339,7 +350,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="direccion"
-                      value={domicilio.direccion}
+                      maxLength={20}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.direccion : 'Ingrese dirección'}
                       onChange={(e) => setDomicilio({ ...domicilio, direccion: e.target.value })}
                       required
                     />
@@ -351,7 +363,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="ciudad"
-                      value={domicilio.ciudad}
+                      maxLength={20}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.ciudad : 'Ingrese ciudad'}
                       onChange={(e) => setDomicilio({ ...domicilio, ciudad: e.target.value })}
                       required
                     />
@@ -363,9 +376,11 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="codigoPostal"
-                      value={domicilio.codigo_postal}
+                      maxLength={6}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.codigo_postal : 'Ingrese código postal'}
                       onChange={(e) => setDomicilio({ ...domicilio, codigo_postal: e.target.value })}
                       required
+                      
                     />
                   </div>
 

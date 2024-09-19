@@ -5,13 +5,14 @@ import Swal from 'sweetalert2';
 
 const VentasAdmin = () => {
   const [ventas, setVentas] = useState([]);
-  const [filteredVentas, setFilteredVentas] = useState([]); // Estado para ventas filtradas
-  const [fechaFiltro, setFechaFiltro] = useState(''); // Estado para la fecha del filtro
-  const [clienteIdFiltro, setClienteIdFiltro] = useState(''); // Estado para el ID del cliente
+  const [usuarios, setUsuarios] = useState([]); // Para guardar los usuarios
+  const [filteredVentas, setFilteredVentas] = useState([]);
+  const [fechaFiltro, setFechaFiltro] = useState('');
+  const [identificacionFiltro, setIdentificacionFiltro] = useState(''); // Cambiado a identificación
   
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // Número de ventas por página
+  const [itemsPerPage] = useState(10);
 
   // Función para obtener VENTAS de la API
   const fetchVentas = async () => {
@@ -24,8 +25,19 @@ const VentasAdmin = () => {
     }
   };
 
+  // Función para obtener USUARIOS de la API
+  const fetchUsuarios = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/Users'); // Ruta para los usuarios
+      setUsuarios(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
   useEffect(() => {
     fetchVentas();
+    fetchUsuarios(); // Traemos los usuarios también
   }, []);
 
   // Función para manejar el cambio en el input de fecha
@@ -33,12 +45,12 @@ const VentasAdmin = () => {
     setFechaFiltro(e.target.value);
   };
 
-  // Función para manejar el cambio en el input de ID de cliente
-  const handleClienteIdChange = (e) => {
-    setClienteIdFiltro(e.target.value);
+  // Función para manejar el cambio en el input de número de identificación
+  const handleIdentificacionChange = (e) => {
+    setIdentificacionFiltro(e.target.value);
   };
 
-  // Función para filtrar las ventas cuando se hace clic en el botón de búsqueda
+  // Función para filtrar las ventas
   const filtrarVentas = () => {
     const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -60,12 +72,15 @@ const VentasAdmin = () => {
       });
       return;
     }
+    
 
-    // Filtrar por cliente ID si se ingresó uno
-    if (clienteIdFiltro) {
-      ventasFiltradas = ventasFiltradas.filter((venta) =>
-        venta.cliente_id === clienteIdFiltro
-      );
+    // Filtrar por número de identificación
+    if (identificacionFiltro) {
+      ventasFiltradas = ventasFiltradas.filter((venta) => {
+        // Buscar el usuario correspondiente a esta venta
+        const usuario = usuarios.find(user => user.id === venta.cliente_id);
+        return usuario && usuario.num_doc === identificacionFiltro; // Filtrar por num_doc
+      });
     }
 
     setFilteredVentas(ventasFiltradas);
@@ -93,14 +108,14 @@ const VentasAdmin = () => {
           <h2>Consulta de Ventas</h2>
           <br />
 
-          {/* Filtros para fecha y cliente ID */}
+          {/* Filtros para fecha y número de identificación */}
           <div className="mb-3 d-flex align-items-center">
             <label htmlFor="fechaFiltro" className="form-label me-3">Filtrar por Fecha (YYYY-MM-DD):</label>
             <input
               type="text"
               id="fechaFiltro"
               className="form-control me-2"
-              style={{ width: '200px' }}  // Ajusta el tamaño del input
+              style={{ width: '200px' }}
               placeholder="YYYY-MM-DD"
               value={fechaFiltro}
               onChange={handleFechaChange}
@@ -108,15 +123,15 @@ const VentasAdmin = () => {
           </div>
 
           <div className="mb-3 d-flex align-items-center">
-            <label htmlFor="clienteIdFiltro" className="form-label me-3">Filtrar por ID de Cliente:</label>
+            <label htmlFor="identificacionFiltro" className="form-label me-3">Filtrar por N° de Identificación:</label>
             <input
               type="text"
-              id="clienteIdFiltro"
+              id="identificacionFiltro"
               className="form-control me-2"
-              style={{ width: '200px' }}  // Ajusta el tamaño del input
-              placeholder="ID de Cliente"
-              value={clienteIdFiltro}
-              onChange={handleClienteIdChange}
+              style={{ width: '200px' }}
+              placeholder="N° de Identificación"
+              value={identificacionFiltro}
+              onChange={handleIdentificacionChange}
             />
           </div>
 
@@ -132,20 +147,25 @@ const VentasAdmin = () => {
                 <th>Método de Pago</th>
                 <th>Precio Total</th>
                 <th>Estado</th>
-                <th>Cliente</th>
+                <th>N° Identificación</th> {/* Cambiado a N° Identificación */}
               </tr>
             </thead>
             <tbody>
-              {currentVentas.map((venta) => (
-                <tr key={venta.id}>
-                  <td>{venta.id}</td>
-                  <td>{venta.fecha_venta}</td>
-                  <td>{venta.metodo_pago}</td>
-                  <td>{venta.precio_total}</td>
-                  <td>{venta.estado}</td>
-                  <td>{venta.cliente_id}</td>
-                </tr>
-              ))}
+              {currentVentas.map((venta) => {
+                // Buscar el usuario correspondiente a esta venta
+                const usuario = usuarios.find(user => user.id === venta.cliente_id);
+
+                return (
+                  <tr key={venta.id}>
+                    <td>{venta.id}</td>
+                    <td>{venta.fecha_venta}</td>
+                    <td>{venta.metodo_pago}</td>
+                    <td>{venta.precio_total}</td>
+                    <td>{venta.estado}</td>
+                    <td>{usuario ? usuario.num_doc : 'N/A'}</td> {/* Mostrar num_doc */}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
 

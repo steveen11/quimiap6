@@ -6,7 +6,9 @@ const multer = require("multer");
 const path = require("path");
 const cors = require('cors');
 const axios = require('axios');
-const fs = require('fs'); // Asegúrate de incluir esto
+const fs = require('fs'); 
+const bcrypt = require('bcrypt');
+// Asegúrate de incluir esto
 // Creando una nueva aplicación Express.
 const app = express();
 
@@ -47,7 +49,7 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "quimiap.1999.quimicos@gmail.com",
-        pass: "uettpjslaztybwct", // Asegúrate de usar una contraseña de aplicación si usas Gmail
+        pass: "earklpwhyjllbkff", // Asegúrate de usar una contraseña de aplicación si usas Gmail
     },
 });
 
@@ -74,7 +76,7 @@ app.post("/enviar-verificacion", (req, res) => {
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
                 <!-- Logo de la empresa -->
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="../public/img/LOGO_JEFE_DE_PRODUCCIÓN-Photoroom.png" alt="Logo Quimiap" style="max-width: 150px;">
+                    <img src="../public/img/Logo.png" alt="Logo Quimiap" style="max-width: 150px;">
                 </div>
                 
                 <!-- Mensaje principal -->
@@ -352,6 +354,14 @@ app.get("/restablecer-contrasena/:correo_electronico", (req, res) => {
                         required />
                     <button type="submit" class="submit-btn">Actualizar Contraseña</button>
                 </form>
+                        <div class="password-rules">
+            <p><strong>Reglas de la contraseña:</strong></p>
+            <ul>
+                <li>Entre 8 y 16 caracteres</li>
+                <li>Al menos una letra mayúscula</li>
+                <li>Al menos un signo especial (por ejemplo, !@#$%^&*)</li>
+            </ul>
+        </div>
             </div>
         </body>
         </html>
@@ -359,7 +369,8 @@ app.get("/restablecer-contrasena/:correo_electronico", (req, res) => {
 });
 
 // Ruta para actualizar la contraseña del usuario
-app.post("/actualizar-contrasena", (req, res) => {
+// Ruta para actualizar la contraseña del usuario
+app.post("/actualizar-contrasena", async (req, res) => {
     const { correo_electronico, nueva_contrasena, confirmar_contrasena } = req.body;
 
     // Comprobar si las contraseñas coinciden
@@ -367,98 +378,107 @@ app.post("/actualizar-contrasena", (req, res) => {
         return res.status(400).send("Las contraseñas no coinciden.");
     }
 
-    const filePath = path.join(__dirname, 'trabajo.json');
+    try {
+        // Encriptar la nueva contraseña
+        const saltRounds = 10; // Número de rondas para el hash
+        const hashedPassword = await bcrypt.hash(nueva_contrasena, saltRounds);
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).send("Error al leer el archivo.");
-        }
+        const filePath = path.join(__dirname, 'trabajo.json');
 
-        const usuariosData = JSON.parse(data);
-        const usuarios = usuariosData.Users;
-
-        const usuarioIndex = usuarios.findIndex(u => u.correo_electronico === correo_electronico);
-        
-        if (usuarioIndex === -1) {
-            return res.status(404).send("Usuario no encontrado.");
-        }
-
-        // Actualiza la contraseña (deberías encriptarla aquí)
-        usuarios[usuarioIndex].contrasena = nueva_contrasena;
-
-        fs.writeFile(filePath, JSON.stringify(usuariosData, null, 2), (err) => {
+        fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
-                return res.status(500).send("Error al guardar los cambios.");
+                return res.status(500).send("Error al leer el archivo.");
             }
 
-            // Mensaje de éxito
-            res.send(`
-                <!DOCTYPE html>
-                <html lang="es">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Contraseña Actualizada</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            background-color: #f0f9ff;
-                            margin: 0;
-                            padding: 0;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            height: 100vh;
-                        }
-                        .message-container {
-                            width: 100%;
-                            max-width: 400px;
-                            background-color: #fff;
-                            padding: 40px;
-                            border-radius: 10px;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                            text-align: center;
-                        }
-                        .logo {
-                            max-width: 100px;
-                            margin-bottom: 20px;
-                        }
-                        h1 {
-                            font-size: 24px;
-                            margin-bottom: 20px;
-                            color: #28a745;
-                        }
-                        p {
-                            font-size: 16px;
-                            color: #555;
-                            margin-bottom: 30px;
-                        }
-                        .button {
-                            padding: 12px 24px;
-                            border: none;
-                            background-color: #007bff;
-                            color: white;
-                            border-radius: 5px;
-                            cursor: pointer;
-                            text-decoration: none;
-                            display: inline-block;
-                        }
-                        .button:hover {
-                            background-color: #0056b3;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="message-container">
-                        <h1>¡Contraseña Actualizada!</h1>
-                        <p>Tu contraseña se ha actualizado con éxito.</p>
-                        <a href="http://localhost:3000/inicio_registro.js" class="button">Ir al Inicio</a>
-                    </div>
-                </body>
-                </html>
-            `);
+            const usuariosData = JSON.parse(data);
+            const usuarios = usuariosData.Users;
+
+            const usuarioIndex = usuarios.findIndex(u => u.correo_electronico === correo_electronico);
+
+            if (usuarioIndex === -1) {
+                return res.status(404).send("Usuario no encontrado.");
+            }
+
+            // Actualiza la contraseña encriptada
+            usuarios[usuarioIndex].contrasena = hashedPassword;
+
+            fs.writeFile(filePath, JSON.stringify(usuariosData, null, 2), (err) => {
+                if (err) {
+                    return res.status(500).send("Error al guardar los cambios.");
+                }
+
+                // Mensaje de éxito
+                res.send(`
+                    <!DOCTYPE html>
+                    <html lang="es">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Contraseña Actualizada</title>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f0f9ff;
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                            }
+                            .message-container {
+                                width: 100%;
+                                max-width: 400px;
+                                background-color: #fff;
+                                padding: 40px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                                text-align: center;
+                            }
+                            .logo {
+                                max-width: 100px;
+                                margin-bottom: 20px;
+                            }
+                            h1 {
+                                font-size: 24px;
+                                margin-bottom: 20px;
+                                color: #28a745;
+                            }
+                            p {
+                                font-size: 16px;
+                                color: #555;
+                                margin-bottom: 30px;
+                            }
+                            .button {
+                                padding: 12px 24px;
+                                border: none;
+                                background-color: #007bff;
+                                color: white;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                text-decoration: none;
+                                display: inline-block;
+                            }
+                            .button:hover {
+                                background-color: #0056b3;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="message-container">
+                            <h1>¡Contraseña Actualizada!</h1>
+                            <p>Tu contraseña se ha actualizado con éxito.</p>
+                            <a href="http://localhost:3000/inicio_registro.js" class="button">Ir al Inicio</a>
+                        </div>
+                    </body>
+                    </html>
+                `);
+            });
         });
-    });
+    } catch (err) {
+        console.error("Error al encriptar la contraseña:", err);
+        res.status(500).send("Error al encriptar la contraseña.");
+    }
 });
 
 // Iniciar el servidor con Express

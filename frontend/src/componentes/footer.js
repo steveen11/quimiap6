@@ -23,13 +23,10 @@ const Footer = () => {
             <i className="fa-solid fa-phone me-2" />
             <p className="mb-0">3108686112</p>
           </div>
-          <div className="d-flex align-items-center">
-            <i className="fa-solid fa-envelope me-2" />
-            <p className="mb-0">Contactanos</p>
-          </div>
+          <Link to="/contactanos.js" className="text-white"><strong>Formulario de contacto</strong></Link>
+
         </article>          
         </ul>
-          <p><strong>601 486 5000</strong></p>
           <div className="d-flex justify-content-start">
             <Link to="#" className="me-2"><i className="bi bi-instagram text-white fs-3" /></Link>
             <Link to="#" className="me-2"><i className="bi bi-facebook text-white fs-3" /></Link>

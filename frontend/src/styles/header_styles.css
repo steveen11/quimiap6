@@ -12,7 +12,7 @@
 
 /* Estilo del logo en el encabezado */
 .header-logo {
-    max-height: 80px; /* Altura máxima del logo para mantenerlo proporcionado */
+    max-height: 100px; /* Altura máxima del logo para mantenerlo proporcionado */
     width: auto; /* Mantiene la proporción del logo */
 }
 

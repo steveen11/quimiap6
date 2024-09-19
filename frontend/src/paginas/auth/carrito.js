@@ -6,12 +6,20 @@ import Swal from 'sweetalert2';
 
 const CarritoPage = () => {
   const [carrito, setCarrito] = useState([]);
+  const [contadorCarrito, setContadorCarrito] = useState(0); // Estado para el contador del carrito
   const navigate = useNavigate(); 
 
   useEffect(() => {
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
     setCarrito(carritoGuardado);
+    actualizarContador(carritoGuardado); // Inicializa el contador con los productos en el carrito
   }, []);
+
+  // Función para actualizar el contador
+  const actualizarContador = (nuevoCarrito) => {
+    const totalProductos = nuevoCarrito.reduce((total, producto) => total + producto.cantidad, 0);
+    setContadorCarrito(totalProductos);
+  };
 
   // Función para aumentar la cantidad del producto
   const aumentarCantidad = async (id) => {
@@ -41,11 +49,11 @@ const CarritoPage = () => {
   
       setCarrito(nuevoCarrito);
       localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); // Actualiza el almacenamiento local
+      actualizarContador(nuevoCarrito); // Actualiza el contador
     } catch (error) {
       console.error('Error al obtener el stock del producto:', error);
     }
   };
-  
 
   // Función para disminuir la cantidad del producto
   const disminuirCantidad = (id) => {
@@ -53,30 +61,28 @@ const CarritoPage = () => {
       p.id === id ? { ...p, cantidad: p.cantidad > 1 ? p.cantidad - 1 : 1 } : p
     );
     setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); 
+    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+    actualizarContador(nuevoCarrito); // Actualiza el contador
   };
 
   // Función para eliminar un producto del carrito
   const eliminarProducto = (id) => {
     const nuevoCarrito = carrito.filter(p => p.id !== id);
     setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito)); 
+    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+    actualizarContador(nuevoCarrito); // Actualiza el contador
   };
 
   // Función para vaciar el carrito
   const vaciarCarrito = () => {
     setCarrito([]);
     localStorage.removeItem('carrito'); // Elimina el carrito del localStorage
+    actualizarContador([]); // Actualiza el contador a 0
   };
 
   // Función para calcular el subtotal
   const calcularSubtotal = () => {
     return carrito.reduce((total, producto) => total + (producto.precio_unitario * producto.cantidad), 0);
-  };
-
-  // Función para calcular la cantidad total
-  const calcularCantidadTotal = () => {
-    return carrito.reduce((total, producto) => total + producto.cantidad, 0);
   };
 
   // Función para manejar el pago
@@ -111,10 +117,13 @@ const CarritoPage = () => {
       navigate("/venta_cliente.js");
     }
   };
+  const calcularCantidadTotal = () => {
+    return carrito.reduce((total, producto) => total + producto.cantidad, 0);
+  };
 
   return (
     <div>
-      <Header productos={[]} />
+      <Header productos={[]} contadorCarrito={contadorCarrito} />
       <br/>
       <br/>
       <br/>
@@ -164,10 +173,12 @@ const CarritoPage = () => {
             <div>
               <h4>Subtotal: ${calcularSubtotal()}</h4>
               <h4>Cantidad Total: {calcularCantidadTotal()}</h4> {/* Cantidad Total agregada aquí */}
-              <button onClick={vaciarCarrito} className="btn btn-danger mt-2">Vaciar Carrito</button>
             </div>
-            <button onClick={() => navigate('/')} className="btn btn-success mt-2">Seguir Comprando</button>
-            <button onClick={handlePagar} className="btn btn-success mt-2">Pagar</button> {/* Actualizado con la validación */}
+            <div className="d-flex justify-content-center align-items-center mt-3">
+              <button onClick={vaciarCarrito} className="btn btn-danger mx-2">Vaciar Carrito</button>
+              <button onClick={() => navigate('/')} className="btn btn-success mx-2">Seguir Comprando</button>
+              <button onClick={handlePagar} className="btn btn-success mx-2">Pagar</button>
+            </div>
           </div>
         </div>
       </div>
