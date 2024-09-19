@@ -32,7 +32,7 @@ const Productos = () => {
 
     // Paginación
     const [currentPageProduct, setCurrentPageProduct] = useState(1);
-    const recordsPerPage = 3;
+    const recordsPerPage = 2;
 
   // Función para obtener productos de la API
   const fetchProductos = async () => {

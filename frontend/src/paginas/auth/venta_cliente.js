@@ -10,8 +10,8 @@ const VentasCliente = () => {
   const [fechaVenta] = useState(new Date().toISOString().split('T')[0]);
   const [metodoPago, setMetodoPago] = useState('');
   const [precioTotal, setPrecioTotal] = useState('');
-  const [correo_electronico, setCorreoElectronico] = useState('');
   const [carrito, setCarrito] = useState([]);
+  const [correo_electronico, setCorreoElectronico] = useState('');
   const [cliente, setCliente] = useState(null);
   const [domicilio, setDomicilio] = useState({
     direccion: '',
@@ -30,10 +30,6 @@ const VentasCliente = () => {
       try {
         const response = await axios.get(`http://localhost:4000/Users/${clienteId}`);
         setCliente(response.data);
-        // Cargar los datos del domicilio guardado si existen
-        if (response.data.domicilio) {
-          setDomicilio(response.data.domicilio);
-        }
       } catch (error) {
         console.error('Error al obtener datos del cliente:', error);
       }
@@ -108,6 +104,8 @@ const VentasCliente = () => {
       return null;
     }
   };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -140,16 +138,12 @@ const VentasCliente = () => {
   
       const ventaResponse = await axios.post('http://localhost:4000/Sales', ventaData);
       const ventaId = ventaResponse.data.id;
-  
-      // Aquí puedes agregar la lógica para enviar el correo electrónico
-      // const emailResponse = await enviarCorreo(correo_electronico, ventaId);
-  
-      // Suponiendo que el envío de correo se realiza aquí y es exitoso
+
       Swal.fire({
         icon: 'success',
         title: 'Notificación Enviada',
         text: 'Se ha enviado una notificación al correo.',
-        timer: 2000,
+        timer: 100,
         showConfirmButton: false,
       });
   
@@ -220,7 +214,6 @@ const VentasCliente = () => {
     }
   };
   
-
   const calcularTotal = () => {
     return carrito.reduce((total, producto) => total + (producto.precio_unitario * producto.cantidad), 0);
   };
@@ -234,25 +227,27 @@ const VentasCliente = () => {
     const fechaActual = new Date();
 
     if (fechaSeleccionada >= fechaActual) {
+      setDomicilio({ ...domicilio, fecha_entrega: e.target.value });
     } else {
       Swal.fire({
         icon: 'warning',
         title: 'Fecha Inválida',
         text: 'La fecha de entrega no puede ser anterior a la fecha actual.',
       });
+      setDomicilio({ ...domicilio, fecha_entrega: '' });
     }
   };
 
   return (
     <div>
-      <Header productos={[]} />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <Header />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <div className="container mt-5">
         <h2 className="mb-4">Registro de Venta</h2>
 
@@ -288,11 +283,11 @@ const VentasCliente = () => {
                 </tfoot>
               </table>
             ) : (
-              <p>No hay productos en el carrito.</p>
+              <p>El carrito está vacío.</p>
             )}
           </div>
 
-          {/* Columna de Datos de Venta */}
+          {/* Columna del Formulario de Venta */}
           <div className="col-md-6">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -315,7 +310,7 @@ const VentasCliente = () => {
                   onChange={(e) => setMetodoPago(e.target.value)}
                   required
                 >
-                  <option value="">Selecciona un método de pago</option>
+                  <option value="" disabled selected>Selecciona un método de pago</option>
                   <option value="Efectivo">Efectivo</option>
                   <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                 </select>
@@ -337,12 +332,12 @@ const VentasCliente = () => {
                   type="email"
                   className="form-control"
                   id="correoElectronico"
+                  maxLength={50}
                   value={correo_electronico}
                   onChange={(e) => setCorreoElectronico(e.target.value)} // Agrega esta línea para manejar el cambio
                   required // Puedes hacer este campo obligatorio si es necesario
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="domicilio" className="form-label">
                   <input
@@ -363,8 +358,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="direccion"
-                      maxLength={20}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.direccion : 'Ingrese dirección'}
+                      value={domicilio.direccion}
+                      maxLength={30}
                       onChange={(e) => setDomicilio({ ...domicilio, direccion: e.target.value })}
                       required
                     />
@@ -376,25 +371,31 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="ciudad"
-                      maxLength={20}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.ciudad : 'Ingrese ciudad'}
+                      maxLength={30}
+                      value={domicilio.ciudad}
                       onChange={(e) => setDomicilio({ ...domicilio, ciudad: e.target.value })}
                       required
                     />
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="codigoPostal" className="form-label">Código Postal</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="codigoPostal"
-                      maxLength={6}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.codigo_postal : 'Ingrese código postal'}
-                      onChange={(e) => setDomicilio({ ...domicilio, codigo_postal: e.target.value })}
-                      required
-                    />
-                  </div>
+                        <label htmlFor="codigoPostal" className="form-label">Código Postal</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="codigoPostal"
+                            value={domicilio.codigo_postal}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value.length <= 6) {
+                                    setDomicilio({ ...domicilio, codigo_postal: value });
+                                }
+                            }}
+                            min="100000" // Asegúrate de que el código postal sea un número válido (ajusta según tu país)
+                            max="999999" // Limitar a 6 dígitos
+                            required
+                        />
+                    </div>
 
                   <div className="mb-3">
                     <label htmlFor="fechaEntrega" className="form-label">Fecha de Entrega</label>

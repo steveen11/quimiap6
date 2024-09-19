@@ -73,7 +73,7 @@ const MisVentas = () => {
         title: 'Revisa tu correo',
         text: response.data.message,
         showConfirmButton: false, // Mostrar botón de cerrar en lugar del botón de aceptar
-        timer: 1000,
+        timer: 400,
       });
     } catch (error) {
       console.error('Error al enviar el correo:', error);

@@ -142,12 +142,12 @@ const VentasAdmin = () => {
           <table className="table table-striped mt-4">
             <thead>
               <tr>
+                <th>N° Identificación</th>
                 <th>ID Venta</th>
                 <th>Fecha Venta</th>
                 <th>Método de Pago</th>
                 <th>Precio Total</th>
                 <th>Estado</th>
-                <th>N° Identificación</th> {/* Cambiado a N° Identificación */}
               </tr>
             </thead>
             <tbody>
@@ -157,12 +157,12 @@ const VentasAdmin = () => {
 
                 return (
                   <tr key={venta.id}>
+                    <td>{usuario ? usuario.num_doc : 'N/A'}</td> {/* Mostrar num_doc */}
                     <td>{venta.id}</td>
                     <td>{venta.fecha_venta}</td>
                     <td>{venta.metodo_pago}</td>
                     <td>{venta.precio_total}</td>
                     <td>{venta.estado}</td>
-                    <td>{usuario ? usuario.num_doc : 'N/A'}</td> {/* Mostrar num_doc */}
                   </tr>
                 );
               })}

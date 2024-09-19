@@ -15,12 +15,24 @@
     {
       "id": "2324",
       "tipo_doc": "tarjeta de identidad",
-      "num_doc": "1019605503",
+      "num_doc": "10196055034",
       "nombres": "Samuel",
       "apellidos": "Ardila",
       "telefono": "3224537932",
       "correo_electronico": "samuel2@gmail.com",
       "contrasena": "Samuel123*",
+      "rol": "domiciliario",
+      "estado": "Activo"
+    },
+    {
+      "id": "2122",
+      "tipo_doc": "tarjeta de identidad",
+      "num_doc": "1014581283",
+      "nombres": "Pepe",
+      "apellidos": "Pablo",
+      "telefono": "3224537932",
+      "correo_electronico": "pepe@gmail.com",
+      "contrasena": "pepe123**",
       "rol": "domiciliario",
       "estado": "Activo"
     },
@@ -36,9 +48,10 @@
       "rol": "Cliente",
       "estado": "Activo",
       "domicilio": {
-        "direccion": "Cra 73a #64 a - 69",
-        "ciudad": "Bogota",
-        "codigo_postal": "110111"
+        "direccion": "cra 99#1989",
+        "ciudad": "pereira",
+        "codigo_postal": "123456",
+        "fecha_entrega": "2024-09-20"
       }
     },
     {
@@ -71,16 +84,34 @@
       }
     },
     {
-      "id": "bcdb",
-      "nombres": "Laura",
-      "apellidos": "Albarracin",
-      "telefono": "3244582033",
-      "correo_electronico": "lauraalbarracin553@gmail.com",
-      "tipo_doc": "ti",
-      "num_doc": "1111111111111111111111111111111",
-      "contrasena": "Lau123465@",
-      "rol": "domiciliario",
+      "id": "b83e",
+      "nombres": "dairon smith",
+      "apellidos": "perez",
+      "telefono": "3222454544",
+      "correo_electronico": "samuelardila1382@celestinfreinet.edu.co",
+      "tipo_doc": "cc",
+      "num_doc": "18631836286328",
+      "contrasena": "$2a$10$IUNm1g0tUEG7dFqgBj4Fr.8bcGPe1Mf69fwacX6ySD3rBO8kN0tHm",
+      "rol": "jefe de produccion",
       "estado": "Activo"
+    },
+    {
+      "id": "eb5a",
+      "tipo_doc": "cedula de ciudadania",
+      "num_doc": "4342123",
+      "nombres": "Nana",
+      "apellidos": "Sanchez",
+      "telefono": "3109876344",
+      "correo_electronico": "miguelortiz1476@celestinfreinet.edu.co",
+      "contrasena": "$2a$10$E62A1RVymCTYYCjiH05HDun9Kfy9PQuUf3cqrkdI0O.jdvvIg7TI.",
+      "rol": "Cliente",
+      "estado": "Activo",
+      "domicilio": {
+        "direccion": "Calle 52 #13-65",
+        "ciudad": "Bog",
+        "codigo_postal": "111011",
+        "fecha_entrega": "2024-09-20"
+      }
     }
   ],
   "Products": [
@@ -95,7 +126,7 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 32,
+      "cantidad": 31,
       "estado": "disponible"
     },
     {
@@ -109,7 +140,7 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 38,
+      "cantidad": 37,
       "estado": "disponible"
     },
     {
@@ -123,7 +154,7 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 1,
+      "cantidad": "30",
       "estado": "disponible"
     },
     {
@@ -137,7 +168,7 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 37,
+      "cantidad": 28,
       "estado": "disponible"
     },
     {
@@ -151,7 +182,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": 39,
+      "cantidad": 38,
       "estado": "disponible"
     },
     {
@@ -179,7 +210,7 @@
       "usos": "Limpieza profunda de superficies grasosas",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "20000",
-      "cantidad": 13,
+      "cantidad": 12,
       "estado": "disponible"
     },
     {
@@ -193,7 +224,7 @@
       "usos": "Ambientación y neutralización de olores en espacios cerrados.",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 18,
+      "cantidad": 17,
       "estado": "disponible"
     },
     {
@@ -207,7 +238,7 @@
       "usos": "Remoción de residuos industriales en superficies duras.",
       "advertencias": "Usar con guantes. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 19,
+      "cantidad": 17,
       "estado": "disponible"
     },
     {
@@ -248,7 +279,7 @@
       "contenido_neto": "1L",
       "usos": "Ideal para limpieza de pisos de cerámica, madera y vinilo. Puede ser utilizado en mopas o paños.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar contacto con los ojos. En caso de contacto, lavar con abundante agua.",
-      "cantidad": 20,
+      "cantidad": 17,
       "precio_unitario": "15000",
       "estado": "disponible"
     },
@@ -292,69 +323,7 @@
       "correo_electronico": "lauraalbarracin553@gmail.com"
     },
     {
-      "id": "f108",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 129900,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "lauraalbarracin553@gmail.com"
-    },
-    {
-      "id": "249c",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 75400,
-      "estado": "Completada",
-      "cliente_id": "248e"
-    },
-    {
-      "id": "8500",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 33000,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "603c",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 33000,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "5ed7",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 190400,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "0cc2",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Transferencia Bancaria",
-      "precio_total": 132000,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "4209",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Efectivo",
-      "precio_total": 312000,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "b93a",
+      "id": "6381",
       "fecha_venta": "2024-09-19",
       "metodo_pago": "Efectivo",
       "precio_total": 15000,
@@ -363,31 +332,40 @@
       "correo_electronico": "asamuelstevrn@gmail.com"
     },
     {
-      "id": "a466",
+      "id": "b440",
       "fecha_venta": "2024-09-19",
       "metodo_pago": "Transferencia Bancaria",
-      "precio_total": 48000,
+      "precio_total": 15000,
       "estado": "Completada",
       "cliente_id": "248e",
       "correo_electronico": "asamuelstevrn@gmail.com"
     },
     {
-      "id": "5ca5",
+      "id": "772f",
+      "fecha_venta": "2024-09-19",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 15000,
+      "estado": "Completada",
+      "cliente_id": "248e",
+      "correo_electronico": "asamuelstevrn@gmail.com"
+    },
+    {
+      "id": "1862",
+      "fecha_venta": "2024-09-19",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 33000,
+      "estado": "Completada",
+      "cliente_id": "248e",
+      "correo_electronico": "asamuelstevrn@gmail.com"
+    },
+    {
+      "id": "6157",
       "fecha_venta": "2024-09-19",
       "metodo_pago": "Efectivo",
       "precio_total": 20000,
       "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
-    },
-    {
-      "id": "3ac9",
-      "fecha_venta": "2024-09-19",
-      "metodo_pago": "Transferencia Bancaria",
-      "precio_total": 20000,
-      "estado": "Completada",
-      "cliente_id": "248e",
-      "correo_electronico": "asamuelstevrn@gmail.com"
+      "cliente_id": "eb5a",
+      "correo_electronico": "miguelortiz1476@celestinfreinet.edu.co"
     }
   ],
   "SaleDetails": [
@@ -591,6 +569,132 @@
       "id": "c19d",
       "venta_id": "3ac9",
       "producto_id": "c4d9",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "ee19",
+      "venta_id": "25b4",
+      "producto_id": "23fc",
+      "cantidad": 3,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "315a",
+      "venta_id": "ac0f",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "f9d6",
+      "venta_id": "5577",
+      "producto_id": "22ff",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "ecfe",
+      "venta_id": "0395",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "ee82",
+      "venta_id": "5a25",
+      "producto_id": "0d7b",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "0ce0",
+      "venta_id": "5a25",
+      "producto_id": "43b8",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "3d8d",
+      "venta_id": "7f7b",
+      "producto_id": "43b8",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "1fed",
+      "venta_id": "7f7b",
+      "producto_id": "c4d9",
+      "cantidad": 1,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "c007",
+      "venta_id": "9009",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "33a6",
+      "venta_id": "fbdb",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "5082",
+      "venta_id": "de33",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "4a0b",
+      "venta_id": "862e",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "94b9",
+      "venta_id": "e476",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "15eb",
+      "venta_id": "6381",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "879f",
+      "venta_id": "b440",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "4dda",
+      "venta_id": "772f",
+      "producto_id": "4bb6",
+      "cantidad": 1,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "2a0c",
+      "venta_id": "1862",
+      "producto_id": "2806",
+      "cantidad": 1,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "b19e",
+      "venta_id": "6157",
+      "producto_id": "8a8d",
       "cantidad": 1,
       "precio_unitario": "20000"
     }
@@ -1025,6 +1129,143 @@
       "direccion": "Cra 73a #64 a - 69",
       "ciudad": "Bogota",
       "codigo_postal": "110111",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "d020",
+      "venta_id": "ac0f",
+      "direccion": "Cra 73a #64 a - 69",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "estado": "Pendiente",
+      "domiciliario_id": "bcdb"
+    },
+    {
+      "id": "4384",
+      "venta_id": "5577",
+      "direccion": "Cra 73a #64 a - 69",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "ef5e",
+      "venta_id": "0395",
+      "direccion": "Cra 73a #64 a - 69",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "estado": "Pendiente",
+      "domiciliario_id": "2122"
+    },
+    {
+      "id": "bfc5",
+      "venta_id": "5a25",
+      "direccion": "cra 99#1989",
+      "ciudad": "Bogota",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "bcdb"
+    },
+    {
+      "id": "6014",
+      "venta_id": "7f7b",
+      "direccion": "cll 80",
+      "ciudad": "medellin",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "b4d4",
+      "venta_id": "9009",
+      "direccion": "cra 99#157 - 43",
+      "ciudad": "medellin",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "2122"
+    },
+    {
+      "id": "b93d",
+      "venta_id": "fbdb",
+      "direccion": "cll 80",
+      "ciudad": "Bogota",
+      "codigo_postal": "111hd",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "bcdb"
+    },
+    {
+      "id": "f35f",
+      "venta_id": "de33",
+      "direccion": "cra 99#1989",
+      "ciudad": "medellin",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "2451",
+      "venta_id": "862e",
+      "direccion": "cra 99#1989",
+      "ciudad": "medellin",
+      "codigo_postal": "110111",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "2122"
+    },
+    {
+      "id": "94ec",
+      "venta_id": "e476",
+      "direccion": "cll 80",
+      "ciudad": "medellin",
+      "codigo_postal": "128jdbj",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "bcdb"
+    },
+    {
+      "id": "b1e5",
+      "venta_id": "b440",
+      "direccion": "cra 99#157 - 43",
+      "ciudad": "Bogota",
+      "codigo_postal": "124343",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "2324"
+    },
+    {
+      "id": "3fa6",
+      "venta_id": "772f",
+      "direccion": "cra 99#157 - 43",
+      "ciudad": "Medellin",
+      "codigo_postal": "1431",
+      "fecha_entrega": "2024-09-27",
+      "estado": "Pendiente",
+      "domiciliario_id": "2122"
+    },
+    {
+      "id": "c33f",
+      "venta_id": "1862",
+      "direccion": "cra 99#1989",
+      "ciudad": "pereira",
+      "codigo_postal": "123456",
+      "fecha_entrega": "2024-09-20",
+      "estado": "Pendiente",
+      "domiciliario_id": "bcdb"
+    },
+    {
+      "id": "ca55",
+      "venta_id": "6157",
+      "direccion": "Calle 52 #13-65",
+      "ciudad": "Bog",
+      "codigo_postal": "111011",
+      "fecha_entrega": "2024-09-20",
       "estado": "Pendiente",
       "domiciliario_id": "2324"
     }

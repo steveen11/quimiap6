@@ -6,6 +6,8 @@ import { faSearch, faEdit, faTrash, faFilter } from '@fortawesome/free-solid-svg
 import axios from 'axios';
 import Header2 from '../../componentes/header2';
 import Swal from 'sweetalert2';
+import bcrypt from 'bcryptjs';
+
 
 const UsuariosAdmin = () => {
   const [formData, setFormData] = useState({
@@ -163,11 +165,14 @@ const handleNameKeyPress = (e) => {
       });
   } else {
       try {
+        const hashedPassword = bcrypt.hashSync(formData.contrasena, 10);
           // Registrar al usuario con estado "Pendiente"
           const response = await axios.post('http://localhost:4000/Users', {
               ...formData,
-              estado: 'Pendiente' // Cambia el estado a pendiente
+              estado: 'Pendiente',
+              contrasena: hashedPassword // Cambia el estado a pendiente
           });
+
 
           // Mostrar mensaje de éxito tras el registro
           await Swal.fire({
@@ -292,13 +297,12 @@ const handleKeyPress = (e) => {
       <table className="table table-striped mt-4">
         <thead>
           <tr>
-            <th>ID Usuario</th>
+          <th>Nº Identificación</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Correo Electrónico</th>
             <th>Teléfono</th>
             <th>Tipo de Documento</th>
-            <th>Nº Identificación</th>
             <th>Rol</th>
             <th>Estado</th>
             <th>Editar</th>
@@ -307,14 +311,13 @@ const handleKeyPress = (e) => {
         </thead>
         <tbody>
           {currentRecordsUser.map(user => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
+            <tr key={user.num_doc}>
+              <td>{user.num_doc}</td>
               <td>{user.nombres}</td>
               <td>{user.apellidos}</td>
               <td>{user.correo_electronico}</td>
               <td>{user.telefono}</td>
               <td>{user.tipo_doc}</td>
-              <td>{user.num_doc}</td>
               <td>{user.rol}</td>
               <td>{user.estado}</td>
               <td>
