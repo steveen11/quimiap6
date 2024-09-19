@@ -65,9 +65,7 @@ function App() {
             </PrivateRoute>
           } />
             <Route path='/contactanos.js' exact element={
-            <PrivateRoute allowedRoles={['Cliente']}>
               <Contacto />
-            </PrivateRoute>
           } />
           
           <Route path='/domiciliario.js' exact element={

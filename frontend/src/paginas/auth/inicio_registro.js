@@ -25,7 +25,7 @@ const Inicio_registro = () => {
     const [passwordLengthError, setPasswordLengthError] = useState('');
     const [allowLetters, setAllowLetters] = useState(false);
     const [contadorCarrito, setContadorCarrito] = useState(0); // Estado para el contador del carrito
-    const [setCarrito] = useState([]);
+    const [carrito, setCarrito ] = useState([]);
 
 
     const actualizarContador = (nuevoCarrito) => {

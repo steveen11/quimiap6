@@ -170,6 +170,7 @@ const VentasCliente = () => {
           direccion: domicilio.direccion,
           ciudad: domicilio.ciudad,
           codigo_postal: domicilio.codigo_postal,
+          fecha_entrega: domicilio.fecha_entrega, 
           estado: 'Pendiente',
           domiciliario_id: domiciliarioId,
         };
@@ -181,6 +182,7 @@ const VentasCliente = () => {
             direccion: domicilio.direccion,
             ciudad: domicilio.ciudad,
             codigo_postal: domicilio.codigo_postal,
+            fecha_entrega: domicilio.fecha_entrega, 
           }
         });
       }
@@ -232,14 +234,12 @@ const VentasCliente = () => {
     const fechaActual = new Date();
 
     if (fechaSeleccionada >= fechaActual) {
-      setDomicilio({ ...domicilio, fecha_entrega: e.target.value });
     } else {
       Swal.fire({
         icon: 'warning',
         title: 'Fecha Inválida',
         text: 'La fecha de entrega no puede ser anterior a la fecha actual.',
       });
-      setDomicilio({ ...domicilio, fecha_entrega: '' });
     }
   };
 
@@ -363,7 +363,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="direccion"
-                      value={domicilio.direccion}
+                      maxLength={20}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.direccion : 'Ingrese dirección'}
                       onChange={(e) => setDomicilio({ ...domicilio, direccion: e.target.value })}
                       required
                     />
@@ -375,7 +376,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="ciudad"
-                      value={domicilio.ciudad}
+                      maxLength={20}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.ciudad : 'Ingrese ciudad'}
                       onChange={(e) => setDomicilio({ ...domicilio, ciudad: e.target.value })}
                       required
                     />
@@ -387,7 +389,8 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="codigoPostal"
-                      value={domicilio.codigo_postal}
+                      maxLength={6}
+                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.codigo_postal : 'Ingrese código postal'}
                       onChange={(e) => setDomicilio({ ...domicilio, codigo_postal: e.target.value })}
                       required
                     />
