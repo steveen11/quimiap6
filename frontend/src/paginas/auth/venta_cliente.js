@@ -10,6 +10,7 @@ const VentasCliente = () => {
   const [fechaVenta] = useState(new Date().toISOString().split('T')[0]);
   const [metodoPago, setMetodoPago] = useState('');
   const [precioTotal, setPrecioTotal] = useState('');
+  const [correo_electronico, setCorreoElectronico] = useState('');
   const [carrito, setCarrito] = useState([]);
   const [cliente, setCliente] = useState(null);
   const [domicilio, setDomicilio] = useState({
@@ -123,6 +124,7 @@ const VentasCliente = () => {
       precio_total: precioTotal,
       estado: estadoVenta,
       cliente_id: clienteId,
+      correo_electronico: correo_electronico,
     };
   
     try {
@@ -138,6 +140,18 @@ const VentasCliente = () => {
   
       const ventaResponse = await axios.post('http://localhost:4000/Sales', ventaData);
       const ventaId = ventaResponse.data.id;
+  
+      // Aquí puedes agregar la lógica para enviar el correo electrónico
+      // const emailResponse = await enviarCorreo(correo_electronico, ventaId);
+  
+      // Suponiendo que el envío de correo se realiza aquí y es exitoso
+      Swal.fire({
+        icon: 'success',
+        title: 'Notificación Enviada',
+        text: 'Se ha enviado una notificación al correo.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
   
       for (const producto of carrito) {
         const detalleData = {
@@ -156,19 +170,17 @@ const VentasCliente = () => {
           direccion: domicilio.direccion,
           ciudad: domicilio.ciudad,
           codigo_postal: domicilio.codigo_postal,
-          // Excluye fecha_entrega aquí
           estado: 'Pendiente',
           domiciliario_id: domiciliarioId,
         };
         await axios.post('http://localhost:4000/domicilio', domicilioData);
   
-        // Guardar el domicilio en el perfil del cliente sin fecha_entrega
         await axios.put(`http://localhost:4000/Users/${clienteId}`, {
           ...cliente,
           domicilio: {
             direccion: domicilio.direccion,
             ciudad: domicilio.ciudad,
-            codigo_postal: domicilio.codigo_postal
+            codigo_postal: domicilio.codigo_postal,
           }
         });
       }
@@ -178,7 +190,7 @@ const VentasCliente = () => {
         title: 'Venta registrada con éxito',
         text: 'La venta ha sido registrada correctamente.',
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       }).then(() => {
         navigate('/MisVentas.js');
         setMetodoPago('');
@@ -188,7 +200,7 @@ const VentasCliente = () => {
           direccion: '',
           ciudad: '',
           codigo_postal: '',
-          fecha_entrega: ''
+          fecha_entrega: '',
         });
         setMostrarDomicilio(false);
         localStorage.removeItem('carrito');
@@ -201,10 +213,11 @@ const VentasCliente = () => {
         title: 'Error',
         text: 'Hubo un problema al registrar la venta. Inténtelo de nuevo.',
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
     }
   };
+  
 
   const calcularTotal = () => {
     return carrito.reduce((total, producto) => total + (producto.precio_unitario * producto.cantidad), 0);
@@ -218,12 +231,6 @@ const VentasCliente = () => {
     const fechaSeleccionada = new Date(e.target.value);
     const fechaActual = new Date();
 
-    // Elimina la hora de la fecha actual para la comparación
-    fechaActual.setHours(0, 0, 0, 0);
-
-    // Elimina la hora de la fecha seleccionada para la comparación
-    fechaSeleccionada.setHours(0, 0, 0, 0);
-
     if (fechaSeleccionada >= fechaActual) {
       setDomicilio({ ...domicilio, fecha_entrega: e.target.value });
     } else {
@@ -231,15 +238,10 @@ const VentasCliente = () => {
         icon: 'warning',
         title: 'Fecha Inválida',
         text: 'La fecha de entrega no puede ser anterior a la fecha actual.',
-        timer: 2000,
-        showConfirmButton: false
       });
       setDomicilio({ ...domicilio, fecha_entrega: '' });
     }
   };
-
-
-
 
   return (
     <div>
@@ -329,6 +331,17 @@ const VentasCliente = () => {
                   readOnly
                 />
               </div>
+              <div className="mb-3">
+                <label htmlFor="correoElectronico" className="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="correoElectronico"
+                  value={correo_electronico}
+                  onChange={(e) => setCorreoElectronico(e.target.value)} // Agrega esta línea para manejar el cambio
+                  required // Puedes hacer este campo obligatorio si es necesario
+                />
+              </div>
 
               <div className="mb-3">
                 <label htmlFor="domicilio" className="form-label">
@@ -350,8 +363,7 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="direccion"
-                      maxLength={20}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.direccion : 'Ingrese dirección'}
+                      value={domicilio.direccion}
                       onChange={(e) => setDomicilio({ ...domicilio, direccion: e.target.value })}
                       required
                     />
@@ -363,8 +375,7 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="ciudad"
-                      maxLength={20}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.ciudad : 'Ingrese ciudad'}
+                      value={domicilio.ciudad}
                       onChange={(e) => setDomicilio({ ...domicilio, ciudad: e.target.value })}
                       required
                     />
@@ -376,11 +387,9 @@ const VentasCliente = () => {
                       type="text"
                       className="form-control"
                       id="codigoPostal"
-                      maxLength={6}
-                      placeholder={cliente && cliente.domicilio ? cliente.domicilio.codigo_postal : 'Ingrese código postal'}
+                      value={domicilio.codigo_postal}
                       onChange={(e) => setDomicilio({ ...domicilio, codigo_postal: e.target.value })}
                       required
-                      
                     />
                   </div>
 
