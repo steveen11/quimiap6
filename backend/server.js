@@ -544,7 +544,7 @@ app.post("/enviar-detalle-venta", async (req, res) => {
                         <p style="color: #555; font-size: 16px;">Los siguientes productos están por debajo del nivel de stock:</p>
                         <ul>
                             
-                            ${productos.map(prod => `
+                            ${productosBajoStock.map(prod => `
                                 <tr>
                                     <td style="padding: 10px;">${prod.nombre}</td>
                                     <td style="padding: 10px;">

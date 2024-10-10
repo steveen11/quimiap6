@@ -10,7 +10,7 @@
       "num_doc": "1081399564",
       "contrasena": "Lau12345@",
       "rol": "Gerente",
-      "estado": "Activo"
+      "estado": "Inactivo"
     },
     {
       "id": "2324",
@@ -21,18 +21,6 @@
       "telefono": "3224537932",
       "correo_electronico": "samuel2@gmail.com",
       "contrasena": "Samuel123*",
-      "rol": "domiciliario",
-      "estado": "Activo"
-    },
-    {
-      "id": "2122",
-      "tipo_doc": "tarjeta de identidad",
-      "num_doc": "1014581283",
-      "nombres": "Pepe",
-      "apellidos": "Pablo",
-      "telefono": "3224537932",
-      "correo_electronico": "pepe@gmail.com",
-      "contrasena": "pepe123**",
       "rol": "domiciliario",
       "estado": "Activo"
     },
@@ -55,35 +43,6 @@
       }
     },
     {
-      "id": "141a",
-      "tipo_doc": "cedula de ciudadania",
-      "num_doc": "1014193117",
-      "nombres": "maria paula",
-      "apellidos": "martinez casallas",
-      "telefono": "3214772314",
-      "correo_electronico": "paulamartinez132116@gmail.com",
-      "contrasena": "Martinez1306*",
-      "rol": "Cliente",
-      "estado": "Activo"
-    },
-    {
-      "id": "be19",
-      "tipo_doc": "cedula de ciudadania",
-      "num_doc": "1081399564",
-      "nombres": "Dairon Smith",
-      "apellidos": "Chapid Moreno",
-      "telefono": "3202937619",
-      "correo_electronico": "moreno@123",
-      "contrasena": "Dairon123*",
-      "rol": "Cliente",
-      "estado": "Activo",
-      "domicilio": {
-        "direccion": "cr8c#1a26sur",
-        "ciudad": "bogota",
-        "codigo_postal": "110111"
-      }
-    },
-    {
       "id": "b83e",
       "nombres": "dairon smith",
       "apellidos": "perez",
@@ -96,33 +55,15 @@
       "estado": "Activo"
     },
     {
-      "id": "eb5a",
-      "tipo_doc": "cedula de ciudadania",
-      "num_doc": "4342123",
-      "nombres": "Nana",
-      "apellidos": "Sanchez",
-      "telefono": "3109876344",
-      "correo_electronico": "miguelortiz1476@celestinfreinet.edu.co",
-      "contrasena": "$2a$10$E62A1RVymCTYYCjiH05HDun9Kfy9PQuUf3cqrkdI0O.jdvvIg7TI.",
-      "rol": "Cliente",
-      "estado": "Activo",
-      "domicilio": {
-        "direccion": "Calle 52 #13-65",
-        "ciudad": "Bog",
-        "codigo_postal": "111011",
-        "fecha_entrega": "2024-09-20"
-      }
-    },
-    {
-      "id": "be67",
-      "tipo_doc": "cedula extranjeria",
-      "num_doc": "1081399564",
-      "nombres": "Laura",
-      "apellidos": "Albarracin",
+      "id": "d762",
+      "nombres": "Maria",
+      "apellidos": "Albarez",
       "telefono": "3244582033",
       "correo_electronico": "jeissuvan@gmail.com",
-      "contrasena": "$2a$10$JuX9xHmCMzqiJ5Ne7WEuvefYyqT/6lW5P.iglw3CxViEw03LN8cAy",
-      "rol": "Cliente",
+      "tipo_doc": "cc",
+      "num_doc": "123141",
+      "contrasena": "$2a$10$.Uy0BDABCMgi2Xu1bVDE3ujPdQiRF9ycFqsoxoMR9CE3mWGzKo7NW",
+      "rol": "jefe de produccion",
       "estado": "Activo"
     }
   ],
@@ -138,8 +79,8 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 0,
-      "estado": "Agotado"
+      "cantidad": "10",
+      "estado": "disponible"
     },
     {
       "id": "8a8d",
@@ -152,8 +93,8 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 0,
-      "estado": "Agotado"
+      "cantidad": "20",
+      "estado": "disponible"
     },
     {
       "id": "22ff",
@@ -166,8 +107,8 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 0,
-      "estado": "Agotado"
+      "cantidad": "19",
+      "estado": "disponible"
     },
     {
       "id": "4bb6",
@@ -180,8 +121,8 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 0,
-      "estado": "Agotado"
+      "cantidad": "10",
+      "estado": "disponible"
     },
     {
       "id": "4054",
@@ -194,7 +135,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": 10,
+      "cantidad": "20",
       "estado": "disponible"
     },
     {
@@ -208,8 +149,8 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": 0,
-      "estado": "Agotado"
+      "cantidad": "19",
+      "estado": "disponible"
     },
     {
       "id": "c4d9",
@@ -222,7 +163,7 @@
       "usos": "Limpieza profunda de superficies grasosas",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "20000",
-      "cantidad": 12,
+      "cantidad": "10",
       "estado": "disponible"
     },
     {
@@ -236,7 +177,7 @@
       "usos": "Ambientación y neutralización de olores en espacios cerrados.",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 17,
+      "cantidad": 18,
       "estado": "disponible"
     },
     {
@@ -291,7 +232,7 @@
       "contenido_neto": "1L",
       "usos": "Ideal para limpieza de pisos de cerámica, madera y vinilo. Puede ser utilizado en mopas o paños.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar contacto con los ojos. En caso de contacto, lavar con abundante agua.",
-      "cantidad": 17,
+      "cantidad": "29",
       "precio_unitario": "15000",
       "estado": "disponible"
     },
@@ -305,7 +246,7 @@
       "contenido_neto": "750ml",
       "usos": "Limpieza y desengrase de superficies y textiles.",
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
-      "cantidad": "21",
+      "cantidad": "20",
       "precio_unitario": "33000",
       "estado": "descontinuado"
     },
@@ -321,7 +262,7 @@
       "advertencias": "Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "cantidad": "10",
       "precio_unitario": "15000",
-      "estado": "descontinuado"
+      "estado": "disponible"
     }
   ],
   "Sales": [
@@ -450,6 +391,51 @@
       "estado": "Completada",
       "cliente_id": "be67",
       "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "dab2",
+      "fecha_venta": "2024-10-10",
+      "metodo_pago": "Efectivo",
+      "precio_total": 273900,
+      "estado": "Completada",
+      "cliente_id": "dc77",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "a53a",
+      "fecha_venta": "2024-10-10",
+      "metodo_pago": "Efectivo",
+      "precio_total": 170100,
+      "estado": "Completada",
+      "cliente_id": "dc77",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "b82b",
+      "fecha_venta": "2024-10-10",
+      "metodo_pago": "Efectivo",
+      "precio_total": 255000,
+      "estado": "Completada",
+      "cliente_id": "dc77",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "5d8f",
+      "fecha_venta": "2024-10-10",
+      "metodo_pago": "Efectivo",
+      "precio_total": 240000,
+      "estado": "Completada",
+      "cliente_id": "8484",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "285b",
+      "fecha_venta": "2024-10-10",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 30000,
+      "estado": "Completada",
+      "cliente_id": "248e",
+      "correo_electronico": "asamuelstevrn@gmail.com"
     }
   ],
   "SaleDetails": [
@@ -844,6 +830,48 @@
       "producto_id": "fcfd",
       "cantidad": 1,
       "precio_unitario": "25000"
+    },
+    {
+      "id": "dca9",
+      "venta_id": "dab2",
+      "producto_id": "23fc",
+      "cantidad": 17,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "3dc9",
+      "venta_id": "dab2",
+      "producto_id": "4054",
+      "cantidad": 1,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "6468",
+      "venta_id": "a53a",
+      "producto_id": "4054",
+      "cantidad": 9,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "2a73",
+      "venta_id": "b82b",
+      "producto_id": "0d7b",
+      "cantidad": 17,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "6d68",
+      "venta_id": "5d8f",
+      "producto_id": "c4d9",
+      "cantidad": 12,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "3110",
+      "venta_id": "285b",
+      "producto_id": "0d7b",
+      "cantidad": 2,
+      "precio_unitario": "15000"
     }
   ],
   "domicilio": [

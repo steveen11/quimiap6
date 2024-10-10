@@ -27,6 +27,7 @@ const UsuariosAdmin = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [userTypeFilter, setUserTypeFilter] = useState('todos');
   const [showFilters, setShowFilters] = useState(false);
+  const [allowLetters, setAllowLetters] = useState(false);
   const navigate = useNavigate();
   const filterMenuRef = useRef(null);
   
@@ -91,11 +92,42 @@ const handleNameKeyPress = (e) => {
 
   // Handle input changes
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
+    const { id, value } = e.target;
+
+    // Actualiza el estado del formulario
+    if (id === "tipo_doc") {
+        // Maneja el cambio en el tipo de documento
+        setFormData((prevData) => ({
+            ...prevData,
+            tipo_doc: value,
+            num_doc: '' // Resetea el campo de identificación
+        }));
+
+        // Verifica el tipo de documento seleccionado
+        if (value === "cedula de extranjería") {
+            setAllowLetters(true); // Permite letras y números
+        } else {
+            setAllowLetters(false); // Solo permite números para tarjeta y cédula
+        }
+    } else if (id === "num_doc") {
+        // Maneja el cambio en el campo de identificación
+        // Lógica para cédula (10 dígitos solo numéricos) y tarjeta (10 dígitos solo numéricos)
+        if ((formData.tipo_doc === "cedula de ciudadania" || formData.tipo_doc === "tarjeta de identidad") && /^[0-9]{0,10}$/.test(value)) {
+            setFormData((prevData) => ({ ...prevData, num_doc: value }));
+        } 
+        // Lógica para cédula de extranjería (10-12 caracteres alfanuméricos)
+        else if (formData.tipo_doc === "cedula de extranjería" && /^[a-zA-Z0-9]{0,12}$/.test(value) && value.length <= 12) {
+            setFormData((prevData) => ({ ...prevData, num_doc: value }));
+        }
+    } else {
+        // Para otros campos, se actualiza normalmente
+        setFormData({
+            ...formData,
+            [id]: value,
+        });
+    }
+};
+
 
   // registro de usuarios admin
 
@@ -417,9 +449,9 @@ const handleKeyPress = (e) => {
                       <label htmlFor="tipo_doc" className="form-label">Tipo de Documento</label>
                       <select className="form-select" id="tipo_doc" value={formData.tipo_doc} onChange={handleInputChange} required>
                         <option value="" disabled>Selecciona una opción</option>
-                        <option value="ti">Tarjeta de identidad</option>
-                        <option value="cc">Cédula de ciudadanía</option>
-                        <option value="ce">Cédula de extranjería</option>
+                        <option value="cedula extranjeria">CE</option>
+                        <option value="tarjeta de identidad">TI</option>
+                        <option value="cedula de ciudadania">CC</option>
                         </select>
                         </div>
                     <div className="mb-3">
