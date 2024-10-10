@@ -480,12 +480,12 @@ app.post("/actualizar-contrasena", async (req, res) => {
         res.status(500).send("Error al encriptar la contraseña.");
     }
 });
-// Ruta para enviar los detalles de la venta
+// Ruta para enviar los detalles de la venta y alerta por bajo stock
 app.post("/enviar-detalle-venta", async (req, res) => {
     try {
         const { venta_id, productos, id, correo_electronico } = req.body;
 
-        // Configura el contenido del correo
+        // Configura el contenido del correo para el cliente
         const ventaMailOptions = {
             from: "quimiap.1999.quimicos@gmail.com",
             to: correo_electronico,
@@ -519,21 +519,56 @@ app.post("/enviar-detalle-venta", async (req, res) => {
                             `).join('')}
                         </tbody>
                     </table>
-                     <h4 style="color: #28a745; text-align: right;">Precio Total de la Venta: $${parseFloat(productos.reduce((acc, prod) => acc + prod.subtotal, 0)).toFixed(2)}</h4>
+                    <h4 style="color: #28a745; text-align: right;">Precio Total de la Venta: $${parseFloat(productos.reduce((acc, prod) => acc + prod.subtotal, 0)).toFixed(2)}</h4>
                     <p style="color: #555; font-size: 16px; text-align: center;">¡Gracias por confiar en nosotros!</p>
                     <p style="text-align: center; font-size: 12px; color: #888;">© 2024 Quimiap. Todos los derechos reservados.</p>
                 </div>
             `,
         };
 
-        // Enviar el correo (asumiendo que tienes configurado un servicio de correo)
+        // Enviar correo al cliente
         await transporter.sendMail(ventaMailOptions);
 
+        // Verificar si algún producto tiene bajo stock
+        const productosBajoStock = productos.filter(prod => prod.cantidad <= 2);
+
+        if (productosBajoStock.length > 0) {
+            // Configura el contenido del correo para el jefe de producción
+            const jefeProduccionMailOptions = {
+                from: "quimiap.1999.quimicos@gmail.com",
+                to: "jeissuvan@gmail.com", // Correo del jefe de producción
+                subject: "Alerta: Stock Bajo de Productos",
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: #dc3545; text-align: center;">Alerta de Stock Bajo</h2>
+                        <p style="color: #555; font-size: 16px;">Los siguientes productos están por debajo del nivel de stock:</p>
+                        <ul>
+                            
+                            ${productos.map(prod => `
+                                <tr>
+                                    <td style="padding: 10px;">${prod.nombre}</td>
+                                    <td style="padding: 10px;">
+                                        <img src="${prod.imagen}" alt="Producto" style="width: 50px; height: auto;" />
+                                    </td>
+                                    <td style="padding: 10px;"> cantidad restante: ${prod.cantidad}</td>
+                                </tr>
+                            `).join('')}
+
+                        </ul>
+                        <p style="color: #555; font-size: 16px;">Es necesario reponer el stock de estos productos lo antes posible.</p>
+                    </div>
+                `,
+            };
+
+            // Enviar correo al jefe de producción
+            await transporter.sendMail(jefeProduccionMailOptions);
+        }
+
         // Responder al cliente
-        res.status(200).json({ message: "Detalles de la venta enviados exitosamente." });
+        res.status(200).json({ message: "Detalles de la venta y alerta de stock bajo enviados exitosamente." });
     } catch (error) {
         console.error("Error al enviar el detalle de la venta:", error);
-        res.status(500).json({ message: "Error al enviar los detalles de la venta." });
+        res.status(500).json({ message: "Error al enviar los detalles de la venta o la alerta de stock bajo." });
     }
 });
 

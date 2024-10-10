@@ -112,6 +112,18 @@
         "codigo_postal": "111011",
         "fecha_entrega": "2024-09-20"
       }
+    },
+    {
+      "id": "be67",
+      "tipo_doc": "cedula extranjeria",
+      "num_doc": "1081399564",
+      "nombres": "Laura",
+      "apellidos": "Albarracin",
+      "telefono": "3244582033",
+      "correo_electronico": "jeissuvan@gmail.com",
+      "contrasena": "$2a$10$JuX9xHmCMzqiJ5Ne7WEuvefYyqT/6lW5P.iglw3CxViEw03LN8cAy",
+      "rol": "Cliente",
+      "estado": "Activo"
     }
   ],
   "Products": [
@@ -126,8 +138,8 @@
       "usos": "Limpieza profunda de prendas de vestir",
       "advertencias": "No ingerir. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": 31,
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "8a8d",
@@ -140,8 +152,8 @@
       "usos": "Suaviza y aromatiza la ropa después del lavado.",
       "advertencias": "Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "20000",
-      "cantidad": 37,
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "22ff",
@@ -154,8 +166,8 @@
       "usos": "Blanqueamiento de ropa blanca y eliminación de manchas",
       "advertencias": "Evitar el contacto con los ojos y la piel. Mantener fuera del alcance de los niños.",
       "precio_unitario": "33000",
-      "cantidad": "30",
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "4bb6",
@@ -168,8 +180,8 @@
       "usos": "Blanqueamiento y desinfección de ropa blanca",
       "advertencias": "No mezclar con otros productos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "15000",
-      "cantidad": 28,
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "4054",
@@ -182,7 +194,7 @@
       "usos": "Previene manchas en la ropa blanca durante el lavado.",
       "advertencias": "Mantener fuera del alcance de los niños. Evitar el contacto con los ojos.",
       "precio_unitario": "18900",
-      "cantidad": 38,
+      "cantidad": 10,
       "estado": "disponible"
     },
     {
@@ -196,8 +208,8 @@
       "usos": "Eliminación de manchas difíciles en ropa blanc",
       "advertencias": " Evitar el contacto con la piel y ojos. Mantener fuera del alcance de los niños.",
       "precio_unitario": "25000",
-      "cantidad": 10,
-      "estado": "disponible"
+      "cantidad": 0,
+      "estado": "Agotado"
     },
     {
       "id": "c4d9",
@@ -366,6 +378,78 @@
       "estado": "Completada",
       "cliente_id": "eb5a",
       "correo_electronico": "miguelortiz1476@celestinfreinet.edu.co"
+    },
+    {
+      "id": "831c",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Efectivo",
+      "precio_total": 1048000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "cf1f",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 990000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "3467",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Efectivo",
+      "precio_total": 740000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "0e8c",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 270000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "6cee",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Efectivo",
+      "precio_total": 680400,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "07e1",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Efectivo",
+      "precio_total": 200000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "da84",
+      "fecha_venta": "2024-10-08",
+      "metodo_pago": "Transferencia Bancaria",
+      "precio_total": 25000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
+    },
+    {
+      "id": "8418",
+      "fecha_venta": "2024-10-09",
+      "metodo_pago": "Efectivo",
+      "precio_total": 25000,
+      "estado": "Completada",
+      "cliente_id": "be67",
+      "correo_electronico": "lauraalbarracin553@gmail.com"
     }
   ],
   "SaleDetails": [
@@ -697,6 +781,69 @@
       "producto_id": "8a8d",
       "cantidad": 1,
       "precio_unitario": "20000"
+    },
+    {
+      "id": "f981",
+      "venta_id": "831c",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "c125",
+      "venta_id": "831c",
+      "producto_id": "2806",
+      "cantidad": 31,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "82f3",
+      "venta_id": "cf1f",
+      "producto_id": "22ff",
+      "cantidad": 30,
+      "precio_unitario": "33000"
+    },
+    {
+      "id": "efca",
+      "venta_id": "3467",
+      "producto_id": "8a8d",
+      "cantidad": 37,
+      "precio_unitario": "20000"
+    },
+    {
+      "id": "df46",
+      "venta_id": "0e8c",
+      "producto_id": "4bb6",
+      "cantidad": 18,
+      "precio_unitario": "15000"
+    },
+    {
+      "id": "0c76",
+      "venta_id": "6cee",
+      "producto_id": "4054",
+      "cantidad": 36,
+      "precio_unitario": "18900"
+    },
+    {
+      "id": "f164",
+      "venta_id": "07e1",
+      "producto_id": "fcfd",
+      "cantidad": 8,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "dc6f",
+      "venta_id": "da84",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
+    },
+    {
+      "id": "057d",
+      "venta_id": "8418",
+      "producto_id": "fcfd",
+      "cantidad": 1,
+      "precio_unitario": "25000"
     }
   ],
   "domicilio": [
