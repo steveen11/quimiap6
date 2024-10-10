@@ -11,6 +11,8 @@ const Bienvenida = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [contadorCarrito, setContadorCarrito] = useState(0); // Estado para el contador del carrito
+  
+  
 
   const fetchProductos = async () => {
     try {
@@ -23,15 +25,38 @@ const Bienvenida = () => {
     }
   };
 
+  
+
   useEffect(() => {
     fetchProductos();
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-    setContadorCarrito(carritoGuardado.reduce((total, producto) => total + producto.cantidad, 0)); // Inicializa el contador con la cantidad de productos en el carrito
+    setContadorCarrito(carritoGuardado.reduce((total, producto) => total + producto.cantidad, 0));
   }, []);
+  const [sortType, setSortType] = useState(''); // Estado para el tipo de ordenamiento seleccionado
+
 
   const productosFiltrados = categoriaSeleccionada
     ? searchResults.filter(producto => producto.categoria === categoriaSeleccionada)
     : searchResults;
+
+      // Lógica para aplicar el filtro de ordenamiento
+const handleSort = (type) => {
+  setSortType(type); // Actualiza el tipo de ordenamiento seleccionado
+
+  let sortedProducts = [...productosFiltrados];
+
+  if (type === 'AZ') {
+    sortedProducts = sortedProducts.sort((a, b) => a.nombre.localeCompare(b.nombre));
+  } else if (type === 'ZA') {
+    sortedProducts = sortedProducts.sort((a, b) => b.nombre.localeCompare(a.nombre));
+  } else if (type === 'priceAsc') {
+    sortedProducts = sortedProducts.sort((a, b) => a.precio_unitario - b.precio_unitario);
+  } else if (type === 'priceDesc') {
+    sortedProducts = sortedProducts.sort((a, b) => b.precio_unitario - a.precio_unitario);
+  }
+
+  setSearchResults(sortedProducts);
+};
 
   const handleCategoriaClick = (categoria) => {
     setCategoriaSeleccionada(categoria);
@@ -219,49 +244,72 @@ const Bienvenida = () => {
         </div>
       </div>
             {/* Categorías */}
-            <section className="categories-section">
-        <div className="container">
-          <div className="row text-center">
-            <div className="col-md-3">
-              <Link onClick={() => handleCategoriaClick('Cuidado de la Ropa')} className="category-link">
-                <div className="category-icon">
-                  <i className="bi bi-person-standing-dress" />
-                </div>
-                <div className="category-text">Cuidado de la Ropa</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link onClick={() => handleCategoriaClick('Hogar y Limpieza')} className="category-link">
-                <div className="category-icon">
-                  <i className="bi bi-house-door" />
-                </div>
-                <div className="category-text">Hogar y Limpieza</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link onClick={() => handleCategoriaClick('Cuidado de Pisos')} className="category-link">
-                <div className="category-icon">
-                  <i className="bi bi-square" />
-                </div>
-                <div className="category-text">Cuidado de Pisos</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link onClick={() => handleCategoriaClick('Desinfectantes')} className="category-link">
-                <div className="category-icon">
-                  <i className="bi bi-shield-check" />
-                </div>
-                <div className="category-text">Desinfectantes</div>
-              </Link>
+                    <section className="categories-section">
+          <div className="container">
+          <div className="row justify-content-center text-center">
+              <div className="col-md-2">
+                <Link onClick={() => handleCategoriaClick('Cuidado de la Ropa')} className="category-link">
+                  <div className="category-icon">
+                    <i className="bi bi-person-standing-dress" />
+                  </div>
+                  <div className="category-text">Cuidado de la Ropa</div>
+                </Link>
+              </div>
+              <div className="col-md-2">
+                <Link onClick={() => handleCategoriaClick('Hogar y Limpieza')} className="category-link">
+                  <div className="category-icon">
+                    <i className="bi bi-house-door" />
+                  </div>
+                  <div className="category-text">Hogar y Limpieza</div>
+                </Link>
+              </div>
+              <div className="col-md-2">
+                <Link onClick={() => handleCategoriaClick('Cuidado de Pisos')} className="category-link">
+                  <div className="category-icon">
+                    <i className="bi bi-square" />
+                  </div>
+                  <div className="category-text">Cuidado de Pisos</div>
+                </Link>
+              </div>
+              <div className="col-md-2">
+                <Link onClick={() => handleCategoriaClick('Desinfectantes')} className="category-link">
+                  <div className="category-icon">
+                    <i className="bi bi-shield-check" />
+                  </div>
+                  <div className="category-text">Desinfectantes</div>
+                </Link>
+              </div>
+              <div className="col-md-2">
+                <Link onClick={() => handleCategoriaClick('')} className="category-link">
+                  <div className="category-icon">
+                    <i className="bi bi-box" />
+                  </div>
+                  <div className="category-text">Todos</div>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       <br/>
       {/* Productos */}
       <section className="productos" id="productos-destacados" >
   <div className="container">
     <h2 className="text-center mb-4">Productos Destacados</h2>
+    {/* Filtros de ordenamiento */}
+    <div className="container text-center mb-4">
+      <button className="btn btn-outline-secondary me-2" onClick={() => handleSort('AZ')}>
+        A-Z
+      </button>
+      <button className="btn btn-outline-secondary me-2" onClick={() => handleSort('ZA')}>
+        Z-A
+      </button>
+      <button className="btn btn-outline-secondary me-2" onClick={() => handleSort('priceAsc')}>
+        Menor a mayor precio
+      </button>
+      <button className="btn btn-outline-secondary" onClick={() => handleSort('priceDesc')}>
+        Mayor a menor precio
+      </button>
+    </div>
     <div className="row">
       {productosFiltrados.length > 0 ? (
         productosFiltrados.map(producto => (
